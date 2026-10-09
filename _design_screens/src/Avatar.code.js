@@ -45,8 +45,8 @@ class Component extends DCLogic {
       return {
         skinHex: skins[v.skin].hex,
         skinShade: skins[v.skin].shade,
-        hairHex: hairs[v.hairColor].hex,
-        eyeHex: eyes[v.eyeColor].hex,
+        hairHex: App.resolveColor(hairs, v.hairColor),
+        eyeHex: App.resolveColor(eyes, v.eyeColor),
         faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
         eyeRx: e[0], eyeRy: e[1], irisR: e[2],
         hairLong: v.hair === 'uzun',
@@ -103,18 +103,32 @@ class Component extends DCLogic {
       return item;
     });
     var cd = colorDefs[s.tab];
-    var colors = cd ? cd.list.map(function (c, i) {
+    function addPick(key) {
+      return function (e) {
+        var patch = {}; patch[key] = e.target.value;
+        self.setState(patch);
+      };
+    }
+    var colors = cd ? [{
+      isAdd: true, isPreset: false,
+      addValue: typeof s[cd.key] === 'string' ? s[cd.key] : '#ffffff',
+      addBg: typeof s[cd.key] === 'string' ? s[cd.key] : '#2E3366',
+      addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #3DD6C3' : 'none',
+      hasCustom: typeof s[cd.key] === 'string',
+      noCustom: typeof s[cd.key] !== 'string',
+      pick: addPick(cd.key)
+    }].concat(cd.list.map(function (c, i) {
       var on = s[cd.key] === i;
       var patch = {}; patch[cd.key] = i;
-      return { name: c.name, hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
-    }) : [];
+      return { isAdd: false, isPreset: true, name: c.name, hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
+    })) : [];
 
     function rnd(n) { return Math.floor(Math.random() * n); }
     function pickKey(def) { return def.list[rnd(def.list.length)][0]; }
 
     var isPet = s.tab === 'pet';
     var currentPet = pets.filter(function (p) { return p.id === s.pet; })[0] || pets[0];
-    var currentBadgeColor = (badgeColors[s.petColor] || badgeColors[0]).hex;
+    var currentBadgeColor = App.resolveColor(badgeColors, s.petColor);
     var petOptions = pets.map(function (p) {
       var on = s.pet === p.id;
       return {
@@ -130,7 +144,8 @@ class Component extends DCLogic {
     out.options = options;
     out.optionLabel = od.label;
     out.colors = colors;
-    out.hasColors = colors.length > 0 && !(isPet && s.pet === 'yok');
+    out.hasColors = !isPet && colors.length > 1;
+    out.showPetColors = isPet && s.pet !== 'yok' && colors.length > 1;
     out.colorLabel = cd ? cd.label : '';
     out.petOptions = petOptions;
     out.pet = s.pet;

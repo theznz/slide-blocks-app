@@ -70,6 +70,28 @@
 </div>
 <div style="flex-grow: 1; min-height: 0; box-sizing: border-box; padding: 16px; background: #232750; border-radius: 20px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto">
 <sc-if value="{{ isPet }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ showPetColors }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; font-weight: 500; color: #B9BDE6">{{ colorLabel }}</div>
+<div style="display: flex; gap: 14px; flex-wrap: wrap">
+<sc-for list="{{ colors }}" as="co" hint-placeholder-count="8">
+<sc-if value="{{ co.isPreset }}" hint-placeholder-val="{{ true }}">
+<button onClick="{{ co.pick }}" aria-label="{{ co.name }}" aria-pressed="{{ co.pressed }}" style="width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 50%; background: {{co.hex}}; box-shadow: {{co.ring}}; cursor: pointer"></button>
+</sc-if>
+<sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
+<div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
+<input type="color" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer">
+<div style="position: absolute; inset: 0; box-sizing: border-box; border: 2px dashed #8D93C9; border-radius: 50%; background: {{co.addBg}}; box-shadow: {{co.addRing}}; display: flex; align-items: center; justify-content: center; pointer-events: none">
+<sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#B9BDE6" stroke-width="2.500" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</sc-if>
+</div>
+</div>
+</sc-if>
+</sc-for>
+</div>
+</div>
+</sc-if>
 <div style="display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 14px; font-weight: 500; color: #B9BDE6">Evcil hayvan</div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
@@ -150,9 +172,21 @@
 <sc-if value="{{ hasColors }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 14px; font-weight: 500; color: #B9BDE6">{{ colorLabel }}</div>
-<div style="display: flex; gap: 14px">
-<sc-for list="{{ colors }}" as="co" hint-placeholder-count="5">
+<div style="display: flex; gap: 14px; flex-wrap: wrap">
+<sc-for list="{{ colors }}" as="co" hint-placeholder-count="6">
+<sc-if value="{{ co.isPreset }}" hint-placeholder-val="{{ true }}">
 <button onClick="{{ co.pick }}" aria-label="{{ co.name }}" aria-pressed="{{ co.pressed }}" style="width: 44px; height: 44px; flex-shrink: 0; border: 0; border-radius: 50%; background: {{co.hex}}; box-shadow: {{co.ring}}; cursor: pointer"></button>
+</sc-if>
+<sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
+<div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
+<input type="color" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer">
+<div style="position: absolute; inset: 0; box-sizing: border-box; border: 2px dashed #8D93C9; border-radius: 50%; background: {{co.addBg}}; box-shadow: {{co.addRing}}; display: flex; align-items: center; justify-content: center; pointer-events: none">
+<sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#B9BDE6" stroke-width="2.500" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</sc-if>
+</div>
+</div>
+</sc-if>
 </sc-for>
 </div>
 </div>

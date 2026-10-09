@@ -49,10 +49,10 @@ window.App = (function () {
     { id: 'yok', name: 'Yok', emoji: null },
     { id: 'kedi_siyah', name: 'Siyah Kedi', emoji: '🐈‍⬛' },
     { id: 'kedi_beyaz', name: 'Beyaz Kedi', emoji: '🐱' },
-    { id: 'kedi_kahve', name: 'Kahve Kedi', emoji: '🐈' },
-    { id: 'kopek_golden', name: 'Köpek', emoji: '🐕' },
+    { id: 'kedi_kahve', name: 'Kahve Kedi', emoji: '😸' },
+    { id: 'kopek_yavru', name: 'Köpek', emoji: '🐶' },
     { id: 'kopek_puduli', name: 'Poodle', emoji: '🐩' },
-    { id: 'kopek_labrador', name: 'Labrador', emoji: '🦮' },
+    { id: 'kopek_golden', name: 'Golden', emoji: '🐕' },
     { id: 'pati', name: 'Pati', emoji: '🐾' },
     { id: 'kus_papagan', name: 'Papağan', emoji: '🦜' },
     { id: 'kus_baykus', name: 'Baykuş', emoji: '🦉' },
@@ -61,23 +61,28 @@ window.App = (function () {
   ];
   var BADGE_COLORS = [
     { name: 'Turuncu', hex: '#FF9F45' }, { name: 'Teal', hex: '#3DD6C3' }, { name: 'Mavi', hex: '#6C8CFF' },
-    { name: 'Pembe', hex: '#FF7AA8' }, { name: 'Sarı', hex: '#FFD35C' }, { name: 'Mor', hex: '#9D8DF1' }
+    { name: 'Pembe', hex: '#FF7AA8' }, { name: 'Sarı', hex: '#FFD35C' }, { name: 'Mor', hex: '#9D8DF1' },
+    { name: 'Beyaz', hex: '#FFFFFF' }
   ];
+
+  function resolveColor(list, val, fallbackIdx) {
+    if (typeof val === 'string' && val.charAt(0) === '#') return val;
+    var item = list[val];
+    return (item || list[fallbackIdx || 0]).hex;
+  }
 
   function avatarLook(v) {
     v = v || {};
     var skin = SKINS[v.skin] || SKINS[1];
-    var hair = HAIRS[v.hairColor] || HAIRS[0];
-    var eye = EYES[v.eyeColor] || EYES[0];
     var f = FACES[v.face] || FACES.yuvarlak;
     var e = EYE_SHAPES[v.eye] || EYE_SHAPES.yuvarlak;
     var roundG = v.glasses === 'yuvarlak';
     var sun = v.glasses === 'gunes';
     var pet = PETS.filter(function (p) { return p.id === v.pet; })[0] || PETS[0];
-    var badgeColor = BADGE_COLORS[v.petColor] || BADGE_COLORS[0];
     return {
-      skinHex: skin.hex, skinShade: skin.shade, hairHex: hair.hex, eyeHex: eye.hex,
-      pet: pet.id, hasPet: pet.id !== 'yok', petEmoji: pet.emoji, petColor: badgeColor.hex,
+      skinHex: skin.hex, skinShade: skin.shade,
+      hairHex: resolveColor(HAIRS, v.hairColor), eyeHex: resolveColor(EYES, v.eyeColor),
+      pet: pet.id, hasPet: pet.id !== 'yok', petEmoji: pet.emoji, petColor: resolveColor(BADGE_COLORS, v.petColor),
       faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
       eyeRx: e[0], eyeRy: e[1], irisR: e[2],
       hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
@@ -133,6 +138,7 @@ window.App = (function () {
   App.TIERS = TIERS;
   App.PETS = PETS;
   App.BADGE_COLORS = BADGE_COLORS;
+  App.resolveColor = resolveColor;
   App.THEMES = THEMES;
   App.data = load();
 
