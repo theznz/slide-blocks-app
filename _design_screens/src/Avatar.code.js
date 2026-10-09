@@ -117,7 +117,7 @@ class Component extends DCLogic {
     var colors = cd ? [{
       isAdd: true, isPreset: false,
       addValue: typeof s[cd.key] === 'string' ? s[cd.key] : '#ffffff',
-      addBg: typeof s[cd.key] === 'string' ? s[cd.key] : '#2E3366',
+      addBg: typeof s[cd.key] === 'string' ? s[cd.key] : '#FFFFFF',
       addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #3DD6C3' : 'none',
       hasCustom: typeof s[cd.key] === 'string',
       noCustom: typeof s[cd.key] !== 'string',
