@@ -60,22 +60,7 @@
 </svg>
 </div>
 <sc-if value="{{ hasPet }}" hint-placeholder-val="{{ false }}">
-<div style="position: absolute; right: -4px; bottom: -4px; width: 52px; height: 52px; box-sizing: border-box; border: 4px solid #171A36; border-radius: 50%; background: {{petColor}}; color: #171A36; display: flex; align-items: center; justify-content: center">
-<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
-<sc-if value="{{ isKedi }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><path d="M6 9l-2-6 6 3z"></path><path d="M18 9l2-6-6 3z"></path>
-</sc-if>
-<sc-if value="{{ isKopek }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><ellipse cx="4.5" cy="12" rx="2.5" ry="4.5" transform="rotate(-25 4.5 12)"></ellipse><ellipse cx="19.5" cy="12" rx="2.5" ry="4.5" transform="rotate(25 19.5 12)"></ellipse>
-</sc-if>
-<sc-if value="{{ isKus }}" hint-placeholder-val="{{ false }}">
-<ellipse cx="12" cy="15" rx="6" ry="5.500"></ellipse><circle cx="12" cy="7" r="4"></circle><path d="M16 6.500l4 1-4 1.500z"></path>
-</sc-if>
-<sc-if value="{{ isTavsan }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="15" r="6.500"></circle><ellipse cx="8" cy="5" rx="2.1" ry="6" transform="rotate(-12 8 5)"></ellipse><ellipse cx="16" cy="5" rx="2.1" ry="6" transform="rotate(12 16 5)"></ellipse>
-</sc-if>
-</svg>
-</div>
+<div style="position: absolute; right: -4px; bottom: -4px; width: 52px; height: 52px; box-sizing: border-box; border: 4px solid #171A36; border-radius: 50%; background: {{petColor}}; display: flex; align-items: center; justify-content: center; font-size: 28px; line-height: 1">{{ petEmoji }}</div>
 </sc-if>
 </div>
 <div style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px; flex-shrink: 0">
@@ -83,33 +68,22 @@
 <button onClick="{{ tb.pick }}" aria-pressed="{{ tb.pressed }}" style="height: 44px; flex-shrink: 0; padding: 0 16px; border: 0; border-radius: 22px; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{ tb.label }}</button>
 </sc-for>
 </div>
-<div style="flex-grow: 1; min-height: 0; box-sizing: border-box; padding: 16px; background: #232750; border-radius: 20px; display: flex; flex-direction: column; gap: 16px">
+<div style="flex-grow: 1; min-height: 0; box-sizing: border-box; padding: 16px; background: #232750; border-radius: 20px; display: flex; flex-direction: column; gap: 16px; overflow-y: auto">
 <sc-if value="{{ isPet }}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; flex-direction: column; gap: 10px">
 <div style="font-size: 14px; font-weight: 500; color: #B9BDE6">Evcil hayvan</div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
-<sc-for list="{{ petOptions }}" as="po" hint-placeholder-count="5">
-<button onClick="{{ po.pick }}" aria-label="{{ po.name }}" aria-pressed="{{ po.pressed }}" style="height: 92px; padding: 10px 0; border: 0; border-radius: 14px; background: #2E3366; box-shadow: {{po.ring}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
-<div style="width: 44px; height: 44px; border-radius: 50%; background: {{po.color}}; color: #171A36; display: flex; align-items: center; justify-content: center">
-<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" aria-hidden="true">
+<sc-for list="{{ petOptions }}" as="po" hint-placeholder-count="12">
+<button onClick="{{ po.pick }}" aria-label="{{ po.name }}" aria-pressed="{{ po.pressed }}" style="height: 88px; padding: 10px 0; border: 0; border-radius: 14px; background: #2E3366; box-shadow: {{po.ring}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; cursor: pointer">
 <sc-if value="{{ po.isYok }}" hint-placeholder-val="{{ true }}">
-<g fill="none" stroke="#B9BDE6" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"></circle><path d="M7 7l10 10"></path></g>
-</sc-if>
-<sc-if value="{{ po.isKedi }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><path d="M6 9l-2-6 6 3z"></path><path d="M18 9l2-6-6 3z"></path>
-</sc-if>
-<sc-if value="{{ po.isKopek }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><ellipse cx="4.5" cy="12" rx="2.5" ry="4.5" transform="rotate(-25 4.5 12)"></ellipse><ellipse cx="19.5" cy="12" rx="2.5" ry="4.5" transform="rotate(25 19.5 12)"></ellipse>
-</sc-if>
-<sc-if value="{{ po.isKus }}" hint-placeholder-val="{{ false }}">
-<ellipse cx="12" cy="15" rx="6" ry="5.500"></ellipse><circle cx="12" cy="7" r="4"></circle><path d="M16 6.500l4 1-4 1.500z"></path>
-</sc-if>
-<sc-if value="{{ po.isTavsan }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="15" r="6.500"></circle><ellipse cx="8" cy="5" rx="2.1" ry="6" transform="rotate(-12 8 5)"></ellipse><ellipse cx="16" cy="5" rx="2.1" ry="6" transform="rotate(12 16 5)"></ellipse>
-</sc-if>
-</svg>
+<div style="width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#B9BDE6" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8"></circle><path d="M7 7l10 10"></path></svg>
 </div>
-<span style="font-size: 13px; font-weight: 500">{{ po.name }}</span>
+</sc-if>
+<sc-if value="{{ po.notYok }}" hint-placeholder-val="{{ false }}">
+<div style="width: 40px; height: 40px; border-radius: 50%; background: {{po.circleColor}}; display: flex; align-items: center; justify-content: center; font-size: 22px; line-height: 1">{{ po.emoji }}</div>
+</sc-if>
+<span style="font-size: 12px; font-weight: 500; text-align: center; padding: 0 2px">{{ po.name }}</span>
 </button>
 </sc-for>
 </div>

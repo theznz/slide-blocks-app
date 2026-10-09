@@ -61,22 +61,7 @@
 </svg>
 </div>
 <sc-if value="{{ hasPet }}" hint-placeholder-val="{{ false }}">
-<div style="position: absolute; right: -3px; bottom: -3px; width: 26px; height: 26px; box-sizing: border-box; border: 2.5px solid #232750; border-radius: 50%; background: {{petColor}}; color: #171A36; display: flex; align-items: center; justify-content: center">
-<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-<sc-if value="{{ isKedi }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><path d="M6 9l-2-6 6 3z"></path><path d="M18 9l2-6-6 3z"></path>
-</sc-if>
-<sc-if value="{{ isKopek }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="14" r="7"></circle><ellipse cx="4.5" cy="12" rx="2.5" ry="4.5" transform="rotate(-25 4.5 12)"></ellipse><ellipse cx="19.5" cy="12" rx="2.5" ry="4.5" transform="rotate(25 19.5 12)"></ellipse>
-</sc-if>
-<sc-if value="{{ isKus }}" hint-placeholder-val="{{ false }}">
-<ellipse cx="12" cy="15" rx="6" ry="5.500"></ellipse><circle cx="12" cy="7" r="4"></circle><path d="M16 6.500l4 1-4 1.500z"></path>
-</sc-if>
-<sc-if value="{{ isTavsan }}" hint-placeholder-val="{{ false }}">
-<circle cx="12" cy="15" r="6.500"></circle><ellipse cx="8" cy="5" rx="2.1" ry="6" transform="rotate(-12 8 5)"></ellipse><ellipse cx="16" cy="5" rx="2.1" ry="6" transform="rotate(12 16 5)"></ellipse>
-</sc-if>
-</svg>
-</div>
+<div style="position: absolute; right: -3px; bottom: -3px; width: 26px; height: 26px; box-sizing: border-box; border: 2.5px solid #232750; border-radius: 50%; background: {{petColor}}; display: flex; align-items: center; justify-content: center; font-size: 14px; line-height: 1">{{ petEmoji }}</div>
 </sc-if>
 </div>
 <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">

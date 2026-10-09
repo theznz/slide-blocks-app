@@ -46,11 +46,22 @@ window.App = (function () {
   };
   var EYE_SHAPES = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6], kirpikli: [8, 8, 4.5] };
   var PETS = [
-    { id: 'yok', name: 'Yok', color: '#2E3366' },
-    { id: 'kedi', name: 'Kedi', color: '#FF9F45' },
-    { id: 'kopek', name: 'Köpek', color: '#6C8CFF' },
-    { id: 'kus', name: 'Kuş', color: '#3DD6C3' },
-    { id: 'tavsan', name: 'Tavşan', color: '#FF7AA8' }
+    { id: 'yok', name: 'Yok', emoji: null },
+    { id: 'kedi_siyah', name: 'Siyah Kedi', emoji: '🐈‍⬛' },
+    { id: 'kedi_beyaz', name: 'Beyaz Kedi', emoji: '🐱' },
+    { id: 'kedi_kahve', name: 'Kahve Kedi', emoji: '🐈' },
+    { id: 'kopek_golden', name: 'Köpek', emoji: '🐕' },
+    { id: 'kopek_puduli', name: 'Poodle', emoji: '🐩' },
+    { id: 'kopek_labrador', name: 'Labrador', emoji: '🦮' },
+    { id: 'pati', name: 'Pati', emoji: '🐾' },
+    { id: 'kus_papagan', name: 'Papağan', emoji: '🦜' },
+    { id: 'kus_baykus', name: 'Baykuş', emoji: '🦉' },
+    { id: 'kus_penguen', name: 'Penguen', emoji: '🐧' },
+    { id: 'tavsan', name: 'Tavşan', emoji: '🐰' }
+  ];
+  var BADGE_COLORS = [
+    { name: 'Turuncu', hex: '#FF9F45' }, { name: 'Teal', hex: '#3DD6C3' }, { name: 'Mavi', hex: '#6C8CFF' },
+    { name: 'Pembe', hex: '#FF7AA8' }, { name: 'Sarı', hex: '#FFD35C' }, { name: 'Mor', hex: '#9D8DF1' }
   ];
 
   function avatarLook(v) {
@@ -63,10 +74,10 @@ window.App = (function () {
     var roundG = v.glasses === 'yuvarlak';
     var sun = v.glasses === 'gunes';
     var pet = PETS.filter(function (p) { return p.id === v.pet; })[0] || PETS[0];
+    var badgeColor = BADGE_COLORS[v.petColor] || BADGE_COLORS[0];
     return {
       skinHex: skin.hex, skinShade: skin.shade, hairHex: hair.hex, eyeHex: eye.hex,
-      pet: pet.id, hasPet: pet.id !== 'yok', petColor: pet.color,
-      isKedi: pet.id === 'kedi', isKopek: pet.id === 'kopek', isKus: pet.id === 'kus', isTavsan: pet.id === 'tavsan',
+      pet: pet.id, hasPet: pet.id !== 'yok', petEmoji: pet.emoji, petColor: badgeColor.hex,
       faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
       eyeRx: e[0], eyeRy: e[1], irisR: e[2],
       hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
@@ -94,7 +105,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok' },
+      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null
@@ -121,6 +132,7 @@ window.App = (function () {
   App.LEVELS = LEVELS;
   App.TIERS = TIERS;
   App.PETS = PETS;
+  App.BADGE_COLORS = BADGE_COLORS;
   App.THEMES = THEMES;
   App.data = load();
 
