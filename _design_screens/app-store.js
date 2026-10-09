@@ -45,6 +45,13 @@ window.App = (function () {
     yuvarlak: { x: 52, y: 48, w: 96, h: 100, r: 48 }, oval: { x: 56, y: 44, w: 88, h: 112, r: 44 }, koseli: { x: 54, y: 50, w: 92, h: 100, r: 28 }
   };
   var EYE_SHAPES = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6], kirpikli: [8, 8, 4.5] };
+  var PETS = [
+    { id: 'yok', name: 'Yok', color: '#2E3366' },
+    { id: 'kedi', name: 'Kedi', color: '#FF9F45' },
+    { id: 'kopek', name: 'Köpek', color: '#6C8CFF' },
+    { id: 'kus', name: 'Kuş', color: '#3DD6C3' },
+    { id: 'tavsan', name: 'Tavşan', color: '#FF7AA8' }
+  ];
 
   function avatarLook(v) {
     v = v || {};
@@ -55,8 +62,11 @@ window.App = (function () {
     var e = EYE_SHAPES[v.eye] || EYE_SHAPES.yuvarlak;
     var roundG = v.glasses === 'yuvarlak';
     var sun = v.glasses === 'gunes';
+    var pet = PETS.filter(function (p) { return p.id === v.pet; })[0] || PETS[0];
     return {
       skinHex: skin.hex, skinShade: skin.shade, hairHex: hair.hex, eyeHex: eye.hex,
+      pet: pet.id, hasPet: pet.id !== 'yok', petColor: pet.color,
+      isKedi: pet.id === 'kedi', isKopek: pet.id === 'kopek', isKus: pet.id === 'kus', isTavsan: pet.id === 'tavsan',
       faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
       eyeRx: e[0], eyeRy: e[1], irisR: e[2],
       hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
@@ -84,7 +94,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok' },
+      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok' },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null
@@ -110,6 +120,7 @@ window.App = (function () {
   var App = {};
   App.LEVELS = LEVELS;
   App.TIERS = TIERS;
+  App.PETS = PETS;
   App.THEMES = THEMES;
   App.data = load();
 

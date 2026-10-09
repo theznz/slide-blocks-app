@@ -3,7 +3,7 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var saved = App.data.avatar;
-    var defaults = { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok' };
+    var defaults = { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok' };
     var st = this.state || {};
     var s = {};
     Object.keys(defaults).forEach(function (k) { s[k] = st[k] !== undefined ? st[k] : (saved[k] !== undefined ? saved[k] : defaults[k]); });
@@ -66,8 +66,9 @@ class Component extends DCLogic {
     }
 
     var tabDefs = [
-      ['ten', 'Ten'], ['yuz', 'Yüz'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük']
+      ['ten', 'Ten'], ['yuz', 'Yüz'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük'], ['pet', 'Pet']
     ];
+    var pets = App.PETS;
     var optionDefs = {
       ten: { label: 'Ten rengi', key: 'skin', vb: '30 24 140 140', list: [[0, 'Açık'], [1, 'Buğday'], [2, 'Esmer'], [3, 'Bronz'], [4, 'Koyu']] },
       yuz: { label: 'Yüz şekli', key: 'face', vb: '30 24 140 140', list: [['yuvarlak', 'Yuvarlak'], ['oval', 'Oval'], ['koseli', 'Köşeli']] },
@@ -109,13 +110,31 @@ class Component extends DCLogic {
     function rnd(n) { return Math.floor(Math.random() * n); }
     function pickKey(def) { return def.list[rnd(def.list.length)][0]; }
 
+    var isPet = s.tab === 'pet';
+    function petFlags(id) {
+      return { isYok: id === 'yok', isKedi: id === 'kedi', isKopek: id === 'kopek', isKus: id === 'kus', isTavsan: id === 'tavsan' };
+    }
+    var petOptions = pets.map(function (p) {
+      var on = s.pet === p.id;
+      var item = { id: p.id, name: p.name, color: p.color, pick: set({ pet: p.id }), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #3DD6C3' : 'none' };
+      return Object.assign(item, petFlags(p.id));
+    });
+    var currentPet = pets.filter(function (p) { return p.id === s.pet; })[0] || pets[0];
+
     var out = look(s);
     out.tabs = tabs;
+    out.isPet = isPet;
+    out.isFace = !isPet;
     out.options = options;
     out.optionLabel = od.label;
     out.colors = colors;
-    out.hasColors = colors.length > 0;
+    out.hasColors = !isPet && colors.length > 0;
     out.colorLabel = cd ? cd.label : '';
+    out.petOptions = petOptions;
+    out.pet = s.pet;
+    out.hasPet = s.pet !== 'yok';
+    out.petColor = currentPet.color;
+    Object.assign(out, petFlags(s.pet));
     out.randomize = function () {
       self.setState({
         skin: rnd(skins.length), face: pickKey(optionDefs.yuz),
