@@ -8,7 +8,8 @@ class Component extends DCLogic {
     var totalStars = App.earnedStarsTotal();
     var starPct = Math.round((totalStars / App.totalPossibleStars()) * 100);
     var badges = App.computeBadges().slice(0, 4);
-    return {
+    var av = App.avatarLook(d.avatar);
+    return Object.assign({}, av, {
       playerName: d.guest ? 'Misafir Oyuncu' : 'Oyuncu',
       tierLabel: tier.name + ' paket · Seviye ' + d.unlockedLevel,
       totalStars: totalStars, completedCount: App.completedCount(), streak: d.daily.streak,
@@ -17,6 +18,6 @@ class Component extends DCLogic {
       }),
       pkgLabel: tier.name + ' paket', pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pkgPct,
       starDone: totalStars, starTotal: App.totalPossibleStars(), starPct: starPct
-    };
+    });
   }
 }

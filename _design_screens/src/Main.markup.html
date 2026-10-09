@@ -1,8 +1,54 @@
 
 <div style="width: 390px; height: 844px; box-sizing: border-box; background: #171A36; color: #FFFFFF; font-family: 'Fredoka', system-ui, sans-serif; padding: 56px 20px 32px; display: flex; flex-direction: column; align-items: stretch">
 <div style="display: flex; justify-content: space-between; align-items: center">
-<a href="Profile.dc.html" aria-label="Profil" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
-<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.600-6.500 8-6.500s8 2.500 8 6.500"></path></svg>
+<a href="Profile.dc.html" aria-label="Profil" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; overflow: hidden; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 200 200" width="44" height="44" role="img" aria-label="Avatar">
+<sc-if value="{{ hairLong }}" hint-placeholder-val="{{ true }}">
+<path d="M46 96c0-42 22-64 54-64s54 22 54 64v70H46z" fill="{{hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ hairBun }}" hint-placeholder-val="{{ false }}">
+<circle cx="100" cy="28" r="18" fill="{{hairHex}}"></circle>
+</sc-if>
+<rect x="86" y="136" width="28" height="34" fill="{{skinShade}}"></rect>
+<path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
+<circle cx="53" cy="100" r="9" fill="{{skinHex}}"></circle>
+<circle cx="147" cy="100" r="9" fill="{{skinHex}}"></circle>
+<rect x="{{faceX}}" y="{{faceY}}" width="{{faceW}}" height="{{faceH}}" rx="{{faceR}}" fill="{{skinHex}}"></rect>
+<sc-if value="{{ showBeard }}" hint-placeholder-val="{{ false }}">
+<path d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{hairHex}}" opacity="{{beardOpacity}}"></path>
+<ellipse cx="100" cy="131" rx="15" ry="8" fill="{{skinHex}}"></ellipse>
+</sc-if>
+<sc-if value="{{ hairCap }}" hint-placeholder-val="{{ true }}">
+<path d="M50 90c-3-36 18-58 50-58s53 22 50 58c-10-19-27-27-50-27s-40 8-50 27z" fill="{{hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ hairCurly }}" hint-placeholder-val="{{ false }}">
+<g fill="{{hairHex}}">
+<circle cx="52" cy="80" r="13"></circle><circle cx="62" cy="62" r="16"></circle><circle cx="80" cy="48" r="17"></circle><circle cx="100" cy="44" r="18"></circle><circle cx="120" cy="48" r="17"></circle><circle cx="138" cy="62" r="16"></circle><circle cx="148" cy="80" r="13"></circle>
+</g>
+</sc-if>
+<path d="M70 84q10-6 20 0M110 84q10-6 20 0" fill="none" stroke="{{hairHex}}" stroke-width="3.500" stroke-linecap="round"></path>
+<ellipse cx="80" cy="100" rx="{{eyeRx}}" ry="{{eyeRy}}" fill="#FFFFFF"></ellipse>
+<ellipse cx="120" cy="100" rx="{{eyeRx}}" ry="{{eyeRy}}" fill="#FFFFFF"></ellipse>
+<circle cx="80" cy="100" r="{{irisR}}" fill="{{eyeHex}}"></circle>
+<circle cx="120" cy="100" r="{{irisR}}" fill="{{eyeHex}}"></circle>
+<circle cx="80" cy="100" r="2.200" fill="#171A36"></circle>
+<circle cx="120" cy="100" r="2.200" fill="#171A36"></circle>
+<sc-if value="{{ lashes }}" hint-placeholder-val="{{ true }}">
+<path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
+</sc-if>
+<path d="M100 106v9q0 4-5 4" fill="none" stroke="{{skinShade}}" stroke-width="3" stroke-linecap="round"></path>
+<path d="M89 129q11 8 22 0" fill="none" stroke="#7A2E2E" stroke-width="3.500" stroke-linecap="round"></path>
+<sc-if value="{{ showMoustache }}" hint-placeholder-val="{{ false }}">
+<path d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ showGlasses }}" hint-placeholder-val="{{ false }}">
+<g stroke="#171A36" stroke-width="3.500" stroke-linecap="round">
+<rect x="{{gX1}}" y="{{gY}}" width="{{gW}}" height="{{gH}}" rx="{{gR}}" fill="{{gFill}}" fill-opacity="{{gFillOpacity}}"></rect>
+<rect x="{{gX2}}" y="{{gY}}" width="{{gW}}" height="{{gH}}" rx="{{gR}}" fill="{{gFill}}" fill-opacity="{{gFillOpacity}}"></rect>
+<path d="M95 98h10M64 96l-10-3M136 96l10-3" fill="none"></path>
+</g>
+</sc-if>
+</svg>
 </a>
 <button onclick="{{ goShop }}" aria-label="mağazayı aç" style="border: 0; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; background: #232750; border-radius: 22px; color: #FFFFFF; font-family: inherit; text-decoration: none; font-size: 18px; font-weight: 600; cursor: pointer">
 <svg viewBox="0 0 24 24" width="20" height="20" fill="#FFD35C" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg>
