@@ -1,0 +1,352 @@
+window.App = (function () {
+  var LEVELS = __LEVELS_JSON__;
+  var SAVE_KEY = 'sbp_save_v1';
+
+  var TIERS = (function () {
+    var out = [], cur = null;
+    LEVELS.forEach(function (lv) {
+      if (!cur || cur.name !== lv.tier) { cur = { name: lv.tier, from: lv.n, to: lv.n }; out.push(cur); }
+      else cur.to = lv.n;
+    });
+    return out;
+  })();
+
+  var THEMES = [
+    { id: 'seker', name: 'Şeker', c1: '#FF9F45', c2: '#3DD6C3', c3: '#6C8CFF', cost: 0 },
+    { id: 'ahsap', name: 'Ahşap', c1: '#E0A76A', c2: '#B47A45', c3: '#8A5A33', cost: 0 },
+    { id: 'neon', name: 'Neon', c1: '#F9F871', c2: '#00F5D4', c3: '#F15BB5', cost: 40 },
+    { id: 'pastel', name: 'Pastel', c1: '#FFC8DD', c2: '#BDE0FE', c3: '#CDEAC0', cost: 40 },
+    { id: 'okyanus', name: 'Okyanus', c1: '#90E0EF', c2: '#48CAE4', c3: '#0096C7', cost: 60 },
+    { id: 'gece', name: 'Gece', c1: '#9D8DF1', c2: '#6F72E0', c3: '#48BFE3', cost: 60 }
+  ];
+
+  var GAME_PALETTE = {
+    seker: [{ bg: '#3DD6C3', sh: '#25A898' }, { bg: '#6C8CFF', sh: '#4865D6' }, { bg: '#FFD35C', sh: '#D9A92F' }, { bg: '#FF7AA8', sh: '#D4527F' }],
+    ahsap: [{ bg: '#E0A76A', sh: '#B47A45' }, { bg: '#8A5A33', sh: '#6B4323' }, { bg: '#C9915A', sh: '#A06B3A' }, { bg: '#F0C48A', sh: '#C99A5E' }],
+    neon: [{ bg: '#F9F871', sh: '#C9C83A' }, { bg: '#00F5D4', sh: '#00B89D' }, { bg: '#F15BB5', sh: '#C22E86' }, { bg: '#9B5DE5', sh: '#6E33B0' }],
+    pastel: [{ bg: '#FFC8DD', sh: '#E59FB8' }, { bg: '#BDE0FE', sh: '#8FC2E8' }, { bg: '#CDEAC0', sh: '#A3CD92' }, { bg: '#FFF1A6', sh: '#E8D679' }],
+    okyanus: [{ bg: '#90E0EF', sh: '#5FC2D6' }, { bg: '#48CAE4', sh: '#2A9FBA' }, { bg: '#0096C7', sh: '#00729A' }, { bg: '#ADE8F4', sh: '#7FC9DB' }],
+    gece: [{ bg: '#9D8DF1', sh: '#6F5DCB' }, { bg: '#6F72E0', sh: '#4A4DB8' }, { bg: '#48BFE3', sh: '#2A97BA' }, { bg: '#C9A6FF', sh: '#9E75E0' }]
+  };
+
+  var SKINS = [
+    { hex: '#FFDBB4', shade: '#E3B58A' }, { hex: '#F1C27D', shade: '#D49F58' }, { hex: '#E0AC69', shade: '#BF8742' },
+    { hex: '#C68642', shade: '#A1682B' }, { hex: '#8D5524', shade: '#6C3D15' }
+  ];
+  var HAIRS = [
+    { name: 'Siyah', hex: '#2B1B12' }, { name: 'Kahverengi', hex: '#6B4226' }, { name: 'Sarı', hex: '#D9A441' },
+    { name: 'Kızıl', hex: '#B5452A' }, { name: 'Gri', hex: '#9AA0A6' }
+  ];
+  var EYES = [
+    { name: 'Kahverengi', hex: '#5B3A1E' }, { name: 'Yeşil', hex: '#2E7D5B' }, { name: 'Mavi', hex: '#3B7DD8' },
+    { name: 'Gri', hex: '#6F7F8C' }, { name: 'Ela', hex: '#A87B2D' }
+  ];
+  var FACES = {
+    yuvarlak: { x: 52, y: 48, w: 96, h: 100, r: 48 }, oval: { x: 56, y: 44, w: 88, h: 112, r: 44 }, koseli: { x: 54, y: 50, w: 92, h: 100, r: 28 }
+  };
+  var EYE_SHAPES = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6], kirpikli: [8, 8, 4.5] };
+
+  function avatarLook(v) {
+    v = v || {};
+    var skin = SKINS[v.skin] || SKINS[1];
+    var hair = HAIRS[v.hairColor] || HAIRS[0];
+    var eye = EYES[v.eyeColor] || EYES[0];
+    var f = FACES[v.face] || FACES.yuvarlak;
+    var e = EYE_SHAPES[v.eye] || EYE_SHAPES.yuvarlak;
+    var roundG = v.glasses === 'yuvarlak';
+    var sun = v.glasses === 'gunes';
+    return {
+      skinHex: skin.hex, skinShade: skin.shade, hairHex: hair.hex, eyeHex: eye.hex,
+      faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
+      eyeRx: e[0], eyeRy: e[1], irisR: e[2],
+      hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
+      hairCap: v.hair === 'kisa' || v.hair === 'uzun' || v.hair === 'topuz',
+      hairCurly: v.hair === 'kivircik', lashes: v.eye === 'kirpikli',
+      showMoustache: v.facial === 'biyik' || v.facial === 'sakal',
+      showBeard: v.facial === 'sakal' || v.facial === 'kirli',
+      beardOpacity: v.facial === 'kirli' ? 0.35 : 1,
+      showGlasses: v.glasses !== 'yok',
+      gX1: roundG ? 66 : 63, gX2: roundG ? 106 : 105, gY: roundG ? 86 : 88,
+      gW: roundG ? 28 : 32, gH: roundG ? 28 : 24, gR: roundG ? 14 : 6,
+      gFill: sun ? '#171A36' : '#FFFFFF', gFillOpacity: sun ? 0.9 : 0.12
+    };
+  }
+
+  function defaultState() {
+    return {
+      onboarded: false, guest: false,
+      stars: 0,
+      hints: 3,
+      adsRemoved: false,
+      levels: {},
+      unlockedLevel: 1,
+      currentLevelIndex: 1,
+      pendingRestart: false,
+      theme: 'seker',
+      themesOwned: ['seker', 'ahsap'],
+      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok' },
+      settings: { ses: true, muzik: true, titresim: false, bildirim: true },
+      daily: { lastPlayedDate: null, streak: 0, claimed: {} },
+      lastResult: null
+    };
+  }
+
+  function load() {
+    var def = defaultState();
+    try {
+      var raw = localStorage.getItem(SAVE_KEY);
+      if (!raw) return def;
+      var saved = JSON.parse(raw);
+      var merged = Object.assign({}, def, saved);
+      merged.avatar = Object.assign({}, def.avatar, saved.avatar || {});
+      merged.settings = Object.assign({}, def.settings, saved.settings || {});
+      merged.daily = Object.assign({}, def.daily, saved.daily || {});
+      merged.levels = saved.levels || {};
+      merged.themesOwned = saved.themesOwned || def.themesOwned.slice();
+      return merged;
+    } catch (e) { return def; }
+  }
+
+  var App = {};
+  App.LEVELS = LEVELS;
+  App.TIERS = TIERS;
+  App.THEMES = THEMES;
+  App.data = load();
+
+  App.save = function () {
+    try { localStorage.setItem(SAVE_KEY, JSON.stringify(App.data)); } catch (e) {}
+  };
+
+  App.getLevel = function (n) { return LEVELS[n - 1]; };
+
+  App.tierOf = function (n) {
+    for (var i = 0; i < TIERS.length; i++) if (n >= TIERS[i].from && n <= TIERS[i].to) return TIERS[i];
+    return TIERS[0];
+  };
+
+  App.totalPossibleStars = function () { return LEVELS.length * 3; };
+
+  App.earnedStarsTotal = function () {
+    var sum = 0;
+    Object.keys(App.data.levels).forEach(function (k) { sum += App.data.levels[k].bestStars || 0; });
+    return sum;
+  };
+
+  App.completedCount = function () {
+    var c = 0;
+    Object.keys(App.data.levels).forEach(function (k) { if ((App.data.levels[k].bestStars || 0) > 0) c++; });
+    return c;
+  };
+
+  App.packageProgress = function (tierName) {
+    var t = null;
+    for (var i = 0; i < TIERS.length; i++) if (TIERS[i].name === tierName) t = TIERS[i];
+    if (!t) return { done: 0, total: 0 };
+    var done = 0;
+    for (var n = t.from; n <= t.to; n++) {
+      var rec = App.data.levels[n];
+      if (rec && (rec.bestStars || 0) > 0) done++;
+    }
+    return { done: done, total: t.to - t.from + 1 };
+  };
+
+  App.starsForMoves = function (par, moves) {
+    if (moves <= par) return 3;
+    if (moves <= Math.ceil(par * 1.5) + 1) return 2;
+    return 1;
+  };
+
+  App.recordResult = function (n, moves, timeSec, hintUsed) {
+    var lv = App.getLevel(n);
+    var par = lv.par;
+    var earnedStars = App.starsForMoves(par, moves);
+    var prev = App.data.levels[n] || { bestStars: 0, bestMoves: null, bestTimeSec: null, noHintClean: false };
+    var delta = Math.max(0, earnedStars - (prev.bestStars || 0));
+    var rec = {
+      bestStars: Math.max(prev.bestStars || 0, earnedStars),
+      bestMoves: prev.bestMoves == null ? moves : Math.min(prev.bestMoves, moves),
+      bestTimeSec: prev.bestTimeSec == null ? timeSec : Math.min(prev.bestTimeSec, timeSec),
+      noHintClean: !!prev.noHintClean || !hintUsed
+    };
+    App.data.levels[n] = rec;
+    App.data.stars += delta;
+    var unlockedNext = false;
+    if (n === App.data.unlockedLevel && n < LEVELS.length) { App.data.unlockedLevel = n + 1; unlockedNext = true; }
+    App.save();
+    return { starsDelta: delta, starsNow: App.data.stars, bestStars: rec.bestStars, par: par, unlockedNext: unlockedNext };
+  };
+
+  App.paletteFor = function (themeId) { return GAME_PALETTE[themeId] || GAME_PALETTE.seker; };
+
+  App.avatarLook = function (v) { return avatarLook(v || App.data.avatar); };
+
+  App.fmtTime = function (sec) {
+    sec = Math.max(0, sec | 0);
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+  };
+
+  App.dateKey = function (d) {
+    d = d || new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+  };
+
+  App.dailyLevelIndex = function () {
+    var d = new Date();
+    var dayOfYear = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
+    return (dayOfYear % LEVELS.length) + 1;
+  };
+
+  App.claimDaily = function () {
+    var key = App.dateKey();
+    if (App.data.daily.claimed[key]) return { already: true };
+    var y = new Date(); y.setDate(y.getDate() - 1);
+    var yKey = App.dateKey(y);
+    App.data.daily.streak = App.data.daily.claimed[yKey] ? (App.data.daily.streak + 1) : 1;
+    App.data.daily.claimed[key] = true;
+    App.data.daily.lastPlayedDate = key;
+    var reward = 3 + Math.min(7, App.data.daily.streak);
+    App.data.stars += reward;
+    App.save();
+    return { already: false, streak: App.data.daily.streak, reward: reward };
+  };
+
+  App.computeBadges = function () {
+    var completed = App.completedCount();
+    var anyThreeStar = Object.keys(App.data.levels).some(function (k) { return App.data.levels[k].bestStars === 3; });
+    var fastest = null;
+    Object.keys(App.data.levels).forEach(function (k) {
+      var t = App.data.levels[k].bestTimeSec;
+      if (t != null && (fastest == null || t < fastest)) fastest = t;
+    });
+    var noHintCount = Object.keys(App.data.levels).filter(function (k) { return App.data.levels[k].noHintClean; }).length;
+    var perfectTier = TIERS.some(function (t) {
+      for (var n = t.from; n <= t.to; n++) { var r = App.data.levels[n]; if (!r || r.bestStars !== 3) return false; }
+      return true;
+    });
+    var defs = [
+      { name: 'İlk çıkış', how: 'İlk seviyeyi bitir', icon: 'check', earned: completed >= 1, status: completed >= 1 ? null : '0 / 1' },
+      { name: 'Üç yıldız', how: 'Bir seviyeyi 3 yıldızla bitir', icon: 'star', earned: anyThreeStar, status: anyThreeStar ? null : '0 / 1' },
+      { name: 'Hızlı çözüm', how: '30 saniyenin altında bitir', icon: 'bolt', earned: fastest != null && fastest < 30, status: (fastest != null && fastest < 30) ? null : '0 / 1' },
+      { name: 'İpucusuz 10', how: '10 seviyeyi ipucusuz bitir', icon: 'bulb', earned: noHintCount >= 10, status: noHintCount >= 10 ? null : (noHintCount + ' / 10') },
+      { name: 'Haftalık seri', how: '7 gün üst üste oyna', icon: 'flame', earned: App.data.daily.streak >= 7, status: App.data.daily.streak >= 7 ? null : (App.data.daily.streak + ' / 7') },
+      { name: LEVELS.length + ' seviye', how: 'Tüm seviyeleri tamamla', icon: 'flag', earned: completed >= LEVELS.length, status: completed >= LEVELS.length ? null : (completed + ' / ' + LEVELS.length) },
+      { name: 'Kusursuz paket', how: 'Bir paketi tam yıldızla bitir', icon: 'crown', earned: perfectTier, status: perfectTier ? null : '0 / 1' },
+      { name: 'Koleksiyoncu', how: 'Tüm temaları aç', icon: 'palette', earned: App.data.themesOwned.length >= THEMES.length, status: App.data.themesOwned.length >= THEMES.length ? null : (App.data.themesOwned.length + ' / ' + THEMES.length) },
+      { name: 'Günlük usta', how: '30 günlük bulmaca çöz', icon: 'cal', earned: Object.keys(App.data.daily.claimed).length >= 30, status: Object.keys(App.data.daily.claimed).length >= 30 ? null : (Object.keys(App.data.daily.claimed).length + ' / 30') }
+    ];
+    return defs;
+  };
+
+  App._scale = 1;
+
+  App.goOnline = function (target) {
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      App.data.pendingOfflineTarget = target;
+      window.go('Offline');
+    } else {
+      window.go(target);
+    }
+  };
+
+  // ---- live board helpers (board is always 6x6, exit on right edge of the target's row) ----
+  var N = 6;
+  function cellsOf(b) {
+    var out = [];
+    for (var k = 0; k < b.len; k++) out.push(b.orient === 'h' ? [b.row, b.col + k] : [b.row + k, b.col]);
+    return out;
+  }
+  function buildGrid(blocks, excludeId) {
+    var grid = []; for (var r = 0; r < N; r++) grid.push(new Array(N).fill(-1));
+    blocks.forEach(function (b) {
+      if (b.id === excludeId) return;
+      cellsOf(b).forEach(function (rc) { grid[rc[0]][rc[1]] = b.id; });
+    });
+    return grid;
+  }
+  App.cellsOf = cellsOf;
+
+  App.computeRange = function (blocks, movingId) {
+    var moving = blocks.filter(function (b) { return b.id === movingId; })[0];
+    var grid = buildGrid(blocks, movingId);
+    var min, max;
+    if (moving.orient === 'h') {
+      min = moving.col; max = moving.col;
+      for (var c = moving.col - 1; c >= 0 && grid[moving.row][c] === -1; c--) min = c;
+      for (var c2 = moving.col + moving.len; c2 < N && grid[moving.row][c2] === -1; c2++) max = c2 - moving.len + 1;
+    } else {
+      min = moving.row; max = moving.row;
+      for (var r = moving.row - 1; r >= 0 && grid[r][moving.col] === -1; r--) min = r;
+      for (var r2 = moving.row + moving.len; r2 < N && grid[r2][moving.col] === -1; r2++) max = r2 - moving.len + 1;
+    }
+    return { min: min, max: max };
+  };
+
+  function stateKey(blocks) { return blocks.map(function (b) { return b.row * N + b.col; }).join(','); }
+
+  function neighborMoves(blocks) {
+    var out = [];
+    blocks.forEach(function (v) {
+      var grid = buildGrid(blocks, v.id);
+      if (v.orient === 'h') {
+        for (var nc = v.col - 1; nc >= 0 && grid[v.row][nc] === -1; nc--) {
+          out.push({ id: v.id, pos: nc, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { col: nc }) : b; }) });
+        }
+        for (var nc2 = v.col + 1; nc2 + v.len - 1 < N && grid[v.row][nc2 + v.len - 1] === -1; nc2++) {
+          out.push({ id: v.id, pos: nc2, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { col: nc2 }) : b; }) });
+        }
+      } else {
+        for (var nr = v.row - 1; nr >= 0 && grid[nr][v.col] === -1; nr--) {
+          out.push({ id: v.id, pos: nr, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { row: nr }) : b; }) });
+        }
+        for (var nr2 = v.row + 1; nr2 + v.len - 1 < N && grid[nr2 + v.len - 1][v.col] === -1; nr2++) {
+          out.push({ id: v.id, pos: nr2, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { row: nr2 }) : b; }) });
+        }
+      }
+    });
+    return out;
+  }
+
+  function isSolved(blocks) {
+    var t = blocks.filter(function (b) { return b.target; })[0];
+    return t.col === N - t.len;
+  }
+
+  // BFS from current board to the solved state; returns the first move to play, or null.
+  App.solveNextMove = function (blocks, cap) {
+    cap = cap || 250000;
+    if (isSolved(blocks)) return null;
+    var startKey = stateKey(blocks);
+    var visited = Object.create(null);
+    visited[startKey] = { parent: null, move: null };
+    var queue = [blocks];
+    var qi = 0;
+    var foundKey = null;
+    var count = 1;
+    while (qi < queue.length && !foundKey) {
+      var cur = queue[qi++];
+      var curKey = stateKey(cur);
+      var moves = neighborMoves(cur);
+      for (var i = 0; i < moves.length; i++) {
+        var mv = moves[i];
+        var k = stateKey(mv.next);
+        if (visited[k]) continue;
+        visited[k] = { parent: curKey, move: mv };
+        count++;
+        if (isSolved(mv.next)) { foundKey = k; break; }
+        queue.push(mv.next);
+        if (count > cap) break;
+      }
+      if (count > cap) break;
+    }
+    if (!foundKey) return null;
+    var k = foundKey;
+    while (visited[k].parent !== startKey) { k = visited[k].parent; }
+    var firstMove = visited[k].move;
+    var movingInStart = blocks.filter(function (b) { return b.id === firstMove.id; })[0];
+    var fromPos = movingInStart.orient === 'h' ? movingInStart.col : movingInStart.row;
+    return { id: firstMove.id, orient: movingInStart.orient, fromPos: fromPos, toPos: firstMove.pos };
+  };
+
+  return App;
+})();

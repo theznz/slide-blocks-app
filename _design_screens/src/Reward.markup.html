@@ -1,0 +1,20 @@
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #0E1024; color: #FFFFFF; font-family: 'Fredoka', system-ui, sans-serif; padding: 56px 20px 32px; display: flex; flex-direction: column; justify-content: center">
+<div style="padding: 28px 20px 20px; background: #232750; border-radius: 28px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center">
+<h1 style="margin: 0; font-size: 30px; font-weight: 700">Günlük ödül</h1>
+<div style="font-size: 15px; color: #B9BDE6">Her gün gir, ödül büyüsün. 7. gün büyük ödül seni bekliyor.</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ days }}" as="d" hint-placeholder-count="7">
+<div style="grid-column: {{d.span}}; height: 92px; box-sizing: border-box; padding-bottom: {{d.pad}}; border-radius: 16px; background: {{d.bg}}; box-shadow: {{d.shadow}}; border: {{d.border}}; color: {{d.fg}}; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px">
+<span style="font-size: 12px; font-weight: 500">{{ d.day }}</span>
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{d.icon}}"></path></svg>
+<span style="font-size: 14px; font-weight: 600">{{ d.reward }}</span>
+</div>
+</sc-for>
+</div>
+<button onclick="{{ goDaily }}" style="height: 68px; box-sizing: border-box; padding-bottom: 6px; border: 0; background: #FF9F45; border-radius: 20px; box-shadow: inset 0 -6px 0 #D9772A; color: #171A36; font-family: inherit; text-decoration: none; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; cursor: pointer">{{ ctaLabel }}</button>
+<a href="Main.dc.html" style="align-self: center; min-height: 44px; display: flex; align-items: center; font-size: 15px; font-weight: 500; color: #B9BDE6">Sonra</a>
+</div>
+</div>

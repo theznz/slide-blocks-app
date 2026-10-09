@@ -1,0 +1,63 @@
+
+<div style="width: 390px; height: 844px; box-sizing: border-box; background: #171A36; color: #FFFFFF; font-family: 'Fredoka', system-ui, sans-serif; padding: 56px 20px 32px; display: flex; flex-direction: column; align-items: stretch">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<a href="Profile.dc.html" aria-label="Profil" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 3.600-6.500 8-6.500s8 2.500 8 6.500"></path></svg>
+</a>
+<button onclick="{{ goShop }}" aria-label="mağazayı aç" style="border: 0; display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; background: #232750; border-radius: 22px; color: #FFFFFF; font-family: inherit; text-decoration: none; font-size: 18px; font-weight: 600; cursor: pointer">
+<svg viewBox="0 0 24 24" width="20" height="20" fill="#FFD35C" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.6.8-4.9 4.6 1.3 6.6L12 17.4l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z"></path></svg>
+<span>{{ stars }}</span>
+<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#B9BDE6" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+<a href="Settings.dc.html" aria-label="Ayarlar" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5.500" stroke-width="3"></circle><circle cx="12" cy="12" r="8.500" stroke-width="3" stroke-linecap="butt" stroke-dasharray="3.340 3.340"></circle></svg>
+</a>
+</div>
+<div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 36px">
+<div style="width: 194px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(3, 44px); gap: 6px; transform: rotate(-6deg)">
+<div style="grid-column: 1; grid-row: 1 / span 2; background: #3DD6C3; border-radius: 12px; box-shadow: inset 0 -6px 0 #25A898"></div>
+<div style="grid-column: 2 / span 2; grid-row: 1; background: #6C8CFF; border-radius: 12px; box-shadow: inset 0 -6px 0 #4865D6"></div>
+<div style="grid-column: 4; grid-row: 1 / span 3; background: #FFD35C; border-radius: 12px; box-shadow: inset 0 -6px 0 #D9A92F"></div>
+<div style="grid-column: 2 / span 2; grid-row: 2; background: #FF9F45; border-radius: 12px; box-shadow: inset 0 -6px 0 #D9772A; display: flex; align-items: center; justify-content: center; color: #171A36; padding-bottom: 4px; box-sizing: border-box">
+<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+</div>
+<div style="grid-column: 1 / span 3; grid-row: 3; background: #FF7AA8; border-radius: 12px; box-shadow: inset 0 -6px 0 #D4527F"></div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 6px">
+<h1 style="margin: 0; font-size: 46px; line-height: 1; font-weight: 700; text-align: center">Sliding Block</h1>
+<div style="font-size: 18px; font-weight: 600; letter-spacing: 10px; padding-left: 10px; color: #B9BDE6">PUZZLE</div>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<button onclick="{{ play }}" style="height: 76px; box-sizing: border-box; padding-bottom: 6px; border: 0; background: #FF9F45; border-radius: 22px; box-shadow: inset 0 -6px 0 #D9772A; color: #171A36; font-family: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 14px; cursor: pointer">
+<svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.9l12.5-7.5a1 1 0 0 0 0-1.8L8.500 3.6A1 1 0 0 0 7 4.500z"></path></svg>
+<span style="display: flex; flex-direction: column; line-height: 1.1; font-weight: 400; text-align: left">
+<span style="font-size: 26px; font-weight: 700">Oyna</span>
+<span style="font-size: 15px; font-weight: 500">Seviye {{ unlockedLevel }} · {{ tierName }}</span>
+</span>
+</button>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<a href="Levels.dc.html" style="height: 84px; background: #232750; border-radius: 18px; color: #FFFFFF; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#3DD6C3" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"></rect><rect x="14" y="3" width="7" height="7" rx="2"></rect><rect x="3" y="14" width="7" height="7" rx="2"></rect><rect x="14" y="14" width="7" height="7" rx="2"></rect></svg>
+<span>Seviyeler</span>
+</a>
+<button onclick="{{ goDaily }}" style="height: 84px; border: 0; background: #232750; border-radius: 18px; color: #FFFFFF; font-family: inherit; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500; cursor: pointer">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FFD35C" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>
+<span>Günlük</span>
+</button>
+<a href="Themes.dc.html" style="height: 84px; background: #232750; border-radius: 18px; color: #FFFFFF; text-decoration: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; font-size: 15px; font-weight: 500">
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#FF7AA8" stroke-width="2.200" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.500 0 2-1 2-2s-.5-1.500.5-2.500 4.500.5 5.500-2.500C21.500 8 17.500 3 12 3z"></path><circle cx="8" cy="11" r="1"></circle><circle cx="12" cy="7.500" r="1"></circle><circle cx="16" cy="10" r="1"></circle></svg>
+<span>Temalar</span>
+</a>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; background: #232750; border-radius: 18px">
+<div style="display: flex; justify-content: space-between; font-size: 15px; font-weight: 500">
+<span>{{ pkgLabel }}</span>
+<span style="color: #B9BDE6">{{ pkgDone }} / {{ pkgTotal }}</span>
+</div>
+<div style="height: 10px; background: #171A36; border-radius: 5px; overflow: hidden">
+<div style="width: {{ pkgPct }}%; height: 10px; background: #3DD6C3; border-radius: 5px"></div>
+</div>
+</div>
+</div>
+</div>
