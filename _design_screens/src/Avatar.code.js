@@ -102,12 +102,17 @@ class Component extends DCLogic {
       item.ring = on ? '0 0 0 3px #3DD6C3' : 'none';
       return item;
     });
+    var isPet = s.tab === 'pet';
     var cd = colorDefs[s.tab];
     function addPick(key) {
       return function (e) {
         var patch = {}; patch[key] = e.target.value;
         self.setState(patch);
       };
+    }
+    function livePetColor(e) {
+      var hex = e.target.value;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-color-bg="pet"]'), function (el) { el.style.background = hex; });
     }
     var colors = cd ? [{
       isAdd: true, isPreset: false,
@@ -116,7 +121,8 @@ class Component extends DCLogic {
       addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #3DD6C3' : 'none',
       hasCustom: typeof s[cd.key] === 'string',
       noCustom: typeof s[cd.key] !== 'string',
-      pick: addPick(cd.key)
+      pick: addPick(cd.key),
+      liveInput: isPet ? livePetColor : function () {}
     }].concat(cd.list.map(function (c, i) {
       var on = s[cd.key] === i;
       var patch = {}; patch[cd.key] = i;
@@ -126,7 +132,6 @@ class Component extends DCLogic {
     function rnd(n) { return Math.floor(Math.random() * n); }
     function pickKey(def) { return def.list[rnd(def.list.length)][0]; }
 
-    var isPet = s.tab === 'pet';
     var currentPet = pets.filter(function (p) { return p.id === s.pet; })[0] || pets[0];
     var currentBadgeColor = App.resolveColor(badgeColors, s.petColor);
     var petOptions = pets.map(function (p) {

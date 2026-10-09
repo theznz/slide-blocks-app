@@ -60,7 +60,7 @@
 </svg>
 </div>
 <sc-if value="{{ hasPet }}" hint-placeholder-val="{{ false }}">
-<div style="position: absolute; right: -4px; bottom: -4px; width: 52px; height: 52px; box-sizing: border-box; border: 4px solid #171A36; border-radius: 50%; background: {{petColor}}; display: flex; align-items: center; justify-content: center; font-size: 28px; line-height: 1">{{ petEmoji }}</div>
+<div data-color-bg="pet" style="position: absolute; right: -4px; bottom: -4px; width: 52px; height: 52px; box-sizing: border-box; border: 4px solid #171A36; border-radius: 50%; background: {{petColor}}; display: flex; align-items: center; justify-content: center; font-size: 28px; line-height: 1">{{ petEmoji }}</div>
 </sc-if>
 </div>
 <div style="display: flex; gap: 8px; overflow-x: auto; margin: 0 -20px; padding: 0 20px; flex-shrink: 0">
@@ -80,8 +80,8 @@
 </sc-if>
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
-<input type="color" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer">
-<div style="position: absolute; inset: 0; box-sizing: border-box; border: 2px dashed #8D93C9; border-radius: 50%; background: {{co.addBg}}; box-shadow: {{co.addRing}}; display: flex; align-items: center; justify-content: center; pointer-events: none">
+<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer">
+<div data-color-bg="pet" style="position: absolute; inset: 0; box-sizing: border-box; border: 2px dashed #8D93C9; border-radius: 50%; background: {{co.addBg}}; box-shadow: {{co.addRing}}; display: flex; align-items: center; justify-content: center; pointer-events: none">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#B9BDE6" stroke-width="2.500" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
 </sc-if>
@@ -103,7 +103,7 @@
 </div>
 </sc-if>
 <sc-if value="{{ po.notYok }}" hint-placeholder-val="{{ false }}">
-<div style="width: 40px; height: 40px; border-radius: 50%; background: {{po.circleColor}}; display: flex; align-items: center; justify-content: center; font-size: 22px; line-height: 1">{{ po.emoji }}</div>
+<div data-color-bg="pet" style="width: 40px; height: 40px; border-radius: 50%; background: {{po.circleColor}}; display: flex; align-items: center; justify-content: center; font-size: 22px; line-height: 1">{{ po.emoji }}</div>
 </sc-if>
 <span style="font-size: 12px; font-weight: 500; text-align: center; padding: 0 2px">{{ po.name }}</span>
 </button>
