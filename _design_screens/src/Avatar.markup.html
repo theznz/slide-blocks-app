@@ -81,7 +81,7 @@
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
 <input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 3px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 6px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div data-color-bg="pet" style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
@@ -182,7 +182,7 @@
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 44px; height: 44px; flex-shrink: 0">
 <input type="color" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 44px; height: 44px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 3px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 6px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
