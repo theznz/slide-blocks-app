@@ -110,19 +110,25 @@ class Component extends DCLogic {
         self.setState(patch);
       };
     }
-    function livePetColor(e) {
-      var hex = e.target.value;
-      Array.prototype.forEach.call(document.querySelectorAll('[data-color-bg="pet"]'), function (el) { el.style.background = hex; });
+    var ROLE_BY_KEY = { hairColor: 'hair', eyeColor: 'eye', petColor: 'pet' };
+    function liveColor(role) {
+      return function (e) {
+        var hex = e.target.value;
+        Array.prototype.forEach.call(document.querySelectorAll('[data-color-fill="' + role + '"]'), function (el) { el.setAttribute('fill', hex); });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-color-stroke="' + role + '"]'), function (el) { el.setAttribute('stroke', hex); });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-color-bg="' + role + '"]'), function (el) { el.style.background = hex; });
+      };
     }
     var colors = cd ? [{
       isAdd: true, isPreset: false,
+      role: ROLE_BY_KEY[cd.key] || '',
       addValue: typeof s[cd.key] === 'string' ? s[cd.key] : '#ffffff',
       addBg: typeof s[cd.key] === 'string' ? s[cd.key] : '#FFFFFF',
-      addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #3DD6C3' : 'none',
+      addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none',
       hasCustom: typeof s[cd.key] === 'string',
       noCustom: typeof s[cd.key] !== 'string',
       pick: addPick(cd.key),
-      liveInput: isPet ? livePetColor : function () {}
+      liveInput: ROLE_BY_KEY[cd.key] ? liveColor(ROLE_BY_KEY[cd.key]) : function () {}
     }].concat(cd.list.map(function (c, i) {
       var on = s[cd.key] === i;
       var patch = {}; patch[cd.key] = i;
