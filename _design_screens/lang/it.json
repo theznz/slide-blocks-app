@@ -319,5 +319,18 @@
  "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "Notifiche non consentite; i promemoria appariranno nell’app.",
  "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Questo browser non supporta le notifiche; i promemoria appariranno nell’app.",
  "Balon": "Palloncino",
- "Şekerleme": "Caramella"
+ "Şekerleme": "Caramella",
+ "Rekorlarım": "I miei record",
+ "Genel": "Generale",
+ "En hızlı": "Più veloci",
+ "Toplam yıldız": "Stelle totali",
+ "Üç yıldızlı seviye": "Livelli a 3 stelle",
+ "İpucusuz çözüm": "Senza aiuti",
+ "En uzun seri": "Serie più lunga",
+ "En hızlı çözüm": "Più veloce",
+ "Çözülen günlük bulmaca": "Puzzle del giorno risolti",
+ "Seviye {n}": "Livello {n}",
+ "{n} gün": "{n} giorni",
+ "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Ancora nessun record. Completa un livello e li vedrai qui.",
+ "Rekorların sadece bu cihazda saklanır.": "I tuoi record restano solo su questo dispositivo."
 }

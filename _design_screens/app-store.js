@@ -319,6 +319,7 @@ window.App = (function () {
     var yKey = App.dateKey(y);
     App.data.daily.streak = App.data.daily.claimed[yKey] ? (App.data.daily.streak + 1) : 1;
     App.data.daily.claimed[key] = true;
+    App.data.daily.best = Math.max(App.data.daily.best || 0, App.data.daily.streak);
     App.data.daily.lastPlayedDate = key;
     var reward = 3 + Math.min(7, App.data.daily.streak);
     App.data.stars += reward;

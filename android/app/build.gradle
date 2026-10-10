@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+// Play upload key: kept outside the repo in ~/.slideblocks/upload-key.properties
+// (storeFile, storePassword, keyAlias, keyPassword). Without it release builds stay unsigned.
+def uploadKeyProps = new Properties()
+def uploadKeyFile = new File(System.getProperty('user.home'), '.slideblocks/upload-key.properties')
+if (uploadKeyFile.exists()) uploadKeyFile.withInputStream { uploadKeyProps.load(it) }
+
 android {
     namespace = "com.theznz.slideblocks"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -16,8 +22,19 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            if (uploadKeyFile.exists()) {
+                storeFile file(uploadKeyProps['storeFile'])
+                storePassword uploadKeyProps['storePassword']
+                keyAlias uploadKeyProps['keyAlias']
+                keyPassword uploadKeyProps['keyPassword']
+            }
+        }
+    }
     buildTypes {
         release {
+            if (uploadKeyFile.exists()) signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

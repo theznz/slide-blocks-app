@@ -319,5 +319,18 @@
  "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "Benachrichtigungen nicht erlaubt; Erinnerungen erscheinen in der App.",
  "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Dieser Browser unterstützt keine Benachrichtigungen; Erinnerungen erscheinen in der App.",
  "Balon": "Ballon",
- "Şekerleme": "Fruchtgummi"
+ "Şekerleme": "Fruchtgummi",
+ "Rekorlarım": "Meine Rekorde",
+ "Genel": "Gesamt",
+ "En hızlı": "Schnellste",
+ "Toplam yıldız": "Sterne gesamt",
+ "Üç yıldızlı seviye": "Level mit 3 Sternen",
+ "İpucusuz çözüm": "Ohne Tipp gelöst",
+ "En uzun seri": "Längste Serie",
+ "En hızlı çözüm": "Schnellste Lösung",
+ "Çözülen günlük bulmaca": "Gelöste Tagesrätsel",
+ "Seviye {n}": "Level {n}",
+ "{n} gün": "{n} Tage",
+ "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Noch keine Rekorde. Schließ ein Level ab, dann erscheinen sie hier.",
+ "Rekorların sadece bu cihazda saklanır.": "Deine Rekorde werden nur auf diesem Gerät gespeichert."
 }

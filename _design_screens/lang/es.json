@@ -319,5 +319,18 @@
  "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "No se permitieron notificaciones; los avisos se mostrarán en la app.",
  "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Este navegador no admite notificaciones; los avisos se mostrarán en la app.",
  "Balon": "Globo",
- "Şekerleme": "Gominola"
+ "Şekerleme": "Gominola",
+ "Rekorlarım": "Mis récords",
+ "Genel": "General",
+ "En hızlı": "Más rápidos",
+ "Toplam yıldız": "Estrellas totales",
+ "Üç yıldızlı seviye": "Niveles con 3 estrellas",
+ "İpucusuz çözüm": "Sin pistas",
+ "En uzun seri": "Racha más larga",
+ "En hızlı çözüm": "Más rápido",
+ "Çözülen günlük bulmaca": "Puzles diarios resueltos",
+ "Seviye {n}": "Nivel {n}",
+ "{n} gün": "{n} días",
+ "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Aún no hay récords. Termina un nivel y aparecerán aquí.",
+ "Rekorların sadece bu cihazda saklanır.": "Tus récords solo se guardan en este dispositivo."
 }

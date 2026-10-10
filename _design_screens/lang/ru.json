@@ -319,5 +319,18 @@
  "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "Уведомления не разрешены; напоминания будут в приложении.",
  "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Браузер не поддерживает уведомления; напоминания будут в приложении.",
  "Balon": "Шарики",
- "Şekerleme": "Мармелад"
+ "Şekerleme": "Мармелад",
+ "Rekorlarım": "Мои рекорды",
+ "Genel": "Общие",
+ "En hızlı": "Быстрейшие",
+ "Toplam yıldız": "Всего звёзд",
+ "Üç yıldızlı seviye": "Уровни на 3 звезды",
+ "İpucusuz çözüm": "Без подсказок",
+ "En uzun seri": "Самая длинная серия",
+ "En hızlı çözüm": "Быстрейшее решение",
+ "Çözülen günlük bulmaca": "Решено ежедневных",
+ "Seviye {n}": "Уровень {n}",
+ "{n} gün": "{n} дн.",
+ "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Рекордов пока нет. Пройди уровень, и они появятся здесь.",
+ "Rekorların sadece bu cihazda saklanır.": "Рекорды хранятся только на этом устройстве."
 }

@@ -38,6 +38,21 @@
       'Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.': 'Notifications weren’t allowed; reminders will show inside the app.',
       'Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.': 'This browser doesn’t support notifications; reminders will show inside the app.',
 
+      // records screen
+      'Rekorlarım': 'My records',
+      'Genel': 'Overall',
+      'En hızlı': 'Fastest',
+      'Toplam yıldız': 'Total stars',
+      'Üç yıldızlı seviye': 'Three-star levels',
+      'İpucusuz çözüm': 'Solved without hints',
+      'En uzun seri': 'Longest streak',
+      'En hızlı çözüm': 'Fastest solve',
+      'Çözülen günlük bulmaca': 'Daily puzzles solved',
+      'Seviye {n}': 'Level {n}',
+      '{n} gün': '{n} days',
+      'Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.': 'No records yet. Finish a level and your records will show up here.',
+      'Rekorların sadece bu cihazda saklanır.': 'Your records are kept on this device only.',
+
       // Splash
       'Yükleniyor…': 'Loading…', 'Ana ekrana geç': 'Go to home',
 

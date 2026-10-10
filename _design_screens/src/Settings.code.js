@@ -33,7 +33,7 @@ class Component extends DCLogic {
     });
     return {
       toggles: toggles,
-      build: App.BUILD + ' · ' + App.hapticMode() + ' · ' + App.audioState(),
+      build: App.BUILD,
       langName: current.name,
       langOpen: langOpen,
       langExpanded: langOpen ? 'true' : 'false',

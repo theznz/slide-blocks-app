@@ -15,22 +15,19 @@ yüklemeye hazır hale getirir. Aşağıdaki adımları sırayla izle.
 
 ---
 
-## 1. Yayından önce karar vermen gerekenler (reddedilme riski)
+## 1. Durum (10.10.2026)
 
-- **Giriş ekranı (Apple / Google / E-posta ile Devam Et):** Butonlar çalışmıyor, sadece "bu sürümde yok"
-  diyor. Apple çalışmayan özellikleri olan uygulamaları reddediyor (Kural 2.1). Ayrıca Google ile giriş
-  sunan bir uygulamanın "Apple ile giriş" de sunması gerekiyor (Kural 4.8). **Öneri:** 1.0 sürümünde giriş
-  ekranını ve Profil'deki "İlerlemeyi kaydet · Giriş yap" bağlantısını gizlemek.
-- **Sıralama:** İsimler ve puanlar uydurma. İnceleyici bunu yanıltıcı bulabilir. **Öneri:** 1.0'da gizlemek,
-  sonra Game Center / Google Play Games ile gerçek sıralama eklemek.
-- **"Reklam izle":** Şu an gerçek reklam gösterilmiyor, kısa bir beklemeden sonra ödül veriliyor. İstediğin gibi
-  bıraktım. İnceleyici reklam görmeden ödül aldığı için sorun çıkarabilir; çıkarsa butonun adını
-  "Ücretsiz ödül" yapmak yeterli olur. Gerçek reklam (AdMob) eklendiğinde gizlilik formlarının da
-  güncellenmesi gerekir (bkz. 6. ve 7. bölüm).
+Uygulama tarafı hazır; eksik olan sadece geliştirici hesapları ve yükleme.
 
-Bunlardan birini değiştirmek istersen söylemen yeterli.
-
----
+- Giriş ekranı 1.0'da gizlendi (Profil ve Ayarlar'daki bağlantılar kaldırıldı); ilerleme cihazda saklanıyor.
+- Uydurma sıralama kaldırıldı; yerine kişisel **Rekorlarım** ekranı geldi.
+- "Reklamları kaldır" ve "Satın alımları geri yükle" kaldırıldı. **"Reklam izle"** bilerek bırakıldı (ileride
+  gerçek reklam eklenecek). Şu an gerçek reklam göstermediği için inceleyici sorarsa "ödül butonu, reklam
+  entegrasyonu sonraki sürümde" diye açıklanabilir ya da adı "Ücretsiz ödül" yapılabilir.
+- iOS: gizlilik bildirimi (`PrivacyInfo.xcprivacy`: takip yok, veri toplanmıyor) uygulamada; derleme uyarısız.
+- Android: imzalı mağaza paketi hazır (aşağıda). Yerel kütüphane yok, 16 KB sayfa kuralı etkilemiyor;
+  `SCHEDULE_EXACT_ALARM` izni yok.
+- iPhone'da Xcode ile kişisel takımla (Personal Team) test edildi; Android 16 emülatöründe test edildi.
 
 ## 2. Hesaplar
 
@@ -67,7 +64,8 @@ Yeni sürümde numaraları artır:
 ## 5. iPhone – App Store
 
 1. `npm run ios` → Xcode açılır.
-2. Sol üstte **App** projesi → **Signing & Capabilities** → **Team**: Apple geliştirici hesabını seç.
+2. Sol üstte **App** projesi → **Signing & Capabilities** → **Team**: Apple Developer Program'a kayıtlı
+   takımı seç. (Şu an "Personal Team" seçili; o sadece kendi telefonuna kurmaya yarar, mağazaya yüklenemez.)
    "Automatically manage signing" açık kalsın. Bundle Identifier `com.theznz.slideblocks` olmalı.
 3. Kendi iPhone'unda denemek için: iPhone'u kabloyla bağla, üstteki cihaz listesinden seç, ▶ (Run).
    Telefonda: Ayarlar → Genel → VPN ve Cihaz Yönetimi → geliştiriciye güven.
@@ -95,10 +93,13 @@ Yeni sürümde numaraları artır:
 
 1. `npm run android` → Android Studio açılır (ilk açılışta Gradle senkronizasyonu birkaç dakika sürer).
 2. Kendi telefonunda denemek için: telefonda Geliştirici seçenekleri → USB hata ayıklama açık, kabloyla bağla, ▶ Run.
-3. Yükleme paketi: **Build → Generate Signed App Bundle or APK → Android App Bundle**.
-   - "Create new..." ile bir **upload key** oluştur (ör. `~/slideblocks-upload.jks`).
-   - **Bu dosyayı ve şifresini kaybetme, GitHub'a koyma.** Yedekle (ör. bir parola yöneticisine).
-   - Sonuç: `android/app/release/app-release.aab`
+3. Yükleme paketi **hazır**: `android/app/build/outputs/bundle/release/app-release.aab`
+   - Yeniden üretmek için: `npm run sync && cd android && ./gradlew bundleRelease`
+   - Paket, bu Mac'te oluşturulan **upload key** ile imzalanıyor: `~/.slideblocks/upload-key.jks`
+     (şifresi `~/.slideblocks/upload-key.properties` içinde). Proje klasörünün dışında, GitHub'a gitmez.
+   - **Bu iki dosyayı mutlaka yedekle** (ör. bir parola yöneticisine ya da şifreli bir USB'ye).
+     Kaybedilirse Play Console'dan anahtar sıfırlama istenmesi gerekir.
+   - Anahtar parmak izi (SHA-256): `30:DF:28:F0:FF:7C:3F:A8:1E:1A:09:EE:91:68:20:FB:E8:F4:CA:F9:A3:83:3B:1B:46:20:42:72:36:1C:89:9C`
 4. **Play Console** → Uygulama oluştur → ad "Sliding Block Puzzle", varsayılan dil Türkçe, Oyun, Ücretsiz.
 5. Sol menüdeki **Uygulamayı ayarla** görevlerini tamamla:
    - **Gizlilik politikası:** https://theznz.github.io/slide-blocks-app/privacy.html
