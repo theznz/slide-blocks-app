@@ -183,11 +183,11 @@ class Component extends DCLogic {
     var won = App.isSolved(this.state.levelIndex, newBlocks);
     this.setState({ blocks: newBlocks, moves: moves, history: history, hintInfo: null, won: won });
     if (won) {
-      App.sfx('win'); App.vibrate([40, 60, 40, 60, 120]);
+      App.sfx('win'); App.vibrate(App.HAPTIC.win);
       this.slideOut();
       this.finish(moves);
     } else {
-      App.sfx('slide'); App.vibrate(12);
+      App.sfx('slide'); App.vibrate(App.HAPTIC.slide);
       this.wobble(d.id);
       this.persist();
     }
@@ -246,7 +246,7 @@ class Component extends DCLogic {
   }
   undo() {
     if (!this.state || !this.state.history.length) { App.sfx('error'); App.toast(App.t('Geri alınacak hamle yok')); return; }
-    App.sfx('undo'); App.vibrate(8);
+    App.sfx('undo'); App.vibrate(App.HAPTIC.undo);
     var history = this.state.history.slice();
     var prev = history.pop();
     this.setState({ blocks: prev, moves: Math.max(0, this.state.moves - 1), history: history, hintInfo: null });
@@ -264,7 +264,7 @@ class Component extends DCLogic {
     App.save();
     this.state.usedHint = true;
     var dir = mv.orient === 'h' ? (mv.toPos > mv.fromPos ? 'sağa' : 'sola') : (mv.toPos > mv.fromPos ? 'aşağı' : 'yukarı');
-    App.sfx('hint'); App.vibrate(20);
+    App.sfx('hint'); App.vibrate(App.HAPTIC.hint);
     App.toast(App.t('Bu bloğu ' + dir + ' kaydır'));
     this.setState({ hintInfo: { id: mv.id } });
     this.persist();

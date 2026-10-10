@@ -71,6 +71,9 @@
     } catch (e) {}
   }
   App.hapticMode = function () { return hasVibrate ? 'android' : (isIOS ? 'ios' : 'yok'); };
+  // Strengths. Android uses the durations (ms, or on/off patterns). iPhone cannot change the
+  // tick's strength, so each "on" segment in a pattern becomes one more tick.
+  App.HAPTIC = { tap: 15, slide: 25, undo: 20, hint: 35, toggle: [50, 40, 50], win: [60, 60, 60, 60, 160] };
   App.canVibrate = function () { return hasVibrate || isIOS; };
   // A tap on a button that has its own haptic (undo, hint, the vibration switch) also bubbles
   // to the generic button tick; the first haptic within 80 ms wins so they never double up.

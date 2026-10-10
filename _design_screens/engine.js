@@ -117,8 +117,12 @@
   window.go = go;
   window.__views = views;
 
+  // Haptic tick for buttons on finger lift (pointerup), the earliest moment phones allow it.
+  stage.addEventListener('pointerup', function (e) {
+    if (e.target.closest && e.target.closest('button, a[href]')) App.vibrate(App.HAPTIC.tap);
+  });
   stage.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('button, a[href]')) { App.sfx('tap'); App.vibrate(6); }
+    if (e.target.closest && e.target.closest('button, a[href]')) App.sfx('tap');
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     e.preventDefault();
