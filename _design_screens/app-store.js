@@ -139,7 +139,10 @@ window.App = (function () {
       gX1: roundG ? 66 : 63, gX2: roundG ? 106 : 105, gY: roundG ? 86 : 88,
       gW: roundG ? 28 : 32, gH: roundG ? 28 : 24, gR: roundG ? 14 : 6,
       gFill: sun ? '#171A36' : '#FFFFFF', gFillOpacity: sun ? 0.9 : 0.12,
-      gFrame: resolveColor(FRAME_COLORS, v.glassesColor)
+      gFrame: resolveColor(FRAME_COLORS, v.glassesColor),
+      clothHex: resolveColor(BADGE_COLORS, v.clothColor),
+      hasEarring: v.earring === 'var', hasNecklace: v.necklace === 'var', hasPiercing: v.piercing === 'var',
+      hasClip: v.clip === 'var', hasHat: v.hat === 'var', hasScarf: v.scarf === 'var', hasHeadphones: v.headphones === 'var'
     };
   }
 
@@ -155,7 +158,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, pet: 'yok', petColor: 0, bgColor: 0 },
+      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, earring: 'yok', necklace: 'yok', piercing: 'yok', clothColor: 0, clip: 'yok', hat: 'yok', scarf: 'yok', headphones: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,

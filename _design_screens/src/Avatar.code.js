@@ -3,7 +3,7 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var saved = App.data.avatar;
-    var defaults = { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, pet: 'yok', petColor: 0, bgColor: 0 };
+    var defaults = { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, earring: 'yok', necklace: 'yok', piercing: 'yok', clothColor: 0, clip: 'yok', hat: 'yok', scarf: 'yok', headphones: 'yok', pet: 'yok', petColor: 0, bgColor: 0 };
     var st = this.state || {};
     var s = {};
     Object.keys(defaults).forEach(function (k) { s[k] = st[k] !== undefined ? st[k] : (saved[k] !== undefined ? saved[k] : defaults[k]); });
@@ -100,12 +100,20 @@ class Component extends DCLogic {
         gY: roundG ? 86 : 88, gW: roundG ? 28 : 32, gH: roundG ? 28 : 24, gR: roundG ? 14 : 6,
         gFill: sun ? '#171A36' : '#FFFFFF',
         gFillOpacity: sun ? 0.9 : 0.12,
-        gFrame: App.resolveColor(frameColors, v.glassesColor)
+        gFrame: App.resolveColor(frameColors, v.glassesColor),
+        clothHex: App.resolveColor(badgeColors, v.clothColor),
+        hasEarring: v.earring === 'var',
+        hasNecklace: v.necklace === 'var',
+        hasPiercing: v.piercing === 'var',
+        hasClip: v.clip === 'var',
+        hasHat: v.hat === 'var',
+        hasScarf: v.scarf === 'var',
+        hasHeadphones: v.headphones === 'var'
       };
     }
 
     var tabDefs = [
-      ['temel', 'Temel'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük'], ['pet', 'Pet']
+      ['temel', 'Temel'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük'], ['aksesuar', 'Aksesuar'], ['pet', 'Pet']
     ];
     if (!tabDefs.some(function (t) { return t[0] === s.tab; })) { s.tab = 'temel'; }
     var pets = App.PETS;
@@ -120,13 +128,21 @@ class Component extends DCLogic {
       kas: { label: 'Kaş şekli', key: 'brow', vb: '30 24 140 140', list: [['dogal', 'Doğal'], ['kalin', 'Kalın'], ['cati', 'Çatık']] },
       kirpik: { label: 'Kirpik', key: 'lash', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
       biyik: { label: 'Bıyık ve sakal', key: 'facial', vb: '50 92 100 66', list: [['yok', 'Yok'], ['biyik', 'Bıyık'], ['sakal', 'Sakal'], ['kirli', 'Kirli']] },
-      gozluk: { label: 'Gözlük', key: 'glasses', vb: '46 72 108 56', list: [['yok', 'Yok'], ['yuvarlak', 'Yuvarlak'], ['koseli', 'Köşeli'], ['gunes', 'Güneş']] }
+      gozluk: { label: 'Gözlük', key: 'glasses', vb: '46 72 108 56', list: [['yok', 'Yok'], ['yuvarlak', 'Yuvarlak'], ['koseli', 'Köşeli'], ['gunes', 'Güneş']] },
+      kupe: { label: 'Küpe', key: 'earring', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      kolye: { label: 'Kolye', key: 'necklace', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      piercing: { label: 'Piercing', key: 'piercing', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      toka: { label: 'Toka', key: 'clip', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      sapka: { label: 'Şapka', key: 'hat', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      atki: { label: 'Atkı', key: 'scarf', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
+      kulaklik: { label: 'Kulaklık', key: 'headphones', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] }
     };
     var colorDefs = {
       sac: { label: 'Saç rengi', key: 'hairColor', list: hairs },
       biyik: { label: 'Saç ve sakal rengi', key: 'hairColor', list: hairs },
       goz: { label: 'Göz rengi', key: 'eyeColor', list: eyes },
       gozluk: { label: 'Gözlük rengi', key: 'glassesColor', list: frameColors },
+      aksesuar: { label: 'Kıyafet rengi', key: 'clothColor', list: badgeColors },
       pet: { label: 'Rozet rengi', key: 'petColor', list: badgeColors }
     };
 
@@ -153,6 +169,7 @@ class Component extends DCLogic {
     var isPet = s.tab === 'pet';
     var isTemel = s.tab === 'temel';
     var isGoz = s.tab === 'goz';
+    var isAksesuar = s.tab === 'aksesuar';
     var cd = colorDefs[s.tab];
     function addPick(key) {
       return function (e) {
@@ -208,7 +225,8 @@ class Component extends DCLogic {
     out.isPet = isPet;
     out.isTemel = isTemel;
     out.isGoz = isGoz;
-    out.isFace = !isPet;
+    out.isAksesuar = isAksesuar;
+    out.isFace = !isPet && !isAksesuar;
     out.options = options;
     out.optionLabel = od.label;
     out.colors = colors;
@@ -222,6 +240,13 @@ class Component extends DCLogic {
     out.earOptions = isTemel ? buildOptions(optionDefs.kulak) : [];
     out.browOptions = isGoz ? buildOptions(optionDefs.kas) : [];
     out.lashOptions = isGoz ? buildOptions(optionDefs.kirpik) : [];
+    out.earringOptions = isAksesuar ? buildOptions(optionDefs.kupe) : [];
+    out.necklaceOptions = isAksesuar ? buildOptions(optionDefs.kolye) : [];
+    out.piercingOptions = isAksesuar ? buildOptions(optionDefs.piercing) : [];
+    out.clipOptions = isAksesuar ? buildOptions(optionDefs.toka) : [];
+    out.hatOptions = isAksesuar ? buildOptions(optionDefs.sapka) : [];
+    out.scarfOptions = isAksesuar ? buildOptions(optionDefs.atki) : [];
+    out.headphonesOptions = isAksesuar ? buildOptions(optionDefs.kulaklik) : [];
     out.petOptions = petOptions;
     out.pet = s.pet;
     out.hasPet = s.pet !== 'yok';
@@ -234,7 +259,10 @@ class Component extends DCLogic {
         nose: pickKey(optionDefs.burun), lip: pickKey(optionDefs.dudak), ear: pickKey(optionDefs.kulak),
         hair: pickKey(optionDefs.sac), hairColor: rnd(hairs.length), eye: pickKey(optionDefs.goz),
         eyeColor: rnd(eyes.length), brow: pickKey(optionDefs.kas), lash: pickKey(optionDefs.kirpik),
-        facial: pickKey(optionDefs.biyik), glasses: pickKey(optionDefs.gozluk), glassesColor: rnd(frameColors.length)
+        facial: pickKey(optionDefs.biyik), glasses: pickKey(optionDefs.gozluk), glassesColor: rnd(frameColors.length),
+        earring: pickKey(optionDefs.kupe), necklace: pickKey(optionDefs.kolye), piercing: pickKey(optionDefs.piercing),
+        clothColor: rnd(badgeColors.length), clip: pickKey(optionDefs.toka), hat: pickKey(optionDefs.sapka),
+        scarf: pickKey(optionDefs.atki), headphones: pickKey(optionDefs.kulaklik)
       });
     };
     out.save = function () {
