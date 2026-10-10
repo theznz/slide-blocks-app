@@ -77,14 +77,13 @@
   App.canVibrate = function () { return hasVibrate || isIOS; };
   // A tap on a button that has its own haptic (undo, hint, the vibration switch) also bubbles
   // to the generic button tick; the first haptic within 80 ms wins so they never double up.
-  var lastHaptic = 0;
-  App.vibrate = function (pattern) {
-    if (!App.data.settings.titresim) return;
-    var now = Date.now();
-    if (now - lastHaptic < 80) return;
-    lastHaptic = now;
-    if (hasVibrate) { try { navigator.vibrate(pattern); } catch (e) {} return; }
-    if (!isIOS) return;
+  var lastHaptic = 0, lastStrength = 0;
+  // iOS only plays the switch haptic inside a click or touchend. Button ticks therefore run
+  // from the click handler (App.hapticOnClick), and a haptic asked for anywhere else (e.g. a
+  // block dropped on pointerup) waits for the touchend that follows the same touch.
+  App.hapticOnClick = !hasVibrate && isIOS;
+  var pending = null;
+  function iosPlay(pattern) {
     var pulses = Array.isArray(pattern) ? pattern.filter(function (v, i) { return i % 2 === 0; }).length : 1;
     var gaps = Array.isArray(pattern) ? pattern : [];
     iosTick();
@@ -92,7 +91,30 @@
       t += (gaps[2 * i - 2] || 40) + (gaps[2 * i - 1] || 60);
       setTimeout(iosTick, t);
     }
+  }
+  App.vibrate = function (pattern) {
+    if (!App.data.settings.titresim) return;
+    if (!hasVibrate && isIOS) {
+      var ev = window.event && window.event.type;
+      if (ev !== 'click' && ev !== 'touchend') { pending = { pattern: pattern, at: Date.now() }; return; }
+    }
+    var now = Date.now(), strength = [].concat(pattern).filter(function (v, i) { return i % 2 === 0; }).reduce(function (a, b) { return a + b; }, 0);
+    // within 80 ms of another haptic only a stronger one gets through (e.g. the hint button's own
+    // buzz after the generic button tick), so taps never double up
+    if (now - lastHaptic < 80 && strength <= lastStrength) return;
+    lastHaptic = now; lastStrength = strength;
+    if (hasVibrate) { try { navigator.vibrate(pattern); } catch (e) {} return; }
+    if (isIOS) iosPlay(pattern);
   };
+  // Called from touchend. The game also attaches it to a dragged block itself, because the
+  // board is redrawn on drop and a touchend on a removed element never reaches window.
+  App.flushPendingHaptic = function () {
+    if (!pending || Date.now() - pending.at > 400) { pending = null; return; }
+    var p = pending.pattern;
+    pending = null;
+    App.vibrate(p);
+  };
+  if (!hasVibrate && isIOS) window.addEventListener('touchend', App.flushPendingHaptic, true);
 
   // Gentle looping pentatonic arpeggio over a I–vi–IV–V progression, scheduled ahead of time.
   var BPM = 96, STEP = 60 / BPM / 2;

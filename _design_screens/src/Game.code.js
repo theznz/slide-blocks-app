@@ -137,6 +137,7 @@ class Component extends DCLogic {
     if (!moving || moving.wall) return;
     var range = App.computeRange(blocks, id);
     var el = e.currentTarget;
+    if (App.flushPendingHaptic) el.addEventListener('touchend', App.flushPendingHaptic, { once: true });
     el.style.transition = 'none';
     el.style.zIndex = '5';
     this._drag = {
