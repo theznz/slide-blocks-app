@@ -63,7 +63,15 @@ class Component extends DCLogic {
     var color = b.target ? Object.assign({ target: true }, colors.target) : colors.others[b.id % colors.others.length];
     var skin = App.blockSkin(App.data.theme, color, b);
     var ring = hinted ? ', 0 0 0 4px #FFFFFF' : (b.target ? ', 0 0 0 3px #FFFFFF' : '');
-    return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
+    // Picture blocks (e.g. Balon) get a glow that follows the art's own outline instead of a
+    // square white ring: the target glows in its own colour, a hinted block glows white.
+    var glow = '';
+    if (App.finishOf(App.data.theme) === 'image' && (b.target || hinted)) {
+      var gc = hinted ? '#FFFFFF' : color.bg;
+      glow = ' filter: drop-shadow(0 0 5px ' + gc + ') drop-shadow(0 0 12px ' + gc + ');';
+      ring = '';
+    }
+    return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + glow + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
   }
   exitStyle(lv, hex) {
     var L = 52; // the exit gap is as wide as the arrow block, which is always one cell thick
