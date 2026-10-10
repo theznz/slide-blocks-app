@@ -9,7 +9,7 @@
 </div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
 <sc-for list="{{ badges }}" as="b" hint-placeholder-count="9">
-<div style="height: 168px; box-sizing: border-box; padding: 14px 8px; background: #232750; border-radius: 18px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
+<div style="min-height: 168px; box-sizing: border-box; padding: 14px 8px; background: #232750; border-radius: 18px; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center">
 <div style="width: 60px; height: 60px; flex-shrink: 0; box-sizing: border-box; padding-bottom: {{b.pad}}; border-radius: 18px; background: {{b.bg}}; box-shadow: {{b.shadow}}; border: {{b.border}}; color: {{b.fg}}; display: flex; align-items: center; justify-content: center">
 <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{b.icon}}"></path></svg>
 </div>
