@@ -4,7 +4,10 @@
     {
       "name": "slide-blocks",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8743"],
+      "runtimeArgs": [
+        "_design_screens/devserver.py",
+        "8743"
+      ],
       "port": 8743
     }
   ]

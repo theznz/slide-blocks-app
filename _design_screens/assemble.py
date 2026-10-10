@@ -53,7 +53,7 @@ m2 = re.search(r'(</script>\s*<script>\s*)(.*?)(\s*</script>\s*</body>\s*</html>
 if not m2:
     print('could not find engine script block'); sys.exit(1)
 
-new_suffix = suffix_from_closing_script[:m2.start(2)] + app_store_rendered + '\n' + i18n + '\n' + audio + '\n' + engine + suffix_from_closing_script[m2.end(2):]
+new_suffix = suffix_from_closing_script[:m2.start(2)] + app_store_rendered + '\n' + i18n + '\n' + audio + '\n' + engine.rstrip('\n') + suffix_from_closing_script[m2.end(2):]
 
 out = prefix_full + new_json_blob + new_suffix
 out_path = os.path.join(PROJECT, 'index.html')
