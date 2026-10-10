@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Titreşim testi</title>
+<style>
+body{margin:0;padding:24px 16px 48px;background:#0B0D1F;color:#fff;font:17px/1.4 system-ui,sans-serif}
+h1{font-size:24px;margin:0 0 4px}
+p{color:#B9BDE6;margin:0 0 20px}
+button,.real{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:64px;margin:0 0 12px;padding:0 18px;border:0;border-radius:16px;background:#232750;color:#fff;font:600 18px system-ui,sans-serif;text-align:left;box-sizing:border-box}
+.real input{transform:scale(1.4)}
+.n{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;margin-right:12px;border-radius:10px;background:#FF9F45;color:#171A36;font-weight:800}
+#info{margin-top:20px;color:#B9BDE6;font-size:14px}
+</style>
+</head>
+<body>
+<h1>Titreşim testi</h1>
+<p>Her birine sırayla dokun ve hangilerinde titreşim hissettiğini söyle (ör. "2 ve 4").</p>
+
+<label class="real"><span><span class="n">1</span>Gerçek düğme (parmakla)</span><input type="checkbox" switch></label>
+<button id="b2"><span><span class="n">2</span>Gizli düğme, display:none</span></button>
+<button id="b3"><span><span class="n">3</span>Gizli düğme, şeffaf</span></button>
+<button id="b4"><span><span class="n">4</span>Gizli düğmenin kendisine tıklama</span></button>
+<button id="b5"><span><span class="n">5</span>Sayfada kalan gizli düğme</span></button>
+<label class="real" id="b6"><span><span class="n">6</span>Butonun içinde görünmez düğme</span><input type="checkbox" switch style="position:absolute;opacity:0;width:1px;height:1px"></label>
+
+<div id="info"></div>
+<script>
+function make(style) {
+  var label = document.createElement('label');
+  label.setAttribute('aria-hidden', 'true');
+  label.style.cssText = style;
+  var input = document.createElement('input');
+  input.type = 'checkbox';
+  input.setAttribute('switch', '');
+  label.appendChild(input);
+  return { label: label, input: input };
+}
+// 2: what the game does now (ios-haptics library recipe)
+document.getElementById('b2').addEventListener('click', function () {
+  var s = make('display:none'); document.head.appendChild(s.label); s.label.click(); document.head.removeChild(s.label);
+});
+// 3: rendered but invisible, inside the page
+document.getElementById('b3').addEventListener('click', function () {
+  var s = make('position:fixed;left:0;top:0;width:1px;height:1px;opacity:0.01;pointer-events:none');
+  document.body.appendChild(s.label); s.label.click(); setTimeout(function () { document.body.removeChild(s.label); }, 100);
+});
+// 4: click the input directly
+document.getElementById('b4').addEventListener('click', function () {
+  var s = make('position:fixed;left:0;top:0;width:1px;height:1px;opacity:0.01;pointer-events:none');
+  document.body.appendChild(s.label); s.input.click(); setTimeout(function () { document.body.removeChild(s.label); }, 100);
+});
+// 5: one switch that stays in the page and is toggled each time
+var keep = make('position:fixed;left:0;bottom:0;width:1px;height:1px;opacity:0.01;pointer-events:none');
+document.body.appendChild(keep.label);
+document.getElementById('b5').addEventListener('click', function () { keep.label.click(); });
+document.getElementById('info').textContent = navigator.userAgent + (window.navigator.standalone ? ' · ana ekran' : ' · Safari');
+</script>
+</body>
+</html>
