@@ -110,6 +110,59 @@
     return 'background: ' + s.background + '; box-shadow: ' + s.shadow.replace(/-6px/g, '-5px') + '; border-radius: ' + (radius || 10) + 'px; box-sizing: border-box; ' + s.extra;
   };
 
+  // Confetti burst over the whole app (used on the win screen for a par-or-better solve).
+  // Two cannons fire from the bottom corners, then a light shower falls from the top.
+  App.confetti = function () {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var stage = document.getElementById('stage');
+    var W = stage.offsetWidth, H = stage.offsetHeight;
+    var dpr = (window.devicePixelRatio || 1) * (App._scale || 1);
+    var cv = document.createElement('canvas');
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+    cv.style.cssText = 'position:absolute;left:0;top:0;width:' + W + 'px;height:' + H + 'px;pointer-events:none;z-index:9998';
+    stage.appendChild(cv);
+    var g = cv.getContext('2d');
+    g.scale(dpr, dpr);
+    var COLORS = ['#FFD35C', '#FF7AA8', '#3DD6C3', '#6C8CFF', '#FF9F45', '#9D8DF1', '#FFFFFF'];
+    var parts = [];
+    function add(x, y, angle, spread, speed, n) {
+      for (var i = 0; i < n; i++) {
+        var a = angle + (Math.random() - 0.5) * spread, v = speed * (0.55 + Math.random() * 0.6);
+        parts.push({
+          x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v,
+          w: 6 + Math.random() * 6, h: 4 + Math.random() * 5, round: Math.random() < 0.3,
+          rot: Math.random() * 6.28, vr: (Math.random() - 0.5) * 0.4, tilt: Math.random() * 6.28,
+          color: COLORS[(Math.random() * COLORS.length) | 0]
+        });
+      }
+    }
+    add(0, H, -Math.PI / 3, 0.7, 19, 90);
+    add(W, H, -Math.PI * 2 / 3, 0.7, 19, 90);
+    setTimeout(function () { for (var i = 0; i < 60; i++) add(Math.random() * W, -10, Math.PI / 2, 0.6, 3, 1); }, 450);
+    var start = performance.now();
+    (function frame(now) {
+      g.clearRect(0, 0, W, H);
+      var alive = 0;
+      parts.forEach(function (p) {
+        p.vy += 0.32; p.vx *= 0.985; p.vy *= 0.985;
+        p.x += p.vx + Math.sin(p.tilt) * 0.6; p.y += p.vy;
+        p.rot += p.vr; p.tilt += 0.08;
+        if (p.y > H + 20) return;
+        alive++;
+        g.save();
+        g.translate(p.x, p.y);
+        g.rotate(p.rot);
+        g.scale(1, Math.cos(p.tilt));
+        g.fillStyle = p.color;
+        if (p.round) { g.beginPath(); g.arc(0, 0, p.w / 2.4, 0, 6.28); g.fill(); }
+        else g.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        g.restore();
+      });
+      if ((alive || now - start < 600) && now - start < 6000) requestAnimationFrame(frame);
+      else cv.remove();
+    })(start);
+  };
+
   var css = document.createElement('style');
   css.textContent =
     '@keyframes jelly-wobble{0%{transform:scale(1,1)}25%{transform:scale(1.08,.9)}50%{transform:scale(.95,1.06)}75%{transform:scale(1.03,.98)}100%{transform:scale(1,1)}}' +

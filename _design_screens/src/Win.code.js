@@ -1,5 +1,10 @@
 
 class Component extends DCLogic {
+  onShow() {
+    // confetti when the level was solved in the target number of moves (or fewer)
+    var r = App.data.lastResult;
+    if (r && r.moves <= r.par) setTimeout(App.confetti, 150);
+  }
   renderVals() {
     var r = App.data.lastResult || { levelIndex: 1, moves: 0, timeSec: 0, par: 0, bestStars: 0 };
     // stars earned in this run (older saves only have the best-ever count)
