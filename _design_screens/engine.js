@@ -130,16 +130,37 @@
     if (m) go(m[1]);
   });
 
+  // Layout: screens are designed 390 units wide. On phones the app fills the whole width and
+  // its height stretches to the screen (between MIN_H and MAX_H units), keeping clear of the
+  // notch / home indicator via --sat / --sab. On tablets and desktops it is shown as a framed
+  // 390x844 phone. Sizes come from the visible viewport, never innerWidth, which mobile
+  // browsers inflate when anything overflows.
+  var MIN_H = 720, MAX_H = 980;
+  var probe = document.createElement('div');
+  probe.style.cssText = 'position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;pointer-events:none;padding-top:env(safe-area-inset-top);padding-bottom:env(safe-area-inset-bottom)';
+  document.body.appendChild(probe);
   function fit() {
-    var w = window.innerWidth, h = window.innerHeight;
-    var k = Math.min(w / 390, h / 844);
-    var framed = w > 390 * k + 24;
-    if (framed) k = Math.min(k, (h - 32) / 844);
+    var w = document.documentElement.clientWidth, h = document.documentElement.clientHeight;
+    var k, H, framed = w / h > 0.68;
+    if (framed) {
+      H = 844;
+      k = Math.min(w / 390, (h - 32) / H);
+    } else {
+      k = w / 390;
+      H = h / k;
+      if (H < MIN_H) { k = h / MIN_H; H = MIN_H; }
+      if (H > MAX_H) H = MAX_H;
+    }
+    var cs = getComputedStyle(probe);
+    stage.style.setProperty('--sat', framed ? '0px' : (parseFloat(cs.paddingTop) || 0) / k + 'px');
+    stage.style.setProperty('--sab', framed ? '0px' : (parseFloat(cs.paddingBottom) || 0) / k + 'px');
     stage.classList.toggle('framed', framed);
+    stage.style.height = H + 'px';
     stage.style.transform = 'translate(-50%,-50%) scale(' + k + ')';
     window.App._scale = k;
   }
   window.addEventListener('resize', fit);
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
   fit();
 
   // ---- toast ----
