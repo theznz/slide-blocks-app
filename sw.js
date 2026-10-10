@@ -1,6 +1,6 @@
 // Service worker: makes the game installable and playable offline, and shows the
 // daily-puzzle reminder on phones (see _design_screens/notify.js).
-var CACHE = 'sbp-v2';
+var CACHE = 'sbp-v3';
 var CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './fonts/baloo2-latin.woff2', './fonts/baloo2-latin-ext.woff2'];
 
 self.addEventListener('install', function (e) {
@@ -21,7 +21,9 @@ self.addEventListener('fetch', function (e) {
   var url = new URL(req.url);
   if (url.pathname.indexOf('/__') !== -1) return; // dev server endpoints
   if (req.mode === 'navigate' || url.pathname.endsWith('.html')) {
-    e.respondWith(fetch(req).then(function (res) {
+    // no-store: skip the browser's HTTP cache too (GitHub Pages allows 10 minutes), so a new
+    // build shows up the next time the app is opened
+    e.respondWith(fetch(req, { cache: 'no-store' }).then(function (res) {
       var copy = res.clone();
       caches.open(CACHE).then(function (c) { c.put('./index.html', copy); });
       return res;
