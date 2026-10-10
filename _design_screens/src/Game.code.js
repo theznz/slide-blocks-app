@@ -239,7 +239,7 @@ class Component extends DCLogic {
         var dr = App.claimDaily();
         if (!dr.already) dailyBonus = dr.reward;
       }
-      App.data.lastResult = { levelIndex: self.state.levelIndex, moves: moves, timeSec: self.state.elapsedSec, par: res.par, bestStars: res.bestStars, starsDelta: res.starsDelta + dailyBonus };
+      App.data.lastResult = { levelIndex: self.state.levelIndex, moves: moves, timeSec: self.state.elapsedSec, par: res.par, earnedStars: res.earnedStars, bestStars: res.bestStars, starsDelta: res.starsDelta + dailyBonus };
       App.save();
       window.go('Win');
     }, 420);

@@ -274,7 +274,7 @@ window.App = (function () {
     var unlockedNext = false;
     if (n === App.data.unlockedLevel && n < LEVELS.length) { App.data.unlockedLevel = n + 1; unlockedNext = true; }
     App.save();
-    return { starsDelta: delta, starsNow: App.data.stars, bestStars: rec.bestStars, par: par, unlockedNext: unlockedNext };
+    return { starsDelta: delta, starsNow: App.data.stars, earnedStars: earnedStars, bestStars: rec.bestStars, par: par, unlockedNext: unlockedNext };
   };
 
   App.paletteFor = function (themeId) { return GAME_PALETTE[themeId] || GAME_PALETTE.seker; };
