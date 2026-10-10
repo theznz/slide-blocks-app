@@ -1,5 +1,5 @@
 
-<div style="width: 390px; height: 100%; box-sizing: border-box; background: #171A36; color: #FFFFFF; font-family: 'Baloo 2', system-ui, sans-serif; padding: max(56px, calc(var(--sat, 0px) + 14px)) 20px max(32px, calc(var(--sab, 0px) + 12px)); display: flex; flex-direction: column; gap: 16px; overflow-y: auto">
+<div style="width: 390px; height: 100%; box-sizing: border-box; background: #171A36; color: #FFFFFF; font-family: 'Baloo 2', system-ui, sans-serif; padding: 56px 20px 32px; padding: max(56px, calc(var(--sat, 0px) + 14px)) 20px max(32px, calc(var(--sab, 0px) + 12px)); display: flex; flex-direction: column; gap: 16px; overflow-y: auto">
 <div style="display: flex; justify-content: space-between; align-items: center">
 <a href="Profile.dc.html" aria-label="Geri" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
 <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"></path></svg>
@@ -119,8 +119,8 @@
 </sc-if>
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 34px; height: 34px; flex-shrink: 0">
-<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div data-color-bg="{{ co.role }}" style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
@@ -162,8 +162,8 @@
 </sc-if>
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 34px; height: 34px; flex-shrink: 0">
-<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div data-color-bg="skin" style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
@@ -184,8 +184,8 @@
 </sc-if>
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 34px; height: 34px; flex-shrink: 0">
-<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div data-color-bg="avatarbg" style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
@@ -208,8 +208,8 @@
 </sc-if>
 <sc-if value="{{ co.isAdd }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; width: 34px; height: 34px; flex-shrink: 0">
-<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; inset: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
-<div style="position: absolute; inset: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
+<input type="color" oninput="{{ co.liveInput }}" onchange="{{ co.pick }}" value="{{ co.addValue }}" aria-label="Özel renk ekle" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 34px; height: 34px; opacity: 0; border: 0; padding: 0; cursor: pointer; z-index: 2">
+<div style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; box-sizing: border-box; padding: 4px; border-radius: 50%; background: conic-gradient(from 0deg, #FF3B30, #FF9500, #FFCC00, #34C759, #32ADE6, #007AFF, #AF52DE, #FF2D55, #FF3B30); box-shadow: {{co.addRing}}; pointer-events: none">
 <div data-color-bg="{{ co.role }}" style="width: 100%; height: 100%; border-radius: 50%; background: {{co.addBg}}; display: flex; align-items: center; justify-content: center">
 <sc-if value="{{ co.noCustom }}" hint-placeholder-val="{{ true }}">
 <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#171A36" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>

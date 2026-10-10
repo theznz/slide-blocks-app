@@ -67,6 +67,44 @@
     out.appendChild(el);
   }
 
+  // Flexbox `gap` needs Chrome 84+ / Safari 14.1+. Older phones (e.g. a never-updated Chrome)
+  // ignore it, so there the gaps are rebuilt as margins after every render.
+  var flexGap = !window.__forceGapPolyfill && (function () {
+    var d = document.createElement('div');
+    d.style.cssText = 'display:flex;flex-direction:column;row-gap:1px;position:absolute;visibility:hidden';
+    d.appendChild(document.createElement('div'));
+    d.appendChild(document.createElement('div'));
+    document.body.appendChild(d);
+    var ok = d.scrollHeight === 1;
+    document.body.removeChild(d);
+    return ok;
+  })();
+  function polyfillGap(root) {
+    if (flexGap) return;
+    Array.prototype.forEach.call(root.querySelectorAll('[style*="gap"]'), function (el) {
+      var cs = getComputedStyle(el);
+      if (cs.display !== 'flex' && cs.display !== 'inline-flex') return;
+      var col = cs.flexDirection.indexOf('column') === 0;
+      var g = parseFloat(col ? (el.style.rowGap || el.style.gap) : (el.style.columnGap || el.style.gap.split(' ').pop())) || 0;
+      if (!g) return;
+      // loose text is a flex item too; wrap it so it can carry a margin
+      Array.prototype.slice.call(el.childNodes).forEach(function (n) {
+        if (n.nodeType === 3 && n.nodeValue.trim()) { var sp = document.createElement('span'); el.replaceChild(sp, n); sp.appendChild(n); }
+      });
+      var side = col ? 'marginTop' : 'marginLeft', before = col ? 'marginBottom' : 'marginRight', prev = null;
+      Array.prototype.forEach.call(el.children, function (c) {
+        var ccs = getComputedStyle(c);
+        if (ccs.position === 'absolute' || ccs.position === 'fixed' || ccs.display === 'none') return;
+        if (prev) {
+          // an auto margin pushes this item away; put the gap on the item before it instead
+          if (c.style[side] === 'auto') prev.style[before] = ((parseFloat(prev.style[before]) || 0) + g) + 'px';
+          else c.style[side] = ((parseFloat(c.style[side]) || 0) + g) + 'px';
+        }
+        prev = c;
+      });
+    });
+  }
+
   var views = {};
   Object.keys(data).forEach(function (name) {
     var tpl = document.createElement('template');
@@ -95,6 +133,7 @@
       kids(tpl.content, vals, frag);
       box.textContent = '';
       box.appendChild(frag);
+      polyfillGap(box);
       Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"],[style*="overflow-y"]'), function (e, i) { if (keep[i]) { e.scrollLeft = keep[i][0]; e.scrollTop = keep[i][1]; } });
     };
     view.draw();
