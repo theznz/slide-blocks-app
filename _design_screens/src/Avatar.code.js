@@ -69,31 +69,30 @@ class Component extends DCLogic {
     }
 
     var tabDefs = [
-      ['yuz', 'Yüz'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük'], ['pet', 'Pet'], ['zemin', 'Zemin']
+      ['temel', 'Temel'], ['sac', 'Saç'], ['goz', 'Göz'], ['biyik', 'Bıyık'], ['gozluk', 'Gözlük'], ['pet', 'Pet']
     ];
+    if (!tabDefs.some(function (t) { return t[0] === s.tab; })) { s.tab = 'temel'; }
     var pets = App.PETS;
     var badgeColors = App.BADGE_COLORS;
     var optionDefs = {
-      yuz: { label: 'Yüz şekli', key: 'face', vb: '30 24 140 140', list: [['yuvarlak', 'Yuvarlak'], ['oval', 'Oval'], ['koseli', 'Köşeli']] },
+      temel: { label: 'Yüz şekli', key: 'face', vb: '30 24 140 140', list: [['yuvarlak', 'Yuvarlak'], ['oval', 'Oval'], ['koseli', 'Köşeli']] },
       sac: { label: 'Saç modeli', key: 'hair', vb: '20 6 160 160', list: [['kisa', 'Kısa'], ['uzun', 'Uzun'], ['kivircik', 'Kıvırcık'], ['topuz', 'Topuz'], ['kel', 'Kel']] },
       goz: { label: 'Göz şekli', key: 'eye', vb: '58 78 84 44', list: [['yuvarlak', 'Yuvarlak'], ['badem', 'Badem'], ['iri', 'İri'], ['kirpikli', 'Kirpikli']] },
       biyik: { label: 'Bıyık ve sakal', key: 'facial', vb: '50 92 100 66', list: [['yok', 'Yok'], ['biyik', 'Bıyık'], ['sakal', 'Sakal'], ['kirli', 'Kirli']] },
       gozluk: { label: 'Gözlük', key: 'glasses', vb: '46 72 108 56', list: [['yok', 'Yok'], ['yuvarlak', 'Yuvarlak'], ['koseli', 'Köşeli'], ['gunes', 'Güneş']] }
     };
     var colorDefs = {
-      yuz: { label: 'Ten rengi', key: 'skin', list: skins },
       sac: { label: 'Saç rengi', key: 'hairColor', list: hairs },
       biyik: { label: 'Saç ve sakal rengi', key: 'hairColor', list: hairs },
       goz: { label: 'Göz rengi', key: 'eyeColor', list: eyes },
-      pet: { label: 'Rozet rengi', key: 'petColor', list: badgeColors },
-      zemin: { label: 'Zemin rengi', key: 'bgColor', list: bgColors }
+      pet: { label: 'Rozet rengi', key: 'petColor', list: badgeColors }
     };
 
     var tabs = tabDefs.map(function (t) {
       var on = t[0] === s.tab;
       return { label: t[1], pick: set({ tab: t[0] }), pressed: on ? 'true' : 'false', bg: on ? '#3DD6C3' : '#232750', fg: on ? '#171A36' : '#FFFFFF' };
     });
-    var od = optionDefs[s.tab] || optionDefs.yuz;
+    var od = optionDefs[s.tab] || optionDefs.temel;
     var options = od.list.map(function (o) {
       var on = s[od.key] === o[0];
       var patch = o[2];
@@ -107,7 +106,7 @@ class Component extends DCLogic {
       return item;
     });
     var isPet = s.tab === 'pet';
-    var isZemin = s.tab === 'zemin';
+    var isTemel = s.tab === 'temel';
     var cd = colorDefs[s.tab];
     function addPick(key) {
       return function (e) {
@@ -115,7 +114,7 @@ class Component extends DCLogic {
         self.setState(patch);
       };
     }
-    var ROLE_BY_KEY = { hairColor: 'hair', eyeColor: 'eye', petColor: 'pet' };
+    var ROLE_BY_KEY = { hairColor: 'hair', eyeColor: 'eye', petColor: 'pet', skin: 'skin', bgColor: 'avatarbg' };
     function liveColor(role) {
       return function (e) {
         var hex = e.target.value;
@@ -124,21 +123,26 @@ class Component extends DCLogic {
         Array.prototype.forEach.call(document.querySelectorAll('[data-color-bg="' + role + '"]'), function (el) { el.style.background = hex; });
       };
     }
-    var colors = cd ? [{
-      isAdd: true, isPreset: false,
-      role: ROLE_BY_KEY[cd.key] || '',
-      addValue: typeof s[cd.key] === 'string' ? s[cd.key] : '#ffffff',
-      addBg: typeof s[cd.key] === 'string' ? s[cd.key] : '#FFFFFF',
-      addRing: typeof s[cd.key] === 'string' ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none',
-      hasCustom: typeof s[cd.key] === 'string',
-      noCustom: typeof s[cd.key] !== 'string',
-      pick: addPick(cd.key),
-      liveInput: ROLE_BY_KEY[cd.key] ? liveColor(ROLE_BY_KEY[cd.key]) : function () {}
-    }].concat(cd.list.map(function (c, i) {
-      var on = s[cd.key] === i;
-      var patch = {}; patch[cd.key] = i;
-      return { isAdd: false, isPreset: true, name: c.name, hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
-    })) : [];
+    function buildColorList(key, list) {
+      return [{
+        isAdd: true, isPreset: false,
+        role: ROLE_BY_KEY[key] || '',
+        addValue: typeof s[key] === 'string' ? s[key] : '#ffffff',
+        addBg: typeof s[key] === 'string' ? s[key] : '#FFFFFF',
+        addRing: typeof s[key] === 'string' ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none',
+        hasCustom: typeof s[key] === 'string',
+        noCustom: typeof s[key] !== 'string',
+        pick: addPick(key),
+        liveInput: ROLE_BY_KEY[key] ? liveColor(ROLE_BY_KEY[key]) : function () {}
+      }].concat(list.map(function (c, i) {
+        var on = s[key] === i;
+        var patch = {}; patch[key] = i;
+        return { isAdd: false, isPreset: true, name: c.name, hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
+      }));
+    }
+    var colors = cd ? buildColorList(cd.key, cd.list) : [];
+    var skinColors = buildColorList('skin', skins);
+    var avatarBgColors = buildColorList('bgColor', bgColors);
 
     function rnd(n) { return Math.floor(Math.random() * n); }
     function pickKey(def) { return def.list[rnd(def.list.length)][0]; }
@@ -156,14 +160,16 @@ class Component extends DCLogic {
     var out = look(s);
     out.tabs = tabs;
     out.isPet = isPet;
-    out.isZemin = isZemin;
-    out.isFace = !isPet && !isZemin;
+    out.isTemel = isTemel;
+    out.isFace = !isPet;
     out.options = options;
     out.optionLabel = od.label;
     out.colors = colors;
-    out.hasColors = !isPet && !isZemin && colors.length > 1;
+    out.hasColors = !isPet && !isTemel && colors.length > 1;
     out.showPetColors = isPet && s.pet !== 'yok' && colors.length > 1;
     out.colorLabel = cd ? cd.label : '';
+    out.skinColors = skinColors;
+    out.avatarBgColors = avatarBgColors;
     out.petOptions = petOptions;
     out.pet = s.pet;
     out.hasPet = s.pet !== 'yok';
@@ -172,7 +178,7 @@ class Component extends DCLogic {
     out.bgColor = App.resolveColor(bgColors, s.bgColor);
     out.randomize = function () {
       self.setState({
-        skin: rnd(skins.length), face: pickKey(optionDefs.yuz),
+        skin: rnd(skins.length), face: pickKey(optionDefs.temel),
         hair: pickKey(optionDefs.sac), hairColor: rnd(hairs.length), eye: pickKey(optionDefs.goz),
         eyeColor: rnd(eyes.length), facial: pickKey(optionDefs.biyik), glasses: pickKey(optionDefs.gozluk)
       });
