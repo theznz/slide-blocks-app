@@ -35,8 +35,8 @@
       // Login
       'İlerlemeni kaydet': 'Save your progress',
       'Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.': 'Sign in and your stars, themes and avatar follow you to all your devices.',
-      'Apple ile devam et': 'Continue with Apple', 'Google ile devam et': 'Continue with Google',
-      'E-posta ile devam et': 'Continue with email', 'Misafir olarak devam et': 'Continue as guest',
+      'Apple ile Devam Et': 'Continue with Apple', 'Google ile Devam Et': 'Continue with Google',
+      'E-posta ile Devam Et': 'Continue with email', 'Misafir olarak devam et': 'Continue as guest',
       "Devam ederek Kullanım Koşulları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.": 'By continuing you accept the Terms of Use and Privacy Policy.',
       'Bu özellik çevrimdışı sürümde yok. Misafir olarak devam edebilirsin.': 'This feature isn’t available in the offline version. You can continue as a guest.',
 
