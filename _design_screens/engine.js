@@ -76,15 +76,15 @@
     var inst = new Component();
     view.inst = inst;
     view.draw = function () {
-      var keep = {};
-      Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"]'), function (e, i) { keep[i] = e.scrollLeft; });
+      var keep = [];
+      Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"],[style*="overflow-y"]'), function (e) { keep.push([e.scrollLeft, e.scrollTop]); });
       var frag = document.createDocumentFragment();
       var vals;
       try { vals = inst.renderVals() || {}; } catch (err) { console.error('renderVals error in', name, err); vals = {}; }
       kids(tpl.content, vals, frag);
       box.textContent = '';
       box.appendChild(frag);
-      Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"]'), function (e, i) { if (keep[i]) e.scrollLeft = keep[i]; });
+      Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"],[style*="overflow-y"]'), function (e, i) { if (keep[i]) { e.scrollLeft = keep[i][0]; e.scrollTop = keep[i][1]; } });
     };
     view.draw();
     views[name] = view;
