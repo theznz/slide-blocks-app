@@ -1,4 +1,4 @@
-// ---- block materials ("finish") per theme: flat, jelly, velvet, glass, metal, glitter ----
+// ---- block materials ("finish") per theme: flat, jelly, glass, metal, image ----
 // App.blockSkin(themeId, { bg, sh }, radius?) returns { background, shadow, extra } CSS fragments
 // shared by the game board and the theme previews, so a theme looks the same everywhere.
 (function (App) {
@@ -11,17 +11,6 @@
     var c = rgb(hex).map(function (v) { return Math.round(v + (255 - v) * amt); });
     return '#' + ((1 << 24) + (c[0] << 16) + (c[1] << 8) + c[2]).toString(16).slice(1).toUpperCase();
   }
-
-  var NOISE = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")";
-  var SPARKLE = 'radial-gradient(circle at 20% 30%, rgba(255,255,255,.95) 0 1.2px, transparent 2px), ' +
-    'radial-gradient(circle at 70% 20%, rgba(255,255,255,.8) 0 1px, transparent 1.8px), ' +
-    'radial-gradient(circle at 45% 70%, rgba(255,255,255,.9) 0 1.4px, transparent 2.2px), ' +
-    'radial-gradient(circle at 85% 80%, rgba(255,255,255,.7) 0 1px, transparent 1.8px), ' +
-    'radial-gradient(circle at 10% 85%, rgba(255,255,255,.75) 0 .9px, transparent 1.6px)';
-
-  // Realistic fur strands (tex/fur.png, made by gen_fur.py; inlined by assemble.py): white highlights over a
-  // plum undercoat, tileable, so it takes the colour of whatever sits under it.
-  var FUR = 'url("__FUR_PNG__")';
 
   // Image finish: hand-made block art in blocks/<theme>/<colour>_<shape>.webp, one file per
   // colour and shape (sq = 1x1, h2/h3 horizontal, v2/v3 vertical). Colours map to files by name.
@@ -46,13 +35,6 @@
         extra: 'border: 1px solid rgba(255,255,255,.35);'
       };
     },
-    velvet: function (c) {
-      return {
-        background: NOISE + ', radial-gradient(ellipse at 30% 15%, ' + lighten(c.bg, 0.22) + ' 0%, ' + c.bg + ' 45%, ' + App.darken(c.bg, 0.22) + ' 100%)',
-        shadow: 'inset 0 -5px 0 ' + App.darken(c.bg, 0.38) + ', inset 0 0 6px rgba(0,0,0,.25), 0 2px 0 rgba(0,0,0,.18)',
-        extra: ''
-      };
-    },
     // Thick, glossy coloured glass (like acrylic candy buttons): saturated translucent body,
     // soft white sheen on top, a lighter refracted band along the bottom edge, white rims,
     // and a glow in the block's own colour cast down and to the right.
@@ -66,32 +48,12 @@
         extra: '-webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);'
       };
     },
-    // Fluffy pastel fur sealed under a clear glass dome (like the plush glass buttons): a soft
-    // colour pooled in the middle fading to white fuzz at the edges, fine fur strands over it,
-    // a bright glass rim and a curved window highlight.
-    fluffy: function (c) {
-      return {
-        background: 'radial-gradient(70% 38% at 50% 12%, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 100%), ' +
-          FUR + ', ' +
-          'radial-gradient(ellipse at 50% 46%, ' + c.bg + ' 0%, ' + c.bg + ' 62%, ' + lighten(c.bg, 0.4) + ' 100%)',
-        shadow: 'inset 0 0 0 2px rgba(255,255,255,.75), inset 0 3px 3px rgba(255,255,255,.9), inset 0 -3px 5px rgba(255,255,255,.7), ' +
-          'inset 0 0 10px rgba(255,255,255,.55), 0 7px 12px ' + rgba(c.bg, 0.45) + ', 0 1px 2px rgba(0,0,0,.18)',
-        extra: 'border: 1px solid rgba(255,255,255,.55); background-size: 100% 100%, 110px 110px, 100% 100%;'
-      };
-    },
     metal: function (c) {
       return {
         background: 'repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0 1px, rgba(0,0,0,.04) 1px 3px), ' +
           'linear-gradient(180deg, ' + lighten(c.bg, 0.55) + ' 0%, ' + c.bg + ' 42%, ' + App.darken(c.bg, 0.2) + ' 56%, ' + lighten(c.bg, 0.18) + ' 100%)',
         shadow: 'inset 0 -5px 0 ' + App.darken(c.bg, 0.42) + ', inset 0 1px 0 rgba(255,255,255,.9), 0 3px 6px rgba(0,0,0,.3)',
         extra: ''
-      };
-    },
-    glitter: function (c) {
-      return {
-        background: SPARKLE + ', linear-gradient(160deg, ' + lighten(c.bg, 0.25) + ', ' + c.bg + ' 60%, ' + App.darken(c.bg, 0.12) + ')',
-        shadow: 'inset 0 -6px 0 ' + c.sh + ', 0 0 10px ' + rgba(c.bg, 0.55),
-        extra: 'background-size: 26px 26px, 22px 22px, 30px 30px, 24px 24px, 28px 28px, 100% 100%;'
       };
     }
   };

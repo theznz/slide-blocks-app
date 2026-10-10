@@ -20,13 +20,10 @@ window.App = (function () {
     { id: 'okyanus', name: 'Okyanus', c1: '#90E0EF', c2: '#48CAE4', c3: '#0096C7', cost: 60 },
     { id: 'gece', name: 'Gece', c1: '#9D8DF1', c2: '#6F72E0', c3: '#48BFE3', cost: 60 },
     { id: 'jole', name: 'Jöle', c1: '#FF5FA2', c2: '#4FD1FF', c3: '#9BE15D', cost: 80, finish: 'jelly' },
-    { id: 'kadife', name: 'Kadife', c1: '#9B2C4B', c2: '#1F6F5C', c3: '#3A4BA8', cost: 80, finish: 'velvet' },
     { id: 'cam', name: 'Cam', c1: '#8C6FEA', c2: '#4FD1BA', c3: '#F08CC4', cost: 100, finish: 'glass' },
     { id: 'metalik', name: 'Metalik', c1: '#C0C7D1', c2: '#D9A441', c3: '#B87333', cost: 100, finish: 'metal' },
-    { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' },
     { id: 'sekerleme', name: 'Şekerleme', c1: '#F8972E', c2: '#3E74F0', c3: '#F94782', cost: 150, finish: 'image' },
-    { id: 'balon', name: 'Balon', c1: '#4574EC', c2: '#FBD646', c3: '#F774A6', cost: 150, finish: 'image' },
-    { id: 'tuy', name: 'Tüy', c1: '#FFB3CF', c2: '#B5D3FF', c3: '#FFE680', cost: 120, finish: 'fluffy' }
+    { id: 'balon', name: 'Balon', c1: '#4574EC', c2: '#FBD646', c3: '#F774A6', cost: 150, finish: 'image' }
   ];
 
   var GAME_PALETTE = {
@@ -37,15 +34,12 @@ window.App = (function () {
     okyanus: [{ bg: '#90E0EF', sh: '#5FC2D6' }, { bg: '#48CAE4', sh: '#2A9FBA' }, { bg: '#0096C7', sh: '#00729A' }, { bg: '#ADE8F4', sh: '#7FC9DB' }],
     gece: [{ bg: '#9D8DF1', sh: '#6F5DCB' }, { bg: '#6F72E0', sh: '#4A4DB8' }, { bg: '#48BFE3', sh: '#2A97BA' }, { bg: '#C9A6FF', sh: '#9E75E0' }],
     jole: [{ bg: '#FF5FA2', sh: '#C93A78' }, { bg: '#4FD1FF', sh: '#2399C7' }, { bg: '#9BE15D', sh: '#6DAD34' }, { bg: '#B98CFF', sh: '#8A5ED6' }],
-    kadife: [{ bg: '#9B2C4B', sh: '#6E1C34' }, { bg: '#1F6F5C', sh: '#124A3D' }, { bg: '#3A4BA8', sh: '#26337A' }, { bg: '#C08A2E', sh: '#8C6219' }],
     cam: [{ bg: '#8C6FEA', sh: '#6A4FC7' }, { bg: '#4FD1BA', sh: '#33A893' }, { bg: '#F08CC4', sh: '#C9649D' }, { bg: '#6FB4F2', sh: '#4A8CCB' }],
     metalik: [{ bg: '#C0C7D1', sh: '#8A939F' }, { bg: '#D9A441', sh: '#A67822' }, { bg: '#B87333', sh: '#86501F' }, { bg: '#6F8FAF', sh: '#4C6A88' }],
-    simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }],
     sekerleme: [{ bg: '#3E74F0', sh: '#2A55C4', img: 'mavi' }, { bg: '#F9C935', sh: '#D6A51C', img: 'sari' }, { bg: '#F94782', sh: '#D12C63', img: 'pembe' },
       { bg: '#30CCB5', sh: '#1FA592', img: 'turkuaz' }, { bg: '#9A62F0', sh: '#7743CF', img: 'mor' }, { bg: '#EC3547', sh: '#C21F30', img: 'kirmizi' }, { bg: '#FA7F2C', sh: '#D25F14', img: 'turuncu' }],
     balon: [{ bg: '#4574EC', sh: '#2F57C2', img: 'mavi' }, { bg: '#FBD646', sh: '#D9B12A', img: 'sari' }, { bg: '#F774A6', sh: '#D4507F', img: 'pembe' },
-      { bg: '#5DD0B0', sh: '#3FAF90', img: 'turkuaz' }, { bg: '#9E6EEF', sh: '#7A4CD0', img: 'mor' }, { bg: '#EF4646', sh: '#C42C2C', img: 'kirmizi' }],
-    tuy: [{ bg: '#FFA8C8', sh: '#E07FA6' }, { bg: '#A9C8FF', sh: '#7FA1E0' }, { bg: '#FFE06E', sh: '#E0BC3F' }, { bg: '#B8E6C4', sh: '#8CC49C' }]
+      { bg: '#5DD0B0', sh: '#3FAF90', img: 'turkuaz' }, { bg: '#9E6EEF', sh: '#7A4CD0', img: 'mor' }, { bg: '#EF4646', sh: '#C42C2C', img: 'kirmizi' }]
   };
 
   var SKINS = [
@@ -209,6 +203,14 @@ window.App = (function () {
         merged.currentLevelIndex = Math.min(merged.currentLevelIndex || 1, LEVELS.length);
       }
       merged.levelsVersion = LEVELS_VERSION;
+      // Themes removed in 1.0 (Kadife, Simli, Tüy): refund their price and fall back to Şeker.
+      var REMOVED = { kadife: 80, simli: 120, tuy: 120 };
+      merged.themesOwned = merged.themesOwned.filter(function (id) {
+        if (REMOVED[id] == null) return true;
+        merged.stars += REMOVED[id];
+        return false;
+      });
+      if (REMOVED[merged.theme] != null) merged.theme = 'seker';
       return merged;
     } catch (e) { return def; }
   }

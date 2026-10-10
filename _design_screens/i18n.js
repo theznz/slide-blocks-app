@@ -20,7 +20,7 @@
       // tiers
       'Kolay': 'Easy', 'Orta': 'Medium', 'Zor': 'Hard', 'Uzman': 'Expert',
       // themes
-      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Balon': 'Balloon', 'Şekerleme': 'Gummy', 'Jöle': 'Jelly', 'Kadife': 'Velvet', 'Cam': 'Glass', 'Metalik': 'Metallic', 'Simli': 'Glitter',
+      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Balon': 'Balloon', 'Şekerleme': 'Gummy', 'Jöle': 'Jelly', 'Cam': 'Glass', 'Metalik': 'Metallic',
 
       // levels v2
       'Efsane': 'Legend',
@@ -33,7 +33,6 @@
       'Yeni: Gri duvarlar hiç kımıldamaz!': 'New: grey walls never move!',
 
       // reminders + Tüy theme
-      'Tüy': 'Fluffy',
       'Günlük bulmacan seni bekliyor!': 'Your daily puzzle is waiting!',
       'Günlük bulmacan seni bekliyor! Seriyi bozma.': 'Your daily puzzle is waiting! Keep your streak going.',
       'Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.': 'Notifications weren’t allowed; reminders will show inside the app.',
