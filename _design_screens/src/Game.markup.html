@@ -39,7 +39,7 @@
 </div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 14px">
-<div style="position: relative; width: 350px; height: 350px; background-color: #232750; background-image: radial-gradient(circle, #3A4080 3px, transparent 4px); background-size: 56px 56px; background-position: 7px 7px; border-radius: 20px">
+<div style="position: relative; width: 350px; height: 350px; {{boardBg}} border-radius: 20px">
 <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="10">
 <div data-id="{{ b.id }}" onpointerdown="{{ startDrag }}" class="{{ b.cls }}" style="{{ b.style }}">
 <sc-if value="{{ b.target }}" hint-placeholder-val="{{ true }}">

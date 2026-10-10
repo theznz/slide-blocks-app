@@ -63,7 +63,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     var self = this;
-    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121, muted: this.isMuted(), unmuted: !this.isMuted() };
+    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121, boardBg: App.boardBackground(App.data.theme), muted: this.isMuted(), unmuted: !this.isMuted() };
     var st = this.state;
     var blocks = st.blocks.map(function (b) {
       var hinted = st.hintInfo && st.hintInfo.id === b.id;
@@ -75,6 +75,7 @@ class Component extends DCLogic {
       timeLabel: App.fmtTime(st.elapsedSec), hints: App.data.hints,
       exitTop: 9 + App.getLevel(st.levelIndex).exitRow * 56,
       blocks: blocks,
+      boardBg: App.boardBackground(App.data.theme),
       tierName: App.t(App.tierOf(st.levelIndex).name),
       muted: this.isMuted(),
       unmuted: !this.isMuted(),
