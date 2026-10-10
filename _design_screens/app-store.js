@@ -24,6 +24,7 @@ window.App = (function () {
     { id: 'cam', name: 'Cam', c1: '#8C6FEA', c2: '#4FD1BA', c3: '#F08CC4', cost: 100, finish: 'glass' },
     { id: 'metalik', name: 'Metalik', c1: '#C0C7D1', c2: '#D9A441', c3: '#B87333', cost: 100, finish: 'metal' },
     { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' },
+    { id: 'sekerleme', name: 'Şekerleme', c1: '#F8972E', c2: '#3E74F0', c3: '#F94782', cost: 150, finish: 'image' },
     { id: 'balon', name: 'Balon', c1: '#4574EC', c2: '#FBD646', c3: '#F774A6', cost: 150, finish: 'image' },
     { id: 'tuy', name: 'Tüy', c1: '#FFB3CF', c2: '#B5D3FF', c3: '#FFE680', cost: 120, finish: 'fluffy' }
   ];
@@ -40,6 +41,8 @@ window.App = (function () {
     cam: [{ bg: '#8C6FEA', sh: '#6A4FC7' }, { bg: '#4FD1BA', sh: '#33A893' }, { bg: '#F08CC4', sh: '#C9649D' }, { bg: '#6FB4F2', sh: '#4A8CCB' }],
     metalik: [{ bg: '#C0C7D1', sh: '#8A939F' }, { bg: '#D9A441', sh: '#A67822' }, { bg: '#B87333', sh: '#86501F' }, { bg: '#6F8FAF', sh: '#4C6A88' }],
     simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }],
+    sekerleme: [{ bg: '#3E74F0', sh: '#2A55C4', img: 'mavi' }, { bg: '#F9C935', sh: '#D6A51C', img: 'sari' }, { bg: '#F94782', sh: '#D12C63', img: 'pembe' },
+      { bg: '#30CCB5', sh: '#1FA592', img: 'turkuaz' }, { bg: '#9A62F0', sh: '#7743CF', img: 'mor' }, { bg: '#EC3547', sh: '#C21F30', img: 'kirmizi' }, { bg: '#FA7F2C', sh: '#D25F14', img: 'turuncu' }],
     balon: [{ bg: '#4574EC', sh: '#2F57C2', img: 'mavi' }, { bg: '#FBD646', sh: '#D9B12A', img: 'sari' }, { bg: '#F774A6', sh: '#D4507F', img: 'pembe' },
       { bg: '#5DD0B0', sh: '#3FAF90', img: 'turkuaz' }, { bg: '#9E6EEF', sh: '#7A4CD0', img: 'mor' }, { bg: '#EF4646', sh: '#C42C2C', img: 'kirmizi' }],
     tuy: [{ bg: '#FFA8C8', sh: '#E07FA6' }, { bg: '#A9C8FF', sh: '#7FA1E0' }, { bg: '#FFE06E', sh: '#E0BC3F' }, { bg: '#B8E6C4', sh: '#8CC49C' }]

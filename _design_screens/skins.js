@@ -26,6 +26,7 @@
   // Image finish: hand-made block art in blocks/<theme>/<colour>_<shape>.webp, one file per
   // colour and shape (sq = 1x1, h2/h3 horizontal, v2/v3 vertical). Colours map to files by name.
   var IMAGE_SETS = {
+    sekerleme: { '#EC3547': 'kirmizi', '#9A62F0': 'mor', '#3E74F0': 'mavi', '#F94782': 'pembe', '#F9C935': 'sari', '#30CCB5': 'turkuaz', '#FA7F2C': 'turuncu', '#F8972E': 'gunbatimi', '#FF9F45': 'gunbatimi' },
     balon: { '#EF4646': 'kirmizi', '#9E6EEF': 'mor', '#4574EC': 'mavi', '#F774A6': 'pembe', '#FBD646': 'sari', '#5DD0B0': 'turkuaz', '#F88931': 'turuncu', '#FF9F45': 'turuncu' }
   };
   function shapeKey(shape) {

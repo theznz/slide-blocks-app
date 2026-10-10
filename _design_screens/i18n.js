@@ -20,7 +20,7 @@
       // tiers
       'Kolay': 'Easy', 'Orta': 'Medium', 'Zor': 'Hard', 'Uzman': 'Expert',
       // themes
-      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Balon': 'Balloon', 'Jöle': 'Jelly', 'Kadife': 'Velvet', 'Cam': 'Glass', 'Metalik': 'Metallic', 'Simli': 'Glitter',
+      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Balon': 'Balloon', 'Şekerleme': 'Gummy', 'Jöle': 'Jelly', 'Kadife': 'Velvet', 'Cam': 'Glass', 'Metalik': 'Metallic', 'Simli': 'Glitter',
 
       // levels v2
       'Efsane': 'Legend',
