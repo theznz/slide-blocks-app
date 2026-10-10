@@ -6,7 +6,7 @@ class Component extends DCLogic {
     var tab = (this.state && this.state.tab) || App.tierOf(d.unlockedLevel).name;
     var tabs = App.TIERS.map(function (t) {
       var on = t.name === tab;
-      return { label: t.name, on: on, bg: on ? '#3DD6C3' : '#232750', fg: on ? '#171A36' : '#B9BDE6', pick: function () { self.setState({ tab: t.name }); } };
+      return { label: App.t(t.name), on: on, bg: on ? '#3DD6C3' : '#232750', fg: on ? '#171A36' : '#B9BDE6', pick: function () { self.setState({ tab: t.name }); } };
     });
     var tier = App.TIERS.filter(function (t) { return t.name === tab; })[0] || App.TIERS[0];
     var levels = [];

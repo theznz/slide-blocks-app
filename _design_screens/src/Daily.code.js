@@ -4,7 +4,7 @@ class Component extends DCLogic {
     var d = App.data;
     var now = new Date();
     var year = now.getFullYear(), month = now.getMonth(), today = now.getDate();
-    var monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+    var monthNames = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'].map(App.tr);
     var firstWeekday = (new Date(year, month, 1).getDay() + 6) % 7; // 0=Mon
     var daysInMonth = new Date(year, month + 1, 0).getDate();
     var days = [];
@@ -23,15 +23,15 @@ class Component extends DCLogic {
     var doneToday = !!d.daily.claimed[todayKey];
     return {
       streak: d.daily.streak,
-      streakLabel: d.daily.streak + ' günlük seri',
-      streakSub: doneToday ? 'Bugün çözdün, yarın tekrar gel!' : ('Bugünü de oyna, seriyi ' + (d.daily.streak + 1) + ' güne çıkar.'),
+      streakLabel: App.t('{n} günlük seri', { n: d.daily.streak }),
+      streakSub: doneToday ? App.t('Bugün çözdün, yarın tekrar gel!') : App.t('Bugünü de oyna, seriyi {n} güne çıkar.', { n: d.daily.streak + 1 }),
       monthLabel: monthNames[month] + ' ' + year,
       days: days,
-      dateLabel: today + ' ' + monthNames[month] + ' · ' + lv.tier,
-      rewardLabel: doneToday ? 'Bugün tamamlandı' : ('Ödül: ' + (3 + Math.min(7, d.daily.streak + 1)) + ' yıldız'),
-      playLabel: doneToday ? 'Yarın tekrar gel' : 'Bugünkü bulmacayı oyna',
+      dateLabel: App.t('{d} {m} · {tier}', { d: today, m: monthNames[month], tier: App.t(lv.tier) }),
+      rewardLabel: doneToday ? App.t('Bugün tamamlandı') : App.t('Ödül: {n} yıldız', { n: 3 + Math.min(7, d.daily.streak + 1) }),
+      playLabel: App.t(doneToday ? 'Yarın tekrar gel' : 'Bugünkü bulmacayı oyna'),
       play: function () {
-        if (doneToday) { App.toast('Bugünün bulmacası zaten tamamlandı'); return; }
+        if (doneToday) { App.sfx('error'); App.toast(App.t('Bugünün bulmacası zaten tamamlandı')); return; }
         d.currentLevelIndex = lvlIdx; d.pendingRestart = true; d.dailyMode = true;
         window.go('Game');
       }

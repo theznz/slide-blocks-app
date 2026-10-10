@@ -148,7 +148,7 @@ class Component extends DCLogic {
 
     var tabs = tabDefs.map(function (t) {
       var on = t[0] === s.tab;
-      return { label: t[1], pick: set({ tab: t[0] }), pressed: on ? 'true' : 'false', bg: on ? '#3DD6C3' : '#232750', fg: on ? '#171A36' : '#FFFFFF' };
+      return { label: App.t(t[1]), pick: set({ tab: t[0] }), pressed: on ? 'true' : 'false', bg: on ? '#3DD6C3' : '#232750', fg: on ? '#171A36' : '#FFFFFF' };
     });
     function buildOptions(def) {
       return def.list.map(function (o) {
@@ -156,7 +156,7 @@ class Component extends DCLogic {
         var patch = o[2];
         if (!patch) { patch = {}; patch[def.key] = o[0]; }
         var item = look(Object.assign({}, s, patch));
-        item.label = o[1];
+        item.label = App.t(o[1]);
         item.vb = def.vb;
         item.pick = set(patch);
         item.pressed = on ? 'true' : 'false';
@@ -200,7 +200,7 @@ class Component extends DCLogic {
       }].concat(list.map(function (c, i) {
         var on = s[key] === i;
         var patch = {}; patch[key] = i;
-        return { isAdd: false, isPreset: true, name: c.name, hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
+        return { isAdd: false, isPreset: true, name: App.t(c.name), hex: c.hex, pick: set(patch), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #232750, 0 0 0 6px #FFFFFF' : 'none' };
       }));
     }
     var colors = cd ? buildColorList(cd.key, cd.list) : [];
@@ -215,7 +215,7 @@ class Component extends DCLogic {
     var petOptions = pets.map(function (p) {
       var on = s.pet === p.id;
       return {
-        id: p.id, name: p.name, emoji: p.emoji, isYok: p.id === 'yok', notYok: p.id !== 'yok', circleColor: p.id === 'yok' ? '#171A36' : currentBadgeColor,
+        id: p.id, name: App.t(p.name), emoji: p.emoji, isYok: p.id === 'yok', notYok: p.id !== 'yok', circleColor: p.id === 'yok' ? '#171A36' : currentBadgeColor,
         pick: set({ pet: p.id }), pressed: on ? 'true' : 'false', ring: on ? '0 0 0 3px #3DD6C3' : 'none'
       };
     });
@@ -228,11 +228,11 @@ class Component extends DCLogic {
     out.isAksesuar = isAksesuar;
     out.isFace = !isPet && !isAksesuar;
     out.options = options;
-    out.optionLabel = od.label;
+    out.optionLabel = App.t(od.label);
     out.colors = colors;
     out.hasColors = !isPet && !isTemel && colors.length > 1;
     out.showPetColors = isPet && s.pet !== 'yok' && colors.length > 1;
-    out.colorLabel = cd ? cd.label : '';
+    out.colorLabel = cd ? App.t(cd.label) : '';
     out.skinColors = skinColors;
     out.avatarBgColors = avatarBgColors;
     out.noseOptions = isTemel ? buildOptions(optionDefs.burun) : [];

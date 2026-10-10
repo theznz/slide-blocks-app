@@ -159,7 +159,7 @@ window.App = (function () {
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
       avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, earring: 'yok', necklace: 'yok', piercing: 'yok', clothColor: 0, clip: 'yok', hat: 'yok', scarf: 'yok', headphones: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
-      settings: { ses: true, muzik: true, titresim: false, bildirim: true },
+      settings: { ses: true, muzik: true, titresim: false, bildirim: true, dil: 'tr' },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,
       gameState: null
@@ -305,15 +305,15 @@ window.App = (function () {
       return true;
     });
     var defs = [
-      { name: 'İlk çıkış', how: 'İlk seviyeyi bitir', icon: 'check', earned: completed >= 1, status: completed >= 1 ? null : '0 / 1' },
-      { name: 'Üç yıldız', how: 'Bir seviyeyi 3 yıldızla bitir', icon: 'star', earned: anyThreeStar, status: anyThreeStar ? null : '0 / 1' },
-      { name: 'Hızlı çözüm', how: '30 saniyenin altında bitir', icon: 'bolt', earned: fastest != null && fastest < 30, status: (fastest != null && fastest < 30) ? null : '0 / 1' },
-      { name: 'İpucusuz 10', how: '10 seviyeyi ipucusuz bitir', icon: 'bulb', earned: noHintCount >= 10, status: noHintCount >= 10 ? null : (noHintCount + ' / 10') },
-      { name: 'Haftalık seri', how: '7 gün üst üste oyna', icon: 'flame', earned: App.data.daily.streak >= 7, status: App.data.daily.streak >= 7 ? null : (App.data.daily.streak + ' / 7') },
-      { name: LEVELS.length + ' seviye', how: 'Tüm seviyeleri tamamla', icon: 'flag', earned: completed >= LEVELS.length, status: completed >= LEVELS.length ? null : (completed + ' / ' + LEVELS.length) },
-      { name: 'Kusursuz paket', how: 'Bir paketi tam yıldızla bitir', icon: 'crown', earned: perfectTier, status: perfectTier ? null : '0 / 1' },
-      { name: 'Koleksiyoncu', how: 'Tüm temaları aç', icon: 'palette', earned: App.data.themesOwned.length >= THEMES.length, status: App.data.themesOwned.length >= THEMES.length ? null : (App.data.themesOwned.length + ' / ' + THEMES.length) },
-      { name: 'Günlük usta', how: '30 günlük bulmaca çöz', icon: 'cal', earned: Object.keys(App.data.daily.claimed).length >= 30, status: Object.keys(App.data.daily.claimed).length >= 30 ? null : (Object.keys(App.data.daily.claimed).length + ' / 30') }
+      { name: App.t('İlk çıkış'), how: App.t('İlk seviyeyi bitir'), icon: 'check', earned: completed >= 1, status: completed >= 1 ? null : '0 / 1' },
+      { name: App.t('Üç yıldız'), how: App.t('Bir seviyeyi 3 yıldızla bitir'), icon: 'star', earned: anyThreeStar, status: anyThreeStar ? null : '0 / 1' },
+      { name: App.t('Hızlı çözüm'), how: App.t('30 saniyenin altında bitir'), icon: 'bolt', earned: fastest != null && fastest < 30, status: (fastest != null && fastest < 30) ? null : '0 / 1' },
+      { name: App.t('İpucusuz 10'), how: App.t('10 seviyeyi ipucusuz bitir'), icon: 'bulb', earned: noHintCount >= 10, status: noHintCount >= 10 ? null : (noHintCount + ' / 10') },
+      { name: App.t('Haftalık seri'), how: App.t('7 gün üst üste oyna'), icon: 'flame', earned: App.data.daily.streak >= 7, status: App.data.daily.streak >= 7 ? null : (App.data.daily.streak + ' / 7') },
+      { name: App.t('{n} seviye', { n: LEVELS.length }), how: App.t('Tüm seviyeleri tamamla'), icon: 'flag', earned: completed >= LEVELS.length, status: completed >= LEVELS.length ? null : (completed + ' / ' + LEVELS.length) },
+      { name: App.t('Kusursuz paket'), how: App.t('Bir paketi tam yıldızla bitir'), icon: 'crown', earned: perfectTier, status: perfectTier ? null : '0 / 1' },
+      { name: App.t('Koleksiyoncu'), how: App.t('Tüm temaları aç'), icon: 'palette', earned: App.data.themesOwned.length >= THEMES.length, status: App.data.themesOwned.length >= THEMES.length ? null : (App.data.themesOwned.length + ' / ' + THEMES.length) },
+      { name: App.t('Günlük usta'), how: App.t('30 günlük bulmaca çöz'), icon: 'cal', earned: Object.keys(App.data.daily.claimed).length >= 30, status: Object.keys(App.data.daily.claimed).length >= 30 ? null : (Object.keys(App.data.daily.claimed).length + ' / 30') }
     ];
     return defs;
   };

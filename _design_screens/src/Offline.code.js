@@ -8,7 +8,7 @@ class Component extends DCLogic {
           App.data.pendingOfflineTarget = null;
           window.go(t);
         } else {
-          App.toast('Hâlâ bağlantı yok');
+          App.sfx('error'); App.toast(App.t('Hâlâ bağlantı yok'));
         }
       }
     };

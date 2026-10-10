@@ -15,11 +15,19 @@
   function fill(str, scope) {
     return str.replace(HOLE, function (m, p) { var v = lookup(scope, p); return v == null ? '' : v; });
   }
+  // Translate literal markup text (before holes are filled) into the active language.
+  var TX_ATTRS = { 'aria-label': 1, placeholder: 1, title: 1, alt: 1 };
+  function tx(str) {
+    var k = str.trim();
+    if (!k) return str;
+    var v = App.tr(k);
+    return v === k ? str : str.replace(k, function () { return v; });
+  }
   function kids(node, scope, out) {
     for (var c = node.firstChild; c; c = c.nextSibling) render(c, scope, out);
   }
   function render(node, scope, out) {
-    if (node.nodeType === 3) { out.appendChild(document.createTextNode(fill(node.nodeValue, scope))); return; }
+    if (node.nodeType === 3) { out.appendChild(document.createTextNode(fill(tx(node.nodeValue), scope))); return; }
     if (node.nodeType !== 1) return;
     var tag = node.localName, m;
     if (tag === 'sc-if') {
@@ -39,8 +47,9 @@
     }
     var el = node.cloneNode(false);
     Array.prototype.slice.call(node.attributes).forEach(function (a) {
-      var w = WHOLE.exec(a.value);
       var lname = a.name.toLowerCase();
+      var val = TX_ATTRS[lname] ? tx(a.value) : a.value;
+      var w = WHOLE.exec(val);
       if (lname.indexOf('on') === 0 && lname.length > 2) {
         el.removeAttribute(a.name);
         var fn = w && lookup(scope, w[1]);
@@ -48,8 +57,10 @@
       } else if (w) {
         var v = lookup(scope, w[1]);
         el.setAttribute(a.name, v == null ? '' : v);
-      } else if (a.value.indexOf('{{') !== -1) {
-        el.setAttribute(a.name, fill(a.value, scope));
+      } else if (val.indexOf('{{') !== -1) {
+        el.setAttribute(a.name, fill(val, scope));
+      } else if (val !== a.value) {
+        el.setAttribute(a.name, val);
       }
     });
     kids(node, scope, el);
@@ -107,6 +118,7 @@
   window.__views = views;
 
   stage.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('button, a[href]')) App.sfx('tap');
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     e.preventDefault();

@@ -17,8 +17,8 @@ class Component extends DCLogic {
     var badges = App.computeBadges().slice(0, 4);
     var av = App.avatarLook(d.avatar);
     return Object.assign({}, av, {
-      playerName: d.guest ? 'Misafir Oyuncu' : 'Oyuncu',
-      tierLabel: tier.name + ' paket · Seviye ' + d.unlockedLevel,
+      playerName: App.t(d.guest ? 'Misafir Oyuncu' : 'Oyuncu'),
+      tierLabel: App.t('{tier} paket · Seviye {n}', { tier: App.t(tier.name), n: d.unlockedLevel }),
       totalStars: totalStars, completedCount: App.completedCount(), streak: d.daily.streak,
       goBadges: function () { window.go('Badges'); },
       badges: badges.map(function (b, i) {
@@ -28,7 +28,7 @@ class Component extends DCLogic {
           bg: b.earned ? accent : '#232750', shadow: b.earned ? 'inset 0 -5px 0 rgba(0,0,0,0.25)' : 'none', border: b.earned ? '0' : '2px solid #2E3366', fg: b.earned ? '#171A36' : '#5B6190'
         };
       }),
-      pkgLabel: tier.name + ' paket', pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pkgPct,
+      pkgLabel: App.t('{tier} paket', { tier: App.t(tier.name) }), pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pkgPct,
       starDone: totalStars, starTotal: App.totalPossibleStars(), starPct: starPct
     });
   }

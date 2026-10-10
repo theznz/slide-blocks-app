@@ -11,15 +11,15 @@ class Component extends DCLogic {
     var rewards = [3, 4, 5, 6, 7, 8, 10];
     var days = rewards.map(function (r, i) {
       var n = i + 1;
-      var dd = { day: n + '. gün', reward: r + ' yıldız', icon: star, span: n === 7 ? 'span 2' : 'auto', pad: '0', bg: '#2E3366', shadow: 'none', border: '0', fg: '#FFFFFF' };
-      if (n < todayPos || (n === todayPos && doneToday)) { dd.icon = check; dd.reward = 'Alındı'; dd.fg = '#B9BDE6'; }
+      var dd = { day: App.t('{n}. gün', { n: n }), reward: App.t('{n} yıldız', { n: r }), icon: star, span: n === 7 ? 'span 2' : 'auto', pad: '0', bg: '#2E3366', shadow: 'none', border: '0', fg: '#FFFFFF' };
+      if (n < todayPos || (n === todayPos && doneToday)) { dd.icon = check; dd.reward = App.t('Alındı'); dd.fg = '#B9BDE6'; }
       else if (n === todayPos) { dd.bg = '#FFD35C'; dd.shadow = 'inset 0 -5px 0 #D9A92F'; dd.pad = '5px'; dd.fg = '#171A36'; }
       else { dd.bg = 'transparent'; dd.border = '2px solid #3A4080'; dd.fg = '#B9BDE6'; }
       return dd;
     });
     return {
       days: days,
-      ctaLabel: doneToday ? 'Bugünü tamamladın' : (todayPos + '. gün ödülü için bulmacaya git'),
+      ctaLabel: doneToday ? App.t('Bugünü tamamladın') : App.t('{n}. gün ödülü için bulmacaya git', { n: todayPos }),
       goDaily: function () { window.go('Daily'); }
     };
   }

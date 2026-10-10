@@ -1,11 +1,11 @@
 
 class Component extends DCLogic {
   doBuy(hints, cost) {
-    if (App.data.stars < cost) { App.toast('Yetersiz yıldız'); this.setState({ confirm: null }); return; }
+    if (App.data.stars < cost) { App.sfx('error'); App.toast(App.t('Yetersiz yıldız')); this.setState({ confirm: null }); return; }
     App.data.stars -= cost;
     App.data.hints += hints;
     App.save();
-    App.toast('+' + hints + ' ipucu eklendi');
+    App.sfx('coin'); App.toast(App.t('+{n} ipucu eklendi', { n: hints }));
     this.setState({ confirm: null });
   }
   renderVals() {
@@ -18,7 +18,7 @@ class Component extends DCLogic {
     return {
       stars: App.data.stars, hints: App.data.hints,
       watching: watching,
-      watchLabel: watching ? 'İzleniyor…' : 'İzle',
+      watchLabel: App.t(watching ? 'İzleniyor…' : 'İzle'),
       buy5: askBuy(5, 25),
       buy15: askBuy(15, 60),
       buy40: askBuy(40, 140),
@@ -28,19 +28,19 @@ class Component extends DCLogic {
         setTimeout(function () {
           App.data.hints += 1; App.save();
           self.setState({ watching: false });
-          App.toast('+1 ipucu kazandın');
+          App.sfx('coin'); App.toast(App.t('+1 ipucu kazandın'));
         }, 1400);
       },
       noAds: function () {
-        if (App.data.stars < 200) { App.toast('Yetersiz yıldız'); return; }
+        if (App.data.stars < 200) { App.sfx('error'); App.toast(App.t('Yetersiz yıldız')); return; }
         App.data.stars -= 200; App.data.adsRemoved = true; App.save();
-        App.toast('Reklamlar kaldırıldı');
+        App.sfx('coin'); App.toast(App.t('Reklamlar kaldırıldı'));
         self.forceUpdate();
       },
       adsRemoved: App.data.adsRemoved,
-      restore: function () { App.toast('Geri yüklenecek bir satın alım bulunamadı'); },
+      restore: function () { App.toast(App.t('Geri yüklenecek bir satın alım bulunamadı')); },
       hasConfirm: !!confirm,
-      confirmText: confirm ? (confirm.hints + ' ipucu almak için ' + confirm.cost + ' yıldız harcanacak.') : '',
+      confirmText: confirm ? App.t('{h} ipucu almak için {c} yıldız harcanacak.', { h: confirm.hints, c: confirm.cost }) : '',
       confirmYes: confirm ? function () { self.doBuy(confirm.hints, confirm.cost); } : function () {},
       confirmNo: function () { self.setState({ confirm: null }); }
     };

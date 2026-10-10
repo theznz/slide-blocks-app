@@ -24,7 +24,7 @@ class Component extends DCLogic {
         border: b.earned ? '0' : '2px solid #3A4080',
         pad: b.earned ? '5px' : '0',
         fg: b.earned ? '#171A36' : '#8D93C9',
-        status: b.earned ? 'Kazanıldı' : b.status,
+        status: b.earned ? App.t('Kazanıldı') : b.status,
         statusFg: b.earned ? '#3DD6C3' : '#FFD35C'
       };
     });

@@ -10,8 +10,8 @@ class Component extends DCLogic {
     return Object.assign({}, av, {
       stars: d.stars,
       unlockedLevel: n,
-      tierName: tier.name,
-      pkgLabel: tier.name + ' paket',
+      tierName: App.t(tier.name),
+      pkgLabel: App.t('{tier} paket', { tier: App.t(tier.name) }),
       pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pct,
       play: function () { d.currentLevelIndex = n; window.go('Game'); },
       goShop: function () { App.goOnline('Shop'); },

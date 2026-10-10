@@ -9,8 +9,8 @@ class Component extends DCLogic {
       levelIndex: r.levelIndex, moves: r.moves, par: r.par, timeLabel: App.fmtTime(r.timeSec),
       star1: stars >= 1 ? '#FFD35C' : '#2E3366', star2: stars >= 2 ? '#FFD35C' : '#2E3366', star3: stars >= 3 ? '#FFD35C' : '#2E3366',
       star1Stroke: stars >= 1 ? '#D9A92F' : '#3A4080', star2Stroke: stars >= 2 ? '#D9A92F' : '#3A4080', star3Stroke: stars >= 3 ? '#D9A92F' : '#3A4080',
-      nextLabel: hasNext ? 'Sonraki seviye' : 'Tüm seviyeler tamam!',
-      tip: stars >= 3 ? 'Üç yıldız! Mükemmel çözüm.' : ('Üçüncü yıldız için ' + r.par + ' hamle veya daha azıyla bitir.'),
+      nextLabel: App.t(hasNext ? 'Sonraki seviye' : 'Tüm seviyeler tamam!'),
+      tip: stars >= 3 ? App.t('Üç yıldız! Mükemmel çözüm.') : App.t('Üçüncü yıldız için {n} hamle veya daha azıyla bitir.', { n: r.par }),
       next: function () {
         if (hasNext) {
           App.data.currentLevelIndex = r.levelIndex + 1;

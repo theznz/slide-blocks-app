@@ -63,19 +63,20 @@ class Component extends DCLogic {
   }
   renderVals() {
     var self = this;
-    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121, muted: !App.data.settings.muzik, unmuted: !!App.data.settings.muzik };
+    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121, muted: this.isMuted(), unmuted: !this.isMuted() };
     var st = this.state;
     var blocks = st.blocks.map(function (b) {
       var hinted = st.hintInfo && st.hintInfo.id === b.id;
       return Object.assign({}, b, { style: self.blockStyle(b, hinted), cls: hinted ? 'hint-pulse' : '' });
     });
     return {
-      levelIndex: st.levelIndex, tierName: st.tierName, moves: st.moves, par: st.par,
+      levelIndex: st.levelIndex, moves: st.moves, par: st.par,
       timeLabel: App.fmtTime(st.elapsedSec), hints: App.data.hints,
       exitTop: 9 + App.getLevel(st.levelIndex).exitRow * 56,
       blocks: blocks,
-      muted: !App.data.settings.muzik,
-      unmuted: !!App.data.settings.muzik,
+      tierName: App.t(App.tierOf(st.levelIndex).name),
+      muted: this.isMuted(),
+      unmuted: !this.isMuted(),
       toggleMute: function () { self.toggleMute(); },
       startDrag: function (e) { self.startDrag(e); },
       undo: function () { self.undo(); },
@@ -83,9 +84,15 @@ class Component extends DCLogic {
       hint: function () { self.useHint(); }
     };
   }
+  isMuted() {
+    return !App.data.settings.ses && !App.data.settings.muzik;
+  }
   toggleMute() {
-    App.data.settings.muzik = !App.data.settings.muzik;
+    var on = this.isMuted();
+    App.data.settings.ses = on;
+    App.data.settings.muzik = on;
     App.save();
+    App.syncMusic();
     this.forceUpdate();
   }
   startDrag(e) {
@@ -151,7 +158,13 @@ class Component extends DCLogic {
     var target = newBlocks.filter(function (b) { return b.target; })[0];
     var won = target.col === 6 - target.len;
     this.setState({ blocks: newBlocks, moves: moves, history: history, hintInfo: null, won: won });
-    if (won) this.finish(moves); else this.persist();
+    if (won) {
+      App.sfx('win'); App.vibrate([40, 60, 40, 60, 120]);
+      this.finish(moves);
+    } else {
+      App.sfx('slide'); App.vibrate(12);
+      this.persist();
+    }
   }
   endDrag() {
     if (this._onMove) window.removeEventListener('pointermove', this._onMove);
@@ -177,7 +190,8 @@ class Component extends DCLogic {
     }, 260);
   }
   undo() {
-    if (!this.state || !this.state.history.length) { App.toast('Geri alınacak hamle yok'); return; }
+    if (!this.state || !this.state.history.length) { App.sfx('error'); App.toast(App.t('Geri alınacak hamle yok')); return; }
+    App.sfx('undo'); App.vibrate(8);
     var history = this.state.history.slice();
     var prev = history.pop();
     this.setState({ blocks: prev, moves: Math.max(0, this.state.moves - 1), history: history, hintInfo: null });
@@ -190,12 +204,13 @@ class Component extends DCLogic {
   useHint() {
     if (App.data.hints <= 0) { window.go('NoHints'); return; }
     var mv = App.solveNextMove(this.state.blocks);
-    if (!mv) { App.toast('Şu an ipucu bulunamadı'); return; }
+    if (!mv) { App.sfx('error'); App.toast(App.t('Şu an ipucu bulunamadı')); return; }
     App.data.hints -= 1;
     App.save();
     this.state.usedHint = true;
     var dir = mv.orient === 'h' ? (mv.toPos > mv.fromPos ? 'sağa' : 'sola') : (mv.toPos > mv.fromPos ? 'aşağı' : 'yukarı');
-    App.toast('Bu bloğu ' + dir + ' kaydır');
+    App.sfx('hint'); App.vibrate(20);
+    App.toast(App.t('Bu bloğu ' + dir + ' kaydır'));
     this.setState({ hintInfo: { id: mv.id } });
     this.persist();
     var self = this;
