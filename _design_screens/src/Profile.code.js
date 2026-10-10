@@ -13,6 +13,7 @@ class Component extends DCLogic {
       bolt: 'M13 3L5 13h6l-1 8 8-10h-6l1-8z',
       bulb: 'M9 18h6M10 21h4M12 3a6 6 0 0 0-3.500 10.900c.6.5 1 1.200 1 2.100h5c0-.9.4-1.600 1-2.100A6 6 0 0 0 12 3z'
     };
+    var BADGE_COLORS = ['#3DD6C3', '#FFD35C', '#6C8CFF', '#FF7AA8', '#FF9F45'];
     var badges = App.computeBadges().slice(0, 4);
     var av = App.avatarLook(d.avatar);
     return Object.assign({}, av, {
@@ -20,10 +21,11 @@ class Component extends DCLogic {
       tierLabel: tier.name + ' paket · Seviye ' + d.unlockedLevel,
       totalStars: totalStars, completedCount: App.completedCount(), streak: d.daily.streak,
       goBadges: function () { window.go('Badges'); },
-      badges: badges.map(function (b) {
+      badges: badges.map(function (b, i) {
+        var accent = BADGE_COLORS[i % BADGE_COLORS.length];
         return {
           name: b.name, earned: b.earned, icon: BADGE_ICON[b.icon] || BADGE_ICON.check,
-          bg: b.earned ? '#3DD6C3' : '#232750', shadow: b.earned ? 'inset 0 -5px 0 #25A898' : 'none', border: b.earned ? '0' : '2px solid #2E3366', fg: b.earned ? '#171A36' : '#5B6190'
+          bg: b.earned ? accent : '#232750', shadow: b.earned ? 'inset 0 -5px 0 rgba(0,0,0,0.25)' : 'none', border: b.earned ? '0' : '2px solid #2E3366', fg: b.earned ? '#171A36' : '#5B6190'
         };
       }),
       pkgLabel: tier.name + ' paket', pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pkgPct,
