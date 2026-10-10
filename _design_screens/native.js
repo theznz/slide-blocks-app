@@ -9,8 +9,22 @@
   var P = C.Plugins || {};
   var noop = function () {};
 
-  // Haptics with real strengths; works for drags too (no browser gesture rules).
-  if (P.Haptics) {
+  // Android: GameHaptics (android/.../GameHapticsPlugin.java) sends untagged vibrations, which
+  // play even when the phone's touch-feedback vibration is off, unlike Haptics.impact.
+  if (C.getPlatform() === 'android' && P.GameHaptics) {
+    var lastA = 0, lastStrengthA = 0;
+    App.canVibrate = function () { return true; };
+    App.hapticMode = function () { return 'native-android'; };
+    App.vibrate = function (pattern) {
+      if (!App.data.settings.titresim) return;
+      var list = [].concat(pattern), now = Date.now();
+      var strength = list.filter(function (v, i) { return i % 2 === 0; }).reduce(function (a, b) { return a + b; }, 0);
+      if (now - lastA < 80 && strength <= lastStrengthA) return;
+      lastA = now; lastStrengthA = strength;
+      P.GameHaptics.vibrate({ pattern: list }).catch(noop);
+    };
+  } else if (P.Haptics) {
+    // iPhone: Taptic Engine with real strengths; works for drags too (no browser gesture rules).
     var last = 0;
     App.canVibrate = function () { return true; };
     App.hapticMode = function () { return 'native'; };
