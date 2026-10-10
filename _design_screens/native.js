@@ -34,9 +34,11 @@
       var now = Date.now();
       if (now - last < 80) return;
       last = now;
-      if (pattern === App.HAPTIC.win) { P.Haptics.notification({ type: 'SUCCESS' }).catch(noop); return; }
+      // win: one long continuous buzz (Core Haptics), like the long win vibration on Android
+      if (pattern === App.HAPTIC.win) { P.Haptics.vibrate({ duration: 400 }).catch(noop); return; }
+      // taps and block drops: a light tick, matching the short buzz on Android
       var first = Array.isArray(pattern) ? pattern[0] : pattern;
-      var style = first >= 50 ? 'HEAVY' : (first >= 25 ? 'MEDIUM' : 'LIGHT');
+      var style = first >= 50 ? 'HEAVY' : (first >= 30 ? 'MEDIUM' : 'LIGHT');
       P.Haptics.impact({ style: style }).catch(noop);
       if (Array.isArray(pattern)) {
         for (var i = 2, t = 0; i < pattern.length; i += 2) {
