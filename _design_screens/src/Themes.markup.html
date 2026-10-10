@@ -10,28 +10,28 @@
 <span>{{ stars }}</span>
 </a>
 </div>
-<div style="height: 150px; box-sizing: border-box; padding: 16px; background: #232750; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<div style="flex-shrink: 0; height: 150px; box-sizing: border-box; padding: 16px; background: #232750; border-radius: 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
 <div style="display: flex; flex-direction: column; gap: 4px">
 <div style="font-size: 13px; font-weight: 500; color: #B9BDE6">Önizleme</div>
 <div style="font-size: 26px; font-weight: 600; line-height: 1.1">{{ pickedName }}</div>
 <div style="font-size: 14px; color: #B9BDE6">{{ pickedStatus }}</div>
 </div>
 <div style="width: 188px; flex-shrink: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-template-rows: repeat(2, 44px); gap: 4px">
-<div style="grid-column: 1 / span 2; grid-row: 1; box-sizing: border-box; padding-bottom: 5px; background: {{c1}}; border-radius: 11px; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22); color: #171A36; display: flex; align-items: center; justify-content: center">
+<div style="grid-column: 1 / span 2; grid-row: 1; {{p1}} padding-bottom: 5px; color: #171A36; display: flex; align-items: center; justify-content: center">
 <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
 </div>
-<div style="grid-column: 3; grid-row: 1 / span 2; background: {{c2}}; border-radius: 11px; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></div>
-<div style="grid-column: 4; grid-row: 1 / span 2; background: {{c3}}; border-radius: 11px; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></div>
-<div style="grid-column: 1 / span 2; grid-row: 2; background: {{c3}}; border-radius: 11px; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></div>
+<div style="grid-column: 3; grid-row: 1 / span 2; {{p2}}"></div>
+<div style="grid-column: 4; grid-row: 1 / span 2; {{p3}}"></div>
+<div style="grid-column: 1 / span 2; grid-row: 2; {{p3}}"></div>
 </div>
 </div>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; margin: -4px; padding: 4px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 120px; gap: 12px">
 <sc-for list="{{ themes }}" as="t" hint-placeholder-count="6">
 <button onClick="{{ t.pick }}" aria-pressed="{{ t.pressed }}" style="height: 120px; box-sizing: border-box; padding: 14px; border: 0; border-radius: 18px; background: #232750; box-shadow: {{t.ring}}; color: #FFFFFF; font-family: inherit; text-align: left; display: flex; flex-direction: column; justify-content: space-between; cursor: pointer">
 <span style="display: flex; gap: 6px">
-<span style="width: 36px; height: 36px; border-radius: 10px; background: {{t.c1}}; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></span>
-<span style="width: 36px; height: 36px; border-radius: 10px; background: {{t.c2}}; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></span>
-<span style="width: 36px; height: 36px; border-radius: 10px; background: {{t.c3}}; box-shadow: inset 0 -5px 0 rgba(0,0,0,0.22)"></span>
+<span style="width: 36px; height: 36px; {{t.s1}}"></span>
+<span style="width: 36px; height: 36px; {{t.s2}}"></span>
+<span style="width: 36px; height: 36px; {{t.s3}}"></span>
 </span>
 <span style="display: flex; flex-direction: column; gap: 2px">
 <span style="font-size: 18px; font-weight: 600; line-height: 1.1">{{ t.name }}</span>
@@ -40,5 +40,5 @@
 </button>
 </sc-for>
 </div>
-<button onclick="{{ apply }}" style="margin-top: auto; height: 68px; box-sizing: border-box; padding-bottom: 6px; border: 0; border-radius: 22px; background: #FF9F45; box-shadow: inset 0 -6px 0 #D9772A; color: #171A36; font-family: inherit; font-size: 22px; font-weight: 700; cursor: pointer">{{ cta }}</button>
+<button onclick="{{ apply }}" style="flex-shrink: 0; margin-top: auto; height: 68px; box-sizing: border-box; padding-bottom: 6px; border: 0; border-radius: 22px; background: #FF9F45; box-shadow: inset 0 -6px 0 #D9772A; color: #171A36; font-family: inherit; font-size: 22px; font-weight: 700; cursor: pointer">{{ cta }}</button>
 </div>

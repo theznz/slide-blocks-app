@@ -20,7 +20,7 @@
       // tiers
       'Kolay': 'Easy', 'Orta': 'Medium', 'Zor': 'Hard', 'Uzman': 'Expert',
       // themes
-      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night',
+      'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Jöle': 'Jelly', 'Kadife': 'Velvet', 'Cam': 'Glass', 'Metalik': 'Metallic', 'Simli': 'Glitter',
 
       // Splash
       'Yükleniyor…': 'Loading…', 'Ana ekrana geç': 'Go to home',

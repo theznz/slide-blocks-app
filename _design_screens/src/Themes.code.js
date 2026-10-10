@@ -8,12 +8,13 @@ class Component extends DCLogic {
     var current = data.filter(function (t) { return t.id === picked; })[0] || data[0];
     var currentName = App.t(current.name);
     var owned = d.themesOwned.indexOf(picked) !== -1;
+    function tile(themeId, hex, r) { return App.skinStyle(themeId, { bg: hex, sh: App.darken(hex, 0.22) }, r); }
     var themes = data.map(function (t) {
       var on = t.id === picked;
       var isOwned = d.themesOwned.indexOf(t.id) !== -1;
       var status = !isOwned ? App.t('{n} yıldız', { n: t.cost }) : App.t(t.id === d.theme ? 'Seçili' : 'Sende var');
       return {
-        name: App.t(t.name), c1: t.c1, c2: t.c2, c3: t.c3,
+        name: App.t(t.name), s1: tile(t.id, t.c1, 10), s2: tile(t.id, t.c2, 10), s3: tile(t.id, t.c3, 10),
         status: status, statusColor: !isOwned ? '#FFD35C' : '#B9BDE6',
         ring: on ? '0 0 0 3px #FFFFFF' : 'none',
         pressed: on ? 'true' : 'false',
@@ -28,7 +29,7 @@ class Component extends DCLogic {
       themes: themes,
       pickedName: currentName,
       pickedStatus: owned ? App.t(picked === d.theme ? 'Şu an kullanılıyor' : 'Koleksiyonunda') : App.t('{n} yıldızla açılır', { n: current.cost }),
-      c1: current.c1, c2: current.c2, c3: current.c3,
+      p1: tile(current.id, current.c1, 11), p2: tile(current.id, current.c2, 11), p3: tile(current.id, current.c3, 11),
       cta: cta,
       apply: function () {
         if (owned) {

@@ -17,7 +17,12 @@ window.App = (function () {
     { id: 'neon', name: 'Neon', c1: '#F9F871', c2: '#00F5D4', c3: '#F15BB5', cost: 40 },
     { id: 'pastel', name: 'Pastel', c1: '#FFC8DD', c2: '#BDE0FE', c3: '#CDEAC0', cost: 40 },
     { id: 'okyanus', name: 'Okyanus', c1: '#90E0EF', c2: '#48CAE4', c3: '#0096C7', cost: 60 },
-    { id: 'gece', name: 'Gece', c1: '#9D8DF1', c2: '#6F72E0', c3: '#48BFE3', cost: 60 }
+    { id: 'gece', name: 'Gece', c1: '#9D8DF1', c2: '#6F72E0', c3: '#48BFE3', cost: 60 },
+    { id: 'jole', name: 'Jöle', c1: '#FF5FA2', c2: '#4FD1FF', c3: '#9BE15D', cost: 80, finish: 'jelly' },
+    { id: 'kadife', name: 'Kadife', c1: '#9B2C4B', c2: '#1F6F5C', c3: '#3A4BA8', cost: 80, finish: 'velvet' },
+    { id: 'cam', name: 'Cam', c1: '#8FD3FF', c2: '#B7F0E0', c3: '#E3C6FF', cost: 100, finish: 'glass' },
+    { id: 'metalik', name: 'Metalik', c1: '#C0C7D1', c2: '#D9A441', c3: '#B87333', cost: 100, finish: 'metal' },
+    { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' }
   ];
 
   var GAME_PALETTE = {
@@ -26,7 +31,12 @@ window.App = (function () {
     neon: [{ bg: '#F9F871', sh: '#C9C83A' }, { bg: '#00F5D4', sh: '#00B89D' }, { bg: '#F15BB5', sh: '#C22E86' }, { bg: '#9B5DE5', sh: '#6E33B0' }],
     pastel: [{ bg: '#FFC8DD', sh: '#E59FB8' }, { bg: '#BDE0FE', sh: '#8FC2E8' }, { bg: '#CDEAC0', sh: '#A3CD92' }, { bg: '#FFF1A6', sh: '#E8D679' }],
     okyanus: [{ bg: '#90E0EF', sh: '#5FC2D6' }, { bg: '#48CAE4', sh: '#2A9FBA' }, { bg: '#0096C7', sh: '#00729A' }, { bg: '#ADE8F4', sh: '#7FC9DB' }],
-    gece: [{ bg: '#9D8DF1', sh: '#6F5DCB' }, { bg: '#6F72E0', sh: '#4A4DB8' }, { bg: '#48BFE3', sh: '#2A97BA' }, { bg: '#C9A6FF', sh: '#9E75E0' }]
+    gece: [{ bg: '#9D8DF1', sh: '#6F5DCB' }, { bg: '#6F72E0', sh: '#4A4DB8' }, { bg: '#48BFE3', sh: '#2A97BA' }, { bg: '#C9A6FF', sh: '#9E75E0' }],
+    jole: [{ bg: '#FF5FA2', sh: '#C93A78' }, { bg: '#4FD1FF', sh: '#2399C7' }, { bg: '#9BE15D', sh: '#6DAD34' }, { bg: '#B98CFF', sh: '#8A5ED6' }],
+    kadife: [{ bg: '#9B2C4B', sh: '#6E1C34' }, { bg: '#1F6F5C', sh: '#124A3D' }, { bg: '#3A4BA8', sh: '#26337A' }, { bg: '#C08A2E', sh: '#8C6219' }],
+    cam: [{ bg: '#8FD3FF', sh: '#5AA9DB' }, { bg: '#B7F0E0', sh: '#7FCDB6' }, { bg: '#E3C6FF', sh: '#B994E0' }, { bg: '#FFF3B0', sh: '#E0CF78' }],
+    metalik: [{ bg: '#C0C7D1', sh: '#8A939F' }, { bg: '#D9A441', sh: '#A67822' }, { bg: '#B87333', sh: '#86501F' }, { bg: '#6F8FAF', sh: '#4C6A88' }],
+    simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }]
   };
 
   var SKINS = [

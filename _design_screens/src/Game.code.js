@@ -56,10 +56,10 @@ class Component extends DCLogic {
     var h = b.orient === 'h' ? CELL : (b.len * CELL + (b.len - 1) * GAP);
     var left = 9 + b.col * STEP, top = 9 + b.row * STEP;
     var pal = App.paletteFor(App.data.theme);
-    var bg, sh;
-    if (b.target) { bg = '#FF9F45'; sh = '#D9772A'; } else { var c = pal[b.id % pal.length]; bg = c.bg; sh = c.sh; }
+    var color = b.target ? { bg: '#FF9F45', sh: '#D9772A', target: true } : pal[b.id % pal.length];
+    var skin = App.blockSkin(App.data.theme, color);
     var ring = hinted ? ', 0 0 0 4px #FFFFFF' : (b.target ? ', 0 0 0 3px #FFFFFF' : '');
-    return 'position:absolute; left:' + left + 'px; top:' + top + 'px; width:' + w + 'px; height:' + h + 'px; box-sizing:border-box; padding-bottom:6px; background:' + bg + '; border-radius:12px; box-shadow: inset 0 -6px 0 ' + sh + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
+    return 'position:absolute; left:' + left + 'px; top:' + top + 'px; width:' + w + 'px; height:' + h + 'px; box-sizing:border-box; padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
   }
   renderVals() {
     var self = this;
@@ -67,7 +67,8 @@ class Component extends DCLogic {
     var st = this.state;
     var blocks = st.blocks.map(function (b) {
       var hinted = st.hintInfo && st.hintInfo.id === b.id;
-      return Object.assign({}, b, { style: self.blockStyle(b, hinted), cls: hinted ? 'hint-pulse' : '' });
+      var wobble = self._wobbleId === b.id;
+      return Object.assign({}, b, { style: self.blockStyle(b, hinted), cls: hinted ? 'hint-pulse' : (wobble ? 'jelly-wobble' : '') });
     });
     return {
       levelIndex: st.levelIndex, moves: st.moves, par: st.par,
@@ -163,8 +164,17 @@ class Component extends DCLogic {
       this.finish(moves);
     } else {
       App.sfx('slide'); App.vibrate(12);
+      this.wobble(d.id);
       this.persist();
     }
+  }
+  wobble(id) {
+    if (App.finishOf(App.data.theme) !== 'jelly') return;
+    var self = this;
+    this._wobbleId = id;
+    this.forceUpdate();
+    clearTimeout(this._wobbleT);
+    this._wobbleT = setTimeout(function () { self._wobbleId = null; self.forceUpdate(); }, 440);
   }
   endDrag() {
     if (this._onMove) window.removeEventListener('pointermove', this._onMove);

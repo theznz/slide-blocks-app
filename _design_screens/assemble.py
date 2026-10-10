@@ -41,6 +41,7 @@ app_store_rendered = app_store.replace('__LEVELS_JSON__', levels_json)
 engine = open(os.path.join(ROOT, 'engine.js'), encoding='utf-8').read()
 i18n = open(os.path.join(ROOT, 'i18n.js'), encoding='utf-8').read()
 audio = open(os.path.join(ROOT, 'audio.js'), encoding='utf-8').read()
+skins = open(os.path.join(ROOT, 'skins.js'), encoding='utf-8').read()
 LANG_DIR = os.path.join(ROOT, 'lang')
 for fname in sorted(os.listdir(LANG_DIR)):
     if fname.endswith('.json'):
@@ -53,7 +54,7 @@ m2 = re.search(r'(</script>\s*<script>\s*)(.*?)(\s*</script>\s*</body>\s*</html>
 if not m2:
     print('could not find engine script block'); sys.exit(1)
 
-new_suffix = suffix_from_closing_script[:m2.start(2)] + app_store_rendered + '\n' + i18n + '\n' + audio + '\n' + engine.rstrip('\n') + suffix_from_closing_script[m2.end(2):]
+new_suffix = suffix_from_closing_script[:m2.start(2)] + app_store_rendered + '\n' + i18n + '\n' + audio + '\n' + skins + '\n' + engine.rstrip('\n') + suffix_from_closing_script[m2.end(2):]
 
 out = prefix_full + new_json_blob + new_suffix
 out_path = os.path.join(PROJECT, 'index.html')
