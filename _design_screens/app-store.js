@@ -64,16 +64,29 @@ window.App = (function () {
     { name: 'Pembe', hex: '#FF7AA8' }, { name: 'Sarı', hex: '#FFD35C' }, { name: 'Mor', hex: '#9D8DF1' },
     { name: 'Beyaz', hex: '#FFFFFF' }
   ];
+  var BG_COLORS = [
+    { name: 'Lacivert', hex: '#2E3366' }, { name: 'Mor', hex: '#4A3B6B' }, { name: 'Bordo', hex: '#5C2E3F' },
+    { name: 'Koyu yeşil', hex: '#2C4A3E' }, { name: 'Kahve', hex: '#4A3626' }, { name: 'Gri', hex: '#3A3F4D' }, { name: 'Siyah', hex: '#15171F' }
+  ];
 
   function resolveColor(list, val, fallbackIdx) {
     if (typeof val === 'string' && val.charAt(0) === '#') return val;
     var item = list[val];
     return (item || list[fallbackIdx || 0]).hex;
   }
+  function darkenHex(hex, amt) {
+    amt = amt == null ? 0.22 : amt;
+    var n = parseInt(hex.replace('#', ''), 16);
+    var r = Math.max(0, Math.round(((n >> 16) & 255) * (1 - amt)));
+    var g = Math.max(0, Math.round(((n >> 8) & 255) * (1 - amt)));
+    var b = Math.max(0, Math.round((n & 255) * (1 - amt)));
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  }
 
   function avatarLook(v) {
     v = v || {};
-    var skin = SKINS[v.skin] || SKINS[1];
+    var customSkin = typeof v.skin === 'string';
+    var skin = customSkin ? { hex: v.skin, shade: darkenHex(v.skin, 0.18) } : (SKINS[v.skin] || SKINS[1]);
     var f = FACES[v.face] || FACES.yuvarlak;
     var e = EYE_SHAPES[v.eye] || EYE_SHAPES.yuvarlak;
     var roundG = v.glasses === 'yuvarlak';
@@ -83,6 +96,7 @@ window.App = (function () {
       skinHex: skin.hex, skinShade: skin.shade,
       hairHex: resolveColor(HAIRS, v.hairColor), eyeHex: resolveColor(EYES, v.eyeColor),
       pet: pet.id, hasPet: pet.id !== 'yok', petEmoji: pet.emoji, petColor: resolveColor(BADGE_COLORS, v.petColor),
+      bgColor: resolveColor(BG_COLORS, v.bgColor),
       faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
       eyeRx: e[0], eyeRy: e[1], irisR: e[2],
       hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
@@ -110,7 +124,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0 },
+      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,
@@ -140,6 +154,8 @@ window.App = (function () {
   App.PETS = PETS;
   App.BADGE_COLORS = BADGE_COLORS;
   App.resolveColor = resolveColor;
+  App.darken = darkenHex;
+  App.BG_COLORS = BG_COLORS;
   App.THEMES = THEMES;
   App.data = load();
 
