@@ -26,7 +26,7 @@ class Component extends DCLogic {
     var langs = App.LANGS.map(function (l) {
       var on = l.id === cur;
       return {
-        name: l.name, checked: on ? 'true' : 'false', selected: on, bg: on ? '#3DD6C3' : '#2E3366', fg: on ? '#171A36' : '#FFFFFF',
+        name: l.name, checked: on ? 'true' : 'false', selected: on, fg: on ? '#3DD6C3' : '#FFFFFF',
         pick: function () { App.setLang(l.id); self.setState({ langOpen: false }); }
       };
     });

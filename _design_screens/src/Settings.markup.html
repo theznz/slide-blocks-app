@@ -1,12 +1,12 @@
 
 <div style="width: 390px; height: 844px; box-sizing: border-box; background: #171A36; color: #FFFFFF; font-family: 'Baloo 2', system-ui, sans-serif; padding: 56px 20px 32px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
-<div style="display: flex; align-items: center; gap: 16px">
+<div style="flex-shrink: 0; display: flex; align-items: center; gap: 16px">
 <a href="Main.dc.html" aria-label="Geri" style="width: 44px; height: 44px; border-radius: 14px; background: #232750; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
 <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
 </a>
 <h1 style="margin: 0; font-size: 24px; font-weight: 600">Ayarlar</h1>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
 <sc-for list="{{ toggles }}" as="tg" hint-placeholder-count="4">
 <div style="height: 60px; padding: 0 16px; background: #232750; display: flex; align-items: center; justify-content: space-between; font-size: 17px; font-weight: 500">
 <span>{{ tg.label }}</span>
@@ -18,7 +18,7 @@
 </div>
 </sc-for>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
 <button onclick="{{ toggleLang }}" aria-expanded="{{ langExpanded }}" style="height: 60px; padding: 0 16px; border: 0; background: #232750; color: #FFFFFF; font-family: inherit; font-size: 17px; font-weight: 500; display: flex; align-items: center; justify-content: space-between; cursor: pointer">
 <span>Dil</span>
 <span style="display: flex; align-items: center; gap: 6px; color: #B9BDE6">{{ langName }}
@@ -26,12 +26,12 @@
 </span>
 </button>
 <sc-if value="{{ langOpen }}" hint-placeholder-val="{{ false }}">
-<div role="radiogroup" aria-label="Dil" style="padding: 12px; background: #1D2045; display: grid; grid-template-columns: 1fr 1fr; gap: 8px">
+<div role="radiogroup" aria-label="Dil" style="display: flex; flex-direction: column; gap: 1px">
 <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="8">
-<button onclick="{{ lg.pick }}" role="radio" aria-checked="{{ lg.checked }}" style="height: 44px; padding: 0 12px; border: 0; border-radius: 12px; background: {{lg.bg}}; color: {{lg.fg}}; font-family: inherit; font-size: 16px; font-weight: 600; display: flex; align-items: center; justify-content: space-between; cursor: pointer">
+<button onclick="{{ lg.pick }}" role="radio" aria-checked="{{ lg.checked }}" style="height: 48px; flex-shrink: 0; padding: 0 16px 0 32px; border: 0; background: #1D2045; color: {{lg.fg}}; font-family: inherit; font-size: 16px; font-weight: 500; display: flex; align-items: center; justify-content: space-between; cursor: pointer">
 <span>{{ lg.name }}</span>
 <sc-if value="{{ lg.selected }}" hint-placeholder-val="{{ true }}">
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
+<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.800" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>
 </sc-if>
 </button>
 </sc-for>
@@ -46,7 +46,7 @@
 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#B9BDE6" stroke-width="2.500" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
 </a>
 </div>
-<div style="display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
+<div style="flex-shrink: 0; display: flex; flex-direction: column; gap: 1px; background: #2E3366; border-radius: 18px; overflow: hidden">
 <button onclick="{{ resetProgress }}" style="height: 56px; padding: 0 16px; border: 0; background: #232750; color: #FF7AA8; font-family: inherit; font-size: 17px; font-weight: 500; text-align: left; cursor: pointer">{{ resetLabel }}</button>
 </div>
 <div style="margin-top: auto; text-align: center; font-size: 14px; color: #B9BDE6">Sürüm 1.0.0</div>
