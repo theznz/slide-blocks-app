@@ -113,7 +113,8 @@ window.App = (function () {
       avatar: { tab: 'ten', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
-      lastResult: null
+      lastResult: null,
+      gameState: null
     };
   }
 

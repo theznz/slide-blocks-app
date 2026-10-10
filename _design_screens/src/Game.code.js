@@ -5,12 +5,34 @@ class Component extends DCLogic {
     var blocks = lv.blocks.map(function (b) { return Object.assign({}, b); });
     this.state = { levelIndex: n, par: lv.par, tierName: App.tierOf(n).name, blocks: blocks, moves: 0, elapsedSec: 0, history: [], won: false, usedHint: false, hintInfo: null };
     this._timerStart = Date.now();
+    this.persist();
+  }
+  persist() {
+    if (!this.state || this.state.won) return;
+    App.data.gameState = {
+      levelIndex: this.state.levelIndex, blocks: this.state.blocks, moves: this.state.moves,
+      elapsedSec: this.state.elapsedSec, history: this.state.history, usedHint: this.state.usedHint
+    };
+    App.save();
   }
   onShow() {
     var d = App.data;
-    if (!this.state || this.state.levelIndex !== d.currentLevelIndex || d.pendingRestart) {
+    var gs = d.gameState;
+    if (d.pendingRestart) {
       this.loadLevel(d.currentLevelIndex);
       d.pendingRestart = false;
+    } else if (!this.state || this.state.levelIndex !== d.currentLevelIndex) {
+      if (gs && gs.levelIndex === d.currentLevelIndex) {
+        var lv = App.getLevel(gs.levelIndex);
+        this.state = {
+          levelIndex: gs.levelIndex, par: lv.par, tierName: App.tierOf(gs.levelIndex).name,
+          blocks: gs.blocks, moves: gs.moves, elapsedSec: gs.elapsedSec, history: gs.history || [],
+          won: false, usedHint: !!gs.usedHint, hintInfo: null
+        };
+        this._timerStart = Date.now() - (gs.elapsedSec || 0) * 1000;
+      } else {
+        this.loadLevel(d.currentLevelIndex);
+      }
     } else {
       this._timerStart = Date.now() - (this.state.elapsedSec || 0) * 1000;
     }
@@ -21,10 +43,12 @@ class Component extends DCLogic {
   onHide() {
     clearInterval(this._timer);
     this.endDrag();
+    this.persist();
   }
   tick() {
     if (this._drag || !this.state || this.state.won) return;
     this.setState({ elapsedSec: Math.floor((Date.now() - this._timerStart) / 1000) });
+    this.persist();
   }
   blockStyle(b, hinted) {
     var CELL = 52, GAP = 4, STEP = 56;
@@ -39,7 +63,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     var self = this;
-    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121 };
+    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitTop: 121, muted: !App.data.settings.muzik, unmuted: !!App.data.settings.muzik };
     var st = this.state;
     var blocks = st.blocks.map(function (b) {
       var hinted = st.hintInfo && st.hintInfo.id === b.id;
@@ -50,11 +74,19 @@ class Component extends DCLogic {
       timeLabel: App.fmtTime(st.elapsedSec), hints: App.data.hints,
       exitTop: 9 + App.getLevel(st.levelIndex).exitRow * 56,
       blocks: blocks,
+      muted: !App.data.settings.muzik,
+      unmuted: !!App.data.settings.muzik,
+      toggleMute: function () { self.toggleMute(); },
       startDrag: function (e) { self.startDrag(e); },
       undo: function () { self.undo(); },
       restart: function () { self.doRestart(); },
       hint: function () { self.useHint(); }
     };
+  }
+  toggleMute() {
+    App.data.settings.muzik = !App.data.settings.muzik;
+    App.save();
+    this.forceUpdate();
   }
   startDrag(e) {
     if (this._drag || !this.state || this.state.won) return;
@@ -119,7 +151,7 @@ class Component extends DCLogic {
     var target = newBlocks.filter(function (b) { return b.target; })[0];
     var won = target.col === 6 - target.len;
     this.setState({ blocks: newBlocks, moves: moves, history: history, hintInfo: null, won: won });
-    if (won) this.finish(moves);
+    if (won) this.finish(moves); else this.persist();
   }
   endDrag() {
     if (this._onMove) window.removeEventListener('pointermove', this._onMove);
@@ -129,6 +161,8 @@ class Component extends DCLogic {
   finish(moves) {
     var self = this;
     clearInterval(this._timer);
+    App.data.gameState = null;
+    App.save();
     setTimeout(function () {
       var res = App.recordResult(self.state.levelIndex, moves, self.state.elapsedSec, self.state.usedHint);
       var dailyBonus = 0;
@@ -147,6 +181,7 @@ class Component extends DCLogic {
     var history = this.state.history.slice();
     var prev = history.pop();
     this.setState({ blocks: prev, moves: Math.max(0, this.state.moves - 1), history: history, hintInfo: null });
+    this.persist();
   }
   doRestart() {
     this.loadLevel(this.state.levelIndex);
@@ -162,6 +197,7 @@ class Component extends DCLogic {
     var dir = mv.orient === 'h' ? (mv.toPos > mv.fromPos ? 'sağa' : 'sola') : (mv.toPos > mv.fromPos ? 'aşağı' : 'yukarı');
     App.toast('Bu bloğu ' + dir + ' kaydır');
     this.setState({ hintInfo: { id: mv.id } });
+    this.persist();
     var self = this;
     setTimeout(function () { if (self.state && self.state.hintInfo) self.setState({ hintInfo: null }); }, 1600);
   }
