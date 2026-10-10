@@ -66,8 +66,7 @@ class Component extends DCLogic {
     return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
   }
   exitStyle(lv, hex) {
-    var t = lv.blocks.filter(function (b) { return b.target; })[0];
-    var L = t.len * 52 + (t.len - 1) * 4;
+    var L = 52; // the exit gap is as wide as the arrow block, which is always one cell thick
     var along = 9 + lv.exit.index * 56;
     var glow = 'background:' + hex + '; box-shadow: 0 0 12px ' + hex + ';';
     switch (lv.exit.side) {
