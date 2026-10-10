@@ -1,0 +1,24 @@
+{
+  "appId": "com.theznz.slideblocks",
+  "appName": "Sliding Block Puzzle",
+  "webDir": "www",
+  "backgroundColor": "#0B0D1F",
+  "ios": {
+    "contentInset": "never",
+    "scheme": "Sliding Block Puzzle"
+  },
+  "android": {
+    "allowMixedContent": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 600,
+      "backgroundColor": "#0B0D1F",
+      "showSpinner": false
+    },
+    "LocalNotifications": {
+      "smallIcon": "ic_stat_icon",
+      "iconColor": "#FF9F45"
+    }
+  }
+}

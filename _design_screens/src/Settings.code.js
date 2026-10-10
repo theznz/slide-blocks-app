@@ -13,7 +13,7 @@ class Component extends DCLogic {
         flip: function () {
           st[d[0]] = !on; App.save();
           if (d[0] === 'muzik') App.syncMusic();
-          if (d[0] === 'bildirim' && !on) App.enableNotifications();
+          if (d[0] === 'bildirim') { if (!on) App.enableNotifications(); else App.syncReminder(); }
           if (d[0] === 'titresim' && !on) {
             if (App.canVibrate()) App.vibrate(App.HAPTIC.toggle); else App.toast(App.t('Bu cihaz titreşimi desteklemiyor'));
           }

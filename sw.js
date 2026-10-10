@@ -1,7 +1,7 @@
 // Service worker: makes the game installable and playable offline, and shows the
 // daily-puzzle reminder on phones (see _design_screens/notify.js).
-var CACHE = 'sbp-v1';
-var CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'];
+var CACHE = 'sbp-v2';
+var CORE = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './fonts/baloo2-latin.woff2', './fonts/baloo2-latin-ext.woff2'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(CORE); }).then(function () { return self.skipWaiting(); }));

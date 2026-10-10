@@ -42,14 +42,6 @@ class Component extends DCLogic {
           App.sfx('coin'); App.toast(App.t('+1 ipucu kazandın'));
         }, 1400);
       },
-      noAds: function () {
-        if (App.data.stars < 200) { App.sfx('error'); App.toast(App.t('Yetersiz yıldız')); return; }
-        App.data.stars -= 200; App.data.adsRemoved = true; App.save();
-        App.sfx('coin'); App.toast(App.t('Reklamlar kaldırıldı'));
-        self.forceUpdate();
-      },
-      adsRemoved: App.data.adsRemoved,
-      restore: function () { App.toast(App.t('Geri yüklenecek bir satın alım bulunamadı')); },
       hasConfirm: !!confirm,
       confirmText: confirm ? App.t('{h} ipucu almak için {c} yıldız harcanacak.', { h: confirm.hints, c: confirm.cost }) : '',
       confirmYes: confirm ? function () { self.doBuy(confirm.hints, confirm.cost); } : function () {},

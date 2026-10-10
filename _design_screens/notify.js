@@ -5,9 +5,12 @@
 // (or in a background tab); phones show it through the service worker in sw.js when available.
 (function (App) {
   var REMIND_HOUR = 19;
+  // In the store app (Capacitor) native.js replaces all of this with real local notifications.
+  var native = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  App.syncReminder = function () {};
   var supported = typeof Notification !== 'undefined';
   var swReg = null;
-  if (typeof navigator !== 'undefined' && navigator.serviceWorker && window.isSecureContext) {
+  if (!native && typeof navigator !== 'undefined' && navigator.serviceWorker && window.isSecureContext) {
     navigator.serviceWorker.register('sw.js').then(function (r) { swReg = r; }).catch(function () {});
   }
 
@@ -50,6 +53,8 @@
     setTimeout(function () { App.toast(App.t('Günlük bulmacan seni bekliyor!'), 2600); }, 600);
   };
 
-  setInterval(systemReminder, 60000);
-  document.addEventListener('visibilitychange', systemReminder);
+  if (!native) {
+    setInterval(systemReminder, 60000);
+    document.addEventListener('visibilitychange', systemReminder);
+  }
 })(window.App);
