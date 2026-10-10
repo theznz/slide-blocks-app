@@ -161,7 +161,7 @@ window.App = (function () {
 
   function defaultState() {
     return {
-      onboarded: false, guest: false, levelsVersion: 2, seenIntro: {},
+      onboarded: false, guest: false, levelsVersion: 2, settingsVersion: 2, seenIntro: {},
       stars: 0,
       hints: 3,
       adsRemoved: false,
@@ -188,6 +188,10 @@ window.App = (function () {
       var merged = Object.assign({}, def, saved);
       merged.avatar = Object.assign({}, def.avatar, saved.avatar || {});
       merged.settings = Object.assign({}, def.settings, saved.settings || {});
+      // One-time switch-on of sound effects and vibration for saves made before they defaulted
+      // to on; after this the player's own choice is kept.
+      if ((saved.settingsVersion || 1) < 2) { merged.settings.ses = true; merged.settings.titresim = true; }
+      merged.settingsVersion = 2;
       merged.daily = Object.assign({}, def.daily, saved.daily || {});
       merged.levels = saved.levels || {};
       merged.themesOwned = saved.themesOwned || def.themesOwned.slice();
