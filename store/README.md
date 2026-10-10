@@ -125,7 +125,7 @@ Yeni sürümde numaraları artır:
 **Ad (30):** Sliding Block Puzzle
 **Alt başlık – App Store (30):** Blokları kaydır, yolu aç
 **Kısa açıklama – Google Play (80):** Blokları kaydır, oklu bloğu çıkışa ulaştır! 100 seviye, günlük bulmaca.
-**Tanıtım metni – App Store (170):** Her gün yeni bir bulmaca, 100 seviye ve 12 tema. Hedef hamlede bitir, konfetiyi patlat!
+**Tanıtım metni – App Store (170):** Her gün yeni bir bulmaca, 100 seviye ve 13 tema. Hedef hamlede bitir, konfetiyi patlat!
 
 **Açıklama:**
 
@@ -141,7 +141,7 @@ bul, oklu bloğun yolunu aç ve onu çıkışa ulaştır.
 • Her bulmacanın en kısa çözümü hesaplandı: hedef hamlede bitir, üç yıldızı al
 • Günlük bulmaca ve günlük seri ödülleri
 • Takıldığında ipucu: sıradaki en iyi hamleyi gösterir
-• 12 tema: Jöle, Kadife, Cam, Metalik, Simli ve daha fazlası
+• 13 tema: Balon, Jöle, Kadife, Cam, Metalik, Simli ve daha fazlası
 • Kendi avatarını oluştur
 • Ses efektleri, müzik ve titreşim
 • İnternetsiz oynanır, hesap gerekmez, veri toplanmaz
@@ -155,7 +155,7 @@ bul, oklu bloğun yolunu aç ve onu çıkışa ulaştır.
 **Name (30):** Sliding Block Puzzle
 **Subtitle – App Store (30):** Slide blocks, free the arrow
 **Short description – Google Play (80):** Slide the blocks and guide the arrow block out! 100 levels and a daily puzzle.
-**Promotional text – App Store (170):** A new puzzle every day, 100 levels and 12 themes. Solve it in the target moves and pop the confetti!
+**Promotional text – App Store (170):** A new puzzle every day, 100 levels and 13 themes. Solve it in the target moves and pop the confetti!
 
 **Description:**
 
@@ -171,7 +171,7 @@ and down. Find the right order, clear the path and get the arrow block out.
 • Every puzzle's shortest solution is known: finish in the target moves for three stars
 • Daily puzzle with streak rewards
 • Stuck? A hint shows the next best move
-• 12 themes: Jelly, Velvet, Glass, Metallic, Glitter and more
+• 13 themes: Balloon, Jelly, Velvet, Glass, Metallic, Glitter and more
 • Build your own avatar
 • Sound effects, music and haptics
 • Plays offline, no account needed, no data collected

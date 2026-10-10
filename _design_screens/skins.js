@@ -23,6 +23,16 @@
   // plum undercoat, tileable, so it takes the colour of whatever sits under it.
   var FUR = 'url("__FUR_PNG__")';
 
+  // Image finish: hand-made block art in blocks/<theme>/<colour>_<shape>.webp, one file per
+  // colour and shape (sq = 1x1, h2/h3 horizontal, v2/v3 vertical). Colours map to files by name.
+  var IMAGE_SETS = {
+    balon: { '#EF4646': 'kirmizi', '#9E6EEF': 'mor', '#4574EC': 'mavi', '#F774A6': 'pembe', '#FBD646': 'sari', '#5DD0B0': 'turkuaz', '#F88931': 'turuncu', '#FF9F45': 'turuncu' }
+  };
+  function shapeKey(shape) {
+    if (!shape || shape.len === 1) return 'sq';
+    return (shape.orient === 'v' ? 'v' : 'h') + Math.min(3, Math.max(2, shape.len));
+  }
+
   var FINISH = {
     flat: function (c) {
       return { background: c.bg, shadow: 'inset 0 -6px 0 ' + c.sh, extra: '' };
@@ -95,7 +105,16 @@
     return (t && t.finish) || 'flat';
   };
 
-  App.blockSkin = function (themeId, color) {
+  App.blockSkin = function (themeId, color, shape) {
+    if (App.finishOf(themeId) === 'image') {
+      var set = IMAGE_SETS[themeId] || {};
+      var name = color.img || set[String(color.bg).toUpperCase()] || (color.target ? 'turuncu' : 'mavi');
+      return {
+        background: 'url(blocks/' + themeId + '/' + name + '_' + shapeKey(shape) + '.webp) center / 100% 100% no-repeat',
+        shadow: '0 0 0 0 transparent',
+        extra: 'padding-bottom: 0;'
+      };
+    }
     return (FINISH[App.finishOf(themeId)] || FINISH.flat)(color);
   };
 
@@ -105,8 +124,8 @@
   };
 
   // Full inline style for a static preview tile.
-  App.skinStyle = function (themeId, color, radius) {
-    var s = App.blockSkin(themeId, color);
+  App.skinStyle = function (themeId, color, radius, shape) {
+    var s = App.blockSkin(themeId, color, shape);
     return 'background: ' + s.background + '; box-shadow: ' + s.shadow.replace(/-6px/g, '-5px') + '; border-radius: ' + (radius || 10) + 'px; box-sizing: border-box; ' + s.extra;
   };
 

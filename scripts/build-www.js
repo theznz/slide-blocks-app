@@ -8,5 +8,5 @@ const out = path.join(root, 'www');
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(out);
 fs.copyFileSync(path.join(root, 'index.html'), path.join(out, 'index.html'));
-for (const dir of ['fonts', 'icons']) fs.cpSync(path.join(root, dir), path.join(out, dir), { recursive: true });
+for (const dir of ['fonts', 'icons', 'blocks']) fs.cpSync(path.join(root, dir), path.join(out, dir), { recursive: true });
 console.log('www ready:', fs.readdirSync(out).join(', '));

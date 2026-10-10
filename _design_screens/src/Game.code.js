@@ -61,7 +61,7 @@ class Component extends DCLogic {
       return pos + 'background: linear-gradient(160deg, #2A2E5C, #1A1D3D); border-radius:10px; box-shadow: inset 0 -5px 0 #12142B, inset 0 1px 0 rgba(255,255,255,.12); display:flex; align-items:center; justify-content:center; overflow:hidden; z-index:1;';
     }
     var color = b.target ? Object.assign({ target: true }, colors.target) : colors.others[b.id % colors.others.length];
-    var skin = App.blockSkin(App.data.theme, color);
+    var skin = App.blockSkin(App.data.theme, color, b);
     var ring = hinted ? ', 0 0 0 4px #FFFFFF' : (b.target ? ', 0 0 0 3px #FFFFFF' : '');
     return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
   }
@@ -193,7 +193,8 @@ class Component extends DCLogic {
     }
   }
   wobble(id) {
-    if (App.finishOf(App.data.theme) !== 'jelly') return;
+    var finish = App.finishOf(App.data.theme);
+    if (finish !== 'jelly' && finish !== 'image') return;
     var self = this;
     this._wobbleId = id;
     this.forceUpdate();
