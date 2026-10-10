@@ -42,6 +42,8 @@ engine = open(os.path.join(ROOT, 'engine.js'), encoding='utf-8').read()
 i18n = open(os.path.join(ROOT, 'i18n.js'), encoding='utf-8').read()
 audio = open(os.path.join(ROOT, 'audio.js'), encoding='utf-8').read()
 skins = open(os.path.join(ROOT, 'skins.js'), encoding='utf-8').read()
+import base64
+skins = skins.replace('__FUR_PNG__', 'data:image/png;base64,' + base64.b64encode(open(os.path.join(ROOT, 'tex', 'fur.png'), 'rb').read()).decode())
 LANG_DIR = os.path.join(ROOT, 'lang')
 for fname in sorted(os.listdir(LANG_DIR)):
     if fname.endswith('.json'):

@@ -19,9 +19,9 @@
     'radial-gradient(circle at 85% 80%, rgba(255,255,255,.7) 0 1px, transparent 1.8px), ' +
     'radial-gradient(circle at 10% 85%, rgba(255,255,255,.75) 0 .9px, transparent 1.6px)';
 
-  // Soft white fur: fine high-frequency strands (stretched noise) as white speckle over the colour.
-  var FUR = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64'%3E%3Cfilter id='f' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.6 .9' numOctaves='3' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.9 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E\")";
-  var FUR_DARK = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8 1.5' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .2 0 0 0 0 .3 0 0 0 1.2 -.66'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E\")";
+  // Realistic fur strands (tex/fur.png, made by gen_fur.py; inlined by assemble.py): white highlights over a
+  // plum undercoat, tileable, so it takes the colour of whatever sits under it.
+  var FUR = 'url("__FUR_PNG__")';
 
   var FINISH = {
     flat: function (c) {
@@ -61,11 +61,11 @@
     fluffy: function (c) {
       return {
         background: 'radial-gradient(70% 38% at 50% 12%, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 100%), ' +
-          FUR + ', ' + FUR_DARK + ', ' +
-          'radial-gradient(ellipse at 50% 46%, ' + lighten(c.bg, 0.12) + ' 0%, ' + c.bg + ' 58%, ' + lighten(c.bg, 0.5) + ' 100%)',
+          FUR + ', ' +
+          'radial-gradient(ellipse at 50% 46%, ' + c.bg + ' 0%, ' + c.bg + ' 62%, ' + lighten(c.bg, 0.4) + ' 100%)',
         shadow: 'inset 0 0 0 2px rgba(255,255,255,.75), inset 0 3px 3px rgba(255,255,255,.9), inset 0 -3px 5px rgba(255,255,255,.7), ' +
-          'inset 0 0 12px rgba(255,255,255,.8), 0 7px 12px ' + rgba(c.bg, 0.45) + ', 0 1px 2px rgba(0,0,0,.18)',
-        extra: 'border: 1px solid rgba(255,255,255,.55); background-size: 100% 100%, 64px 64px, 48px 48px, 100% 100%;'
+          'inset 0 0 10px rgba(255,255,255,.55), 0 7px 12px ' + rgba(c.bg, 0.45) + ', 0 1px 2px rgba(0,0,0,.18)',
+        extra: 'border: 1px solid rgba(255,255,255,.55); background-size: 100% 100%, 110px 110px, 100% 100%;'
       };
     },
     metal: function (c) {
