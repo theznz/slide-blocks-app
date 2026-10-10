@@ -41,7 +41,6 @@
  "Apple ile Devam Et": "Continuar con Apple",
  "Google ile Devam Et": "Continuar con Google",
  "E-posta ile Devam Et": "Continuar con correo",
- "Misafir olarak devam et": "Continuar como invitado",
  "Devam ederek Kullanım Koşulları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.": "Al continuar, aceptas los Términos de uso y la Política de privacidad.",
  "Bu özellik çevrimdışı sürümde yok. Misafir olarak devam edebilirsin.": "Esta función no está disponible en la versión sin conexión. Puedes continuar como invitado.",
  "mağazayı aç": "abrir tienda",
@@ -316,5 +315,11 @@
  "Bu sefer çıkış solda!": "¡Esta vez la salida está a la izquierda!",
  "Bu sefer çıkış yukarıda!": "¡Esta vez la salida está arriba!",
  "Bu sefer çıkış aşağıda!": "¡Esta vez la salida está abajo!",
- "Yeni: Gri duvarlar hiç kımıldamaz!": "Nuevo: ¡los muros grises nunca se mueven!"
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Nuevo: ¡los muros grises nunca se mueven!",
+ "Misafir Olarak Devam Et": "Continuar como invitado",
+ "Tüy": "Peludo",
+ "Günlük bulmacan seni bekliyor!": "¡Tu puzle diario te espera!",
+ "Günlük bulmacan seni bekliyor! Seriyi bozma.": "¡Tu puzle diario te espera! No rompas la racha.",
+ "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "No se permitieron notificaciones; los avisos se mostrarán en la app.",
+ "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Este navegador no admite notificaciones; los avisos se mostrarán en la app."
 }

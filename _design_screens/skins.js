@@ -113,6 +113,8 @@
   var css = document.createElement('style');
   css.textContent =
     '@keyframes jelly-wobble{0%{transform:scale(1,1)}25%{transform:scale(1.08,.9)}50%{transform:scale(.95,1.06)}75%{transform:scale(1.03,.98)}100%{transform:scale(1,1)}}' +
-    '.jelly-wobble{animation:jelly-wobble .42s ease-out}';
+    '.jelly-wobble{animation:jelly-wobble .42s ease-out}' +
+    '@keyframes hint-pulse{0%,100%{transform:scale(1);filter:brightness(1)}50%{transform:scale(1.07);filter:brightness(1.25)}}' +
+    '.hint-pulse{animation:hint-pulse 1s ease-in-out infinite;z-index:4 !important}';
   document.head.appendChild(css);
 })(window.App);

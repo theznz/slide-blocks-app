@@ -41,7 +41,6 @@
  "Apple ile Devam Et": "Continua con Apple",
  "Google ile Devam Et": "Continua con Google",
  "E-posta ile Devam Et": "Continua con l'e-mail",
- "Misafir olarak devam et": "Continua come ospite",
  "Devam ederek Kullanım Koşulları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.": "Continuando accetti i Termini di utilizzo e l'Informativa sulla privacy.",
  "Bu özellik çevrimdışı sürümde yok. Misafir olarak devam edebilirsin.": "Questa funzione non è disponibile nella versione offline. Puoi continuare come ospite.",
  "mağazayı aç": "apri il negozio",
@@ -316,5 +315,11 @@
  "Bu sefer çıkış solda!": "Questa volta l’uscita è a sinistra!",
  "Bu sefer çıkış yukarıda!": "Questa volta l’uscita è in alto!",
  "Bu sefer çıkış aşağıda!": "Questa volta l’uscita è in basso!",
- "Yeni: Gri duvarlar hiç kımıldamaz!": "Novità: i muri grigi non si muovono mai!"
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Novità: i muri grigi non si muovono mai!",
+ "Misafir Olarak Devam Et": "Continua come ospite",
+ "Tüy": "Pelliccia",
+ "Günlük bulmacan seni bekliyor!": "Il tuo puzzle del giorno ti aspetta!",
+ "Günlük bulmacan seni bekliyor! Seriyi bozma.": "Il tuo puzzle del giorno ti aspetta! Non interrompere la serie.",
+ "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "Notifiche non consentite; i promemoria appariranno nell’app.",
+ "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Questo browser non supporta le notifiche; i promemoria appariranno nell’app."
 }

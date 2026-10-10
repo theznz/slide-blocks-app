@@ -292,10 +292,13 @@ window.App = (function () {
     return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
   };
 
+  // Daily puzzle: drawn from the medium tiers (Orta + Zor) so it is never trivial or brutal.
+  // Stepping by 7 through a 40-level pool gives a different level every day for 40 days.
+  var DAILY_POOL = LEVELS.filter(function (l) { return l.tier === 'Orta' || l.tier === 'Zor'; }).map(function (l) { return l.n; });
   App.dailyLevelIndex = function () {
     var d = new Date();
-    var dayOfYear = Math.floor((d - new Date(d.getFullYear(), 0, 0)) / 86400000);
-    return (dayOfYear % LEVELS.length) + 1;
+    var day = Math.floor(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()) / 86400000);
+    return DAILY_POOL[(day * 7) % DAILY_POOL.length];
   };
 
   App.claimDaily = function () {

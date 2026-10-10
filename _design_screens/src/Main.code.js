@@ -1,5 +1,6 @@
 
 class Component extends DCLogic {
+  onShow() { App.remindInApp(); }
   renderVals() {
     var d = App.data;
     var n = d.unlockedLevel;

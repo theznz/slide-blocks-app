@@ -32,6 +32,13 @@
       'Bu sefer çıkış aşağıda!': 'This time the exit is at the bottom!',
       'Yeni: Gri duvarlar hiç kımıldamaz!': 'New: grey walls never move!',
 
+      // reminders + Tüy theme
+      'Tüy': 'Fluffy',
+      'Günlük bulmacan seni bekliyor!': 'Your daily puzzle is waiting!',
+      'Günlük bulmacan seni bekliyor! Seriyi bozma.': 'Your daily puzzle is waiting! Keep your streak going.',
+      'Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.': 'Notifications weren’t allowed; reminders will show inside the app.',
+      'Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.': 'This browser doesn’t support notifications; reminders will show inside the app.',
+
       // Splash
       'Yükleniyor…': 'Loading…', 'Ana ekrana geç': 'Go to home',
 
@@ -44,7 +51,7 @@
       'İlerlemeni kaydet': 'Save your progress',
       'Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.': 'Sign in and your stars, themes and avatar follow you to all your devices.',
       'Apple ile Devam Et': 'Continue with Apple', 'Google ile Devam Et': 'Continue with Google',
-      'E-posta ile Devam Et': 'Continue with email', 'Misafir olarak devam et': 'Continue as guest',
+      'E-posta ile Devam Et': 'Continue with email', 'Misafir Olarak Devam Et': 'Continue as guest',
       "Devam ederek Kullanım Koşulları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.": 'By continuing you accept the Terms of Use and Privacy Policy.',
       'Bu özellik çevrimdışı sürümde yok. Misafir olarak devam edebilirsin.': 'This feature isn’t available in the offline version. You can continue as a guest.',
 

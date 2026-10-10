@@ -41,7 +41,6 @@
  "Apple ile Devam Et": "Продолжить с Apple",
  "Google ile Devam Et": "Продолжить с Google",
  "E-posta ile Devam Et": "Продолжить по e-mail",
- "Misafir olarak devam et": "Продолжить как гость",
  "Devam ederek Kullanım Koşulları'nı ve Gizlilik Politikası'nı kabul etmiş olursun.": "Продолжая, ты принимаешь Условия использования и Политику конфиденциальности.",
  "Bu özellik çevrimdışı sürümde yok. Misafir olarak devam edebilirsin.": "В офлайн-версии это недоступно. Можешь продолжить как гость.",
  "mağazayı aç": "открыть магазин",
@@ -316,5 +315,11 @@
  "Bu sefer çıkış solda!": "На этот раз выход слева!",
  "Bu sefer çıkış yukarıda!": "На этот раз выход сверху!",
  "Bu sefer çıkış aşağıda!": "На этот раз выход снизу!",
- "Yeni: Gri duvarlar hiç kımıldamaz!": "Новое: серые стены никогда не двигаются!"
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Новое: серые стены никогда не двигаются!",
+ "Misafir Olarak Devam Et": "Продолжить как гость",
+ "Tüy": "Пушистый",
+ "Günlük bulmacan seni bekliyor!": "Ежедневная головоломка ждёт тебя!",
+ "Günlük bulmacan seni bekliyor! Seriyi bozma.": "Ежедневная головоломка ждёт! Не прерывай серию.",
+ "Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.": "Уведомления не разрешены; напоминания будут в приложении.",
+ "Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.": "Браузер не поддерживает уведомления; напоминания будут в приложении."
 }
