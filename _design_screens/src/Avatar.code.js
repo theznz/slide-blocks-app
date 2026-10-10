@@ -53,9 +53,13 @@ class Component extends DCLogic {
         faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
         eyeRx: e[0], eyeRy: e[1], irisR: e[2],
         hairLong: v.hair === 'uzun',
+        hairWavyLong: v.hair === 'dalgali_uzun',
+        hairWavyShort: v.hair === 'dalgali_kisa',
+        hairPonytail: v.hair === 'atkuyrugu',
         hairBun: v.hair === 'topuz',
-        hairCap: v.hair === 'kisa' || v.hair === 'uzun' || v.hair === 'topuz',
+        hairCap: v.hair === 'kisa' || v.hair === 'uzun' || v.hair === 'topuz' || v.hair === 'dalgali_uzun' || v.hair === 'dalgali_kisa' || v.hair === 'atkuyrugu',
         hairCurly: v.hair === 'kivircik',
+        hairCurlyShort: v.hair === 'kivircik_kisa',
         lashes: v.eye === 'kirpikli',
         showMoustache: v.facial === 'biyik' || v.facial === 'sakal',
         showBeard: v.facial === 'sakal' || v.facial === 'kirli',
@@ -76,7 +80,7 @@ class Component extends DCLogic {
     var badgeColors = App.BADGE_COLORS;
     var optionDefs = {
       temel: { label: 'Yüz şekli', key: 'face', vb: '30 24 140 140', list: [['yuvarlak', 'Yuvarlak'], ['oval', 'Oval'], ['koseli', 'Köşeli']] },
-      sac: { label: 'Saç modeli', key: 'hair', vb: '20 6 160 160', list: [['kisa', 'Kısa'], ['uzun', 'Uzun'], ['kivircik', 'Kıvırcık'], ['topuz', 'Topuz'], ['kel', 'Kel']] },
+      sac: { label: 'Saç modeli', key: 'hair', vb: '20 6 160 160', list: [['kisa', 'Kısa'], ['uzun', 'Uzun'], ['dalgali_uzun', 'Dalgalı uzun'], ['dalgali_kisa', 'Dalgalı kısa'], ['kivircik', 'Kıvırcık uzun'], ['kivircik_kisa', 'Kıvırcık kısa'], ['atkuyrugu', 'At kuyruğu'], ['topuz', 'Topuz'], ['kel', 'Kel']] },
       goz: { label: 'Göz şekli', key: 'eye', vb: '58 78 84 44', list: [['yuvarlak', 'Yuvarlak'], ['badem', 'Badem'], ['iri', 'İri'], ['kirpikli', 'Kirpikli']] },
       biyik: { label: 'Bıyık ve sakal', key: 'facial', vb: '50 92 100 66', list: [['yok', 'Yok'], ['biyik', 'Bıyık'], ['sakal', 'Sakal'], ['kirli', 'Kirli']] },
       gozluk: { label: 'Gözlük', key: 'glasses', vb: '46 72 108 56', list: [['yok', 'Yok'], ['yuvarlak', 'Yuvarlak'], ['koseli', 'Köşeli'], ['gunes', 'Güneş']] }
