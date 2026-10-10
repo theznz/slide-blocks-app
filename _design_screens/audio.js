@@ -130,16 +130,38 @@
     musicTimer = setInterval(scheduleMusic, 80);
   };
 
-  // Browsers only allow audio after a user gesture, so music starts on the first touch.
-  function unlock() {
-    if (unlocked) return;
-    unlocked = true;
-    if (ensureCtx() && ctx.state === 'suspended') ctx.resume();
-    App.syncMusic();
-    window.removeEventListener('pointerdown', unlock, true);
-    window.removeEventListener('keydown', unlock, true);
+  // Browsers only start audio inside a user gesture. Which events count differs: Android
+  // Chrome accepts a touch only when the finger lifts (pointerup / touchend / click), not on
+  // pointerdown. So every gesture type retries until the context is really running, and a
+  // one-sample silent buffer is played because some mobile browsers need actual output to
+  // start. If the phone suspends audio later (call, app switch), the next touch re-arms it.
+  var GESTURES = ['pointerdown', 'pointerup', 'touchend', 'click', 'keydown'];
+  function arm(on) {
+    GESTURES.forEach(function (ev) { (on ? window.addEventListener : window.removeEventListener).call(window, ev, unlock, true); });
   }
-  window.addEventListener('pointerdown', unlock, true);
-  window.addEventListener('keydown', unlock, true);
-  document.addEventListener('visibilitychange', function () { if (unlocked) App.syncMusic(); });
+  function started() {
+    if (!ctx || ctx.state !== 'running') return;
+    unlocked = true;
+    arm(false);
+    App.syncMusic();
+  }
+  function unlock() {
+    if (!ensureCtx()) return;
+    if (ctx.state === 'running') { started(); return; }
+    try {
+      var src = ctx.createBufferSource();
+      src.buffer = ctx.createBuffer(1, 1, 22050);
+      src.connect(ctx.destination);
+      src.start(0);
+    } catch (e) {}
+    var p = ctx.resume();
+    if (p && p.then) p.then(started, function () {});
+  }
+  arm(true);
+  document.addEventListener('visibilitychange', function () {
+    if (!ctx) return;
+    if (!document.hidden && ctx.state !== 'running') { unlocked = false; arm(true); }
+    App.syncMusic();
+  });
+  App.audioState = function () { return ctx ? ctx.state : 'none'; };
 })(window.App);
