@@ -118,7 +118,7 @@
   window.__views = views;
 
   stage.addEventListener('click', function (e) {
-    if (e.target.closest && e.target.closest('button, a[href]')) App.sfx('tap');
+    if (e.target.closest && e.target.closest('button, a[href]')) { App.sfx('tap'); App.vibrate(6); }
     var a = e.target.closest && e.target.closest('a[href]');
     if (!a) return;
     e.preventDefault();

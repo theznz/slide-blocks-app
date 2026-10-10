@@ -71,8 +71,14 @@
     hapticSwitch.click();
   }
   App.canVibrate = function () { return hasVibrate || isIOS; };
+  // A tap on a button that has its own haptic (undo, hint, the vibration switch) also bubbles
+  // to the generic button tick; the first haptic within 80 ms wins so they never double up.
+  var lastHaptic = 0;
   App.vibrate = function (pattern) {
     if (!App.data.settings.titresim) return;
+    var now = Date.now();
+    if (now - lastHaptic < 80) return;
+    lastHaptic = now;
     if (hasVibrate) { try { navigator.vibrate(pattern); } catch (e) {} return; }
     if (!isIOS) return;
     var pulses = Array.isArray(pattern) ? pattern.filter(function (v, i) { return i % 2 === 0; }).length : 1;
