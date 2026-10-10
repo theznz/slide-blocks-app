@@ -29,8 +29,12 @@
 </sc-if>
 <rect data-color-fill="skin" x="86" y="136" width="28" height="34" fill="{{skinShade}}"></rect>
 <path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
-<circle data-color-fill="skin" cx="53" cy="100" r="9" fill="{{skinHex}}"></circle>
-<circle data-color-fill="skin" cx="147" cy="100" r="9" fill="{{skinHex}}"></circle>
+<sc-if value="{{ notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle data-color-fill="skin" cx="53" cy="100" r="{{earR}}" fill="{{skinHex}}"></circle><circle data-color-fill="skin" cx="147" cy="100" r="{{earR}}" fill="{{skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ earSivri }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="skin" d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{skinHex}}"></path><path data-color-fill="skin" d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{skinHex}}"></path>
+</sc-if>
 <rect data-color-fill="skin" x="{{faceX}}" y="{{faceY}}" width="{{faceW}}" height="{{faceH}}" rx="{{faceR}}" fill="{{skinHex}}"></rect>
 <sc-if value="{{ showBeard }}" hint-placeholder-val="{{ false }}">
 <path data-color-fill="hair" d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{hairHex}}" opacity="{{beardOpacity}}"></path>
@@ -59,8 +63,8 @@
 <sc-if value="{{ lashes }}" hint-placeholder-val="{{ true }}">
 <path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
 </sc-if>
-<path d="M100 106v9q0 4-5 4" fill="none" stroke="{{skinShade}}" stroke-width="3" stroke-linecap="round"></path>
-<path d="M89 129q11 8 22 0" fill="none" stroke="#7A2E2E" stroke-width="3.500" stroke-linecap="round"></path>
+<path d="{{noseD}}" fill="none" stroke="{{skinShade}}" stroke-width="{{noseSw}}" stroke-linecap="round"></path>
+<path d="{{lipD}}" fill="{{lipFill}}" stroke="{{lipStroke}}" stroke-width="{{lipSw}}" stroke-linecap="round"></path>
 <sc-if value="{{ showMoustache }}" hint-placeholder-val="{{ false }}">
 <path data-color-fill="hair" d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{hairHex}}"></path>
 </sc-if>
@@ -221,8 +225,12 @@
 </sc-if>
 <rect x="86" y="136" width="28" height="34" fill="{{op.skinShade}}"></rect>
 <path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
-<circle cx="53" cy="100" r="9" fill="{{op.skinHex}}"></circle>
-<circle cx="147" cy="100" r="9" fill="{{op.skinHex}}"></circle>
+<sc-if value="{{ op.notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle cx="53" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle><circle cx="147" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.earSivri }}" hint-placeholder-val="{{ false }}">
+<path d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{op.skinHex}}"></path><path d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{op.skinHex}}"></path>
+</sc-if>
 <rect x="{{op.faceX}}" y="{{op.faceY}}" width="{{op.faceW}}" height="{{op.faceH}}" rx="{{op.faceR}}" fill="{{op.skinHex}}"></rect>
 <sc-if value="{{ op.showBeard }}" hint-placeholder-val="{{ false }}">
 <path data-color-fill="hair" d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{op.hairHex}}" opacity="{{op.beardOpacity}}"></path>
@@ -251,8 +259,232 @@
 <sc-if value="{{ op.lashes }}" hint-placeholder-val="{{ false }}">
 <path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
 </sc-if>
-<path d="M100 106v9q0 4-5 4" fill="none" stroke="{{op.skinShade}}" stroke-width="3" stroke-linecap="round"></path>
-<path d="M89 129q11 8 22 0" fill="none" stroke="#7A2E2E" stroke-width="3.500" stroke-linecap="round"></path>
+<path d="{{op.noseD}}" fill="none" stroke="{{op.skinShade}}" stroke-width="{{op.noseSw}}" stroke-linecap="round"></path>
+<path d="{{op.lipD}}" fill="{{op.lipFill}}" stroke="{{op.lipStroke}}" stroke-width="{{op.lipSw}}" stroke-linecap="round"></path>
+<sc-if value="{{ op.showMoustache }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.showGlasses }}" hint-placeholder-val="{{ false }}">
+<g stroke="#171A36" stroke-width="3.500" stroke-linecap="round">
+<rect x="{{op.gX1}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<rect x="{{op.gX2}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<path d="M95 98h10M64 96l-10-3M136 96l10-3" fill="none"></path>
+</g>
+</sc-if>
+</svg>
+</button>
+</sc-for>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{ isTemel }}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; font-weight: 500; color: #B9BDE6">Burun şekli</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ noseOptions }}" as="op" hint-placeholder-count="4">
+<button onClick="{{ op.pick }}" aria-label="{{ op.label }}" aria-pressed="{{ op.pressed }}" style="height: 76px; padding: 0; border: 0; border-radius: 14px; background: #2E3366; box-shadow: {{op.ring}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg viewBox="{{op.vb}}" width="66" height="64" aria-hidden="true">
+<sc-if value="{{ op.hairLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M46 96C44 54 68 32 100 32C132 32 156 54 154 96Q160 136 140 166L60 166Q40 136 46 96Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairBun }}" hint-placeholder-val="{{ false }}">
+<circle data-color-fill="hair" cx="100" cy="25" r="15" fill="{{op.hairHex}}"></circle><circle data-color-fill="hair" cx="113" cy="17" r="7" fill="{{op.hairHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.hairWavyLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q164 116 152 128Q160 140 150 152Q158 164 144 180L56 180Q42 164 50 152Q40 140 48 128Q36 116 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairWavyShort }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q162 108 152 116Q158 128 146 136L54 136Q42 128 48 116Q38 108 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairPonytail }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M118 38Q158 40 168 72Q176 104 162 136Q156 148 144 140Q156 112 150 80Q144 54 114 46Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<rect x="86" y="136" width="28" height="34" fill="{{op.skinShade}}"></rect>
+<path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
+<sc-if value="{{ op.notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle cx="53" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle><circle cx="147" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.earSivri }}" hint-placeholder-val="{{ false }}">
+<path d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{op.skinHex}}"></path><path d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{op.skinHex}}"></path>
+</sc-if>
+<rect x="{{op.faceX}}" y="{{op.faceY}}" width="{{op.faceW}}" height="{{op.faceH}}" rx="{{op.faceR}}" fill="{{op.skinHex}}"></rect>
+<sc-if value="{{ op.showBeard }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{op.hairHex}}" opacity="{{op.beardOpacity}}"></path>
+<ellipse cx="100" cy="131" rx="15" ry="8" fill="{{op.skinHex}}"></ellipse>
+</sc-if>
+<sc-if value="{{ op.hairCap }}" hint-placeholder-val="{{ true }}">
+<path data-color-fill="hair" d="M50 90c-3-36 18-58 50-58s53 22 50 58c-10-19-27-27-50-27s-40 8-50 27z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairCurly }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="52" cy="80" r="13"></circle><circle cx="62" cy="62" r="16"></circle><circle cx="80" cy="48" r="17"></circle><circle cx="100" cy="44" r="18"></circle><circle cx="120" cy="48" r="17"></circle><circle cx="138" cy="62" r="16"></circle><circle cx="148" cy="80" r="13"></circle><circle cx="70" cy="36" r="14"></circle><circle cx="100" cy="29" r="16"></circle><circle cx="130" cy="36" r="14"></circle>
+</g>
+</sc-if>
+<sc-if value="{{ op.hairCurlyShort }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="62" cy="85" r="10"></circle><circle cx="74" cy="68" r="12"></circle><circle cx="90" cy="56" r="13"></circle><circle cx="100" cy="52" r="13"></circle><circle cx="110" cy="56" r="13"></circle><circle cx="126" cy="68" r="12"></circle><circle cx="138" cy="85" r="10"></circle><circle cx="82" cy="44" r="10"></circle><circle cx="100" cy="40" r="11"></circle><circle cx="118" cy="44" r="10"></circle>
+</g>
+</sc-if>
+<path data-color-stroke="hair" d="M70 84q10-6 20 0M110 84q10-6 20 0" fill="none" stroke="{{op.hairHex}}" stroke-width="3.500" stroke-linecap="round"></path>
+<ellipse cx="80" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<ellipse cx="120" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<circle data-color-fill="eye" cx="80" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle data-color-fill="eye" cx="120" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle cx="80" cy="100" r="2.200" fill="#171A36"></circle>
+<circle cx="120" cy="100" r="2.200" fill="#171A36"></circle>
+<sc-if value="{{ op.lashes }}" hint-placeholder-val="{{ false }}">
+<path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
+</sc-if>
+<path d="{{op.noseD}}" fill="none" stroke="{{op.skinShade}}" stroke-width="{{op.noseSw}}" stroke-linecap="round"></path>
+<path d="{{op.lipD}}" fill="{{op.lipFill}}" stroke="{{op.lipStroke}}" stroke-width="{{op.lipSw}}" stroke-linecap="round"></path>
+<sc-if value="{{ op.showMoustache }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.showGlasses }}" hint-placeholder-val="{{ false }}">
+<g stroke="#171A36" stroke-width="3.500" stroke-linecap="round">
+<rect x="{{op.gX1}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<rect x="{{op.gX2}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<path d="M95 98h10M64 96l-10-3M136 96l10-3" fill="none"></path>
+</g>
+</sc-if>
+</svg>
+</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; font-weight: 500; color: #B9BDE6">Dudak şekli</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ lipOptions }}" as="op" hint-placeholder-count="4">
+<button onClick="{{ op.pick }}" aria-label="{{ op.label }}" aria-pressed="{{ op.pressed }}" style="height: 76px; padding: 0; border: 0; border-radius: 14px; background: #2E3366; box-shadow: {{op.ring}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg viewBox="{{op.vb}}" width="66" height="64" aria-hidden="true">
+<sc-if value="{{ op.hairLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M46 96C44 54 68 32 100 32C132 32 156 54 154 96Q160 136 140 166L60 166Q40 136 46 96Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairBun }}" hint-placeholder-val="{{ false }}">
+<circle data-color-fill="hair" cx="100" cy="25" r="15" fill="{{op.hairHex}}"></circle><circle data-color-fill="hair" cx="113" cy="17" r="7" fill="{{op.hairHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.hairWavyLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q164 116 152 128Q160 140 150 152Q158 164 144 180L56 180Q42 164 50 152Q40 140 48 128Q36 116 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairWavyShort }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q162 108 152 116Q158 128 146 136L54 136Q42 128 48 116Q38 108 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairPonytail }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M118 38Q158 40 168 72Q176 104 162 136Q156 148 144 140Q156 112 150 80Q144 54 114 46Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<rect x="86" y="136" width="28" height="34" fill="{{op.skinShade}}"></rect>
+<path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
+<sc-if value="{{ op.notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle cx="53" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle><circle cx="147" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.earSivri }}" hint-placeholder-val="{{ false }}">
+<path d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{op.skinHex}}"></path><path d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{op.skinHex}}"></path>
+</sc-if>
+<rect x="{{op.faceX}}" y="{{op.faceY}}" width="{{op.faceW}}" height="{{op.faceH}}" rx="{{op.faceR}}" fill="{{op.skinHex}}"></rect>
+<sc-if value="{{ op.showBeard }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{op.hairHex}}" opacity="{{op.beardOpacity}}"></path>
+<ellipse cx="100" cy="131" rx="15" ry="8" fill="{{op.skinHex}}"></ellipse>
+</sc-if>
+<sc-if value="{{ op.hairCap }}" hint-placeholder-val="{{ true }}">
+<path data-color-fill="hair" d="M50 90c-3-36 18-58 50-58s53 22 50 58c-10-19-27-27-50-27s-40 8-50 27z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairCurly }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="52" cy="80" r="13"></circle><circle cx="62" cy="62" r="16"></circle><circle cx="80" cy="48" r="17"></circle><circle cx="100" cy="44" r="18"></circle><circle cx="120" cy="48" r="17"></circle><circle cx="138" cy="62" r="16"></circle><circle cx="148" cy="80" r="13"></circle><circle cx="70" cy="36" r="14"></circle><circle cx="100" cy="29" r="16"></circle><circle cx="130" cy="36" r="14"></circle>
+</g>
+</sc-if>
+<sc-if value="{{ op.hairCurlyShort }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="62" cy="85" r="10"></circle><circle cx="74" cy="68" r="12"></circle><circle cx="90" cy="56" r="13"></circle><circle cx="100" cy="52" r="13"></circle><circle cx="110" cy="56" r="13"></circle><circle cx="126" cy="68" r="12"></circle><circle cx="138" cy="85" r="10"></circle><circle cx="82" cy="44" r="10"></circle><circle cx="100" cy="40" r="11"></circle><circle cx="118" cy="44" r="10"></circle>
+</g>
+</sc-if>
+<path data-color-stroke="hair" d="M70 84q10-6 20 0M110 84q10-6 20 0" fill="none" stroke="{{op.hairHex}}" stroke-width="3.500" stroke-linecap="round"></path>
+<ellipse cx="80" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<ellipse cx="120" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<circle data-color-fill="eye" cx="80" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle data-color-fill="eye" cx="120" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle cx="80" cy="100" r="2.200" fill="#171A36"></circle>
+<circle cx="120" cy="100" r="2.200" fill="#171A36"></circle>
+<sc-if value="{{ op.lashes }}" hint-placeholder-val="{{ false }}">
+<path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
+</sc-if>
+<path d="{{op.noseD}}" fill="none" stroke="{{op.skinShade}}" stroke-width="{{op.noseSw}}" stroke-linecap="round"></path>
+<path d="{{op.lipD}}" fill="{{op.lipFill}}" stroke="{{op.lipStroke}}" stroke-width="{{op.lipSw}}" stroke-linecap="round"></path>
+<sc-if value="{{ op.showMoustache }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.showGlasses }}" hint-placeholder-val="{{ false }}">
+<g stroke="#171A36" stroke-width="3.500" stroke-linecap="round">
+<rect x="{{op.gX1}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<rect x="{{op.gX2}}" y="{{op.gY}}" width="{{op.gW}}" height="{{op.gH}}" rx="{{op.gR}}" fill="{{op.gFill}}" fill-opacity="{{op.gFillOpacity}}"></rect>
+<path d="M95 98h10M64 96l-10-3M136 96l10-3" fill="none"></path>
+</g>
+</sc-if>
+</svg>
+</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-size: 14px; font-weight: 500; color: #B9BDE6">Kulak şekli</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px">
+<sc-for list="{{ earOptions }}" as="op" hint-placeholder-count="4">
+<button onClick="{{ op.pick }}" aria-label="{{ op.label }}" aria-pressed="{{ op.pressed }}" style="height: 76px; padding: 0; border: 0; border-radius: 14px; background: #2E3366; box-shadow: {{op.ring}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg viewBox="{{op.vb}}" width="66" height="64" aria-hidden="true">
+<sc-if value="{{ op.hairLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M46 96C44 54 68 32 100 32C132 32 156 54 154 96Q160 136 140 166L60 166Q40 136 46 96Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairBun }}" hint-placeholder-val="{{ false }}">
+<circle data-color-fill="hair" cx="100" cy="25" r="15" fill="{{op.hairHex}}"></circle><circle data-color-fill="hair" cx="113" cy="17" r="7" fill="{{op.hairHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.hairWavyLong }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q164 116 152 128Q160 140 150 152Q158 164 144 180L56 180Q42 164 50 152Q40 140 48 128Q36 116 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairWavyShort }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M44 94C42 52 68 30 100 30C132 30 158 52 156 94Q162 108 152 116Q158 128 146 136L54 136Q42 128 48 116Q38 108 44 94Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairPonytail }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M118 38Q158 40 168 72Q176 104 162 136Q156 148 144 140Q156 112 150 80Q144 54 114 46Z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<rect x="86" y="136" width="28" height="34" fill="{{op.skinShade}}"></rect>
+<path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
+<sc-if value="{{ op.notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle cx="53" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle><circle cx="147" cy="100" r="{{op.earR}}" fill="{{op.skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ op.earSivri }}" hint-placeholder-val="{{ false }}">
+<path d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{op.skinHex}}"></path><path d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{op.skinHex}}"></path>
+</sc-if>
+<rect x="{{op.faceX}}" y="{{op.faceY}}" width="{{op.faceW}}" height="{{op.faceH}}" rx="{{op.faceR}}" fill="{{op.skinHex}}"></rect>
+<sc-if value="{{ op.showBeard }}" hint-placeholder-val="{{ false }}">
+<path data-color-fill="hair" d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{op.hairHex}}" opacity="{{op.beardOpacity}}"></path>
+<ellipse cx="100" cy="131" rx="15" ry="8" fill="{{op.skinHex}}"></ellipse>
+</sc-if>
+<sc-if value="{{ op.hairCap }}" hint-placeholder-val="{{ true }}">
+<path data-color-fill="hair" d="M50 90c-3-36 18-58 50-58s53 22 50 58c-10-19-27-27-50-27s-40 8-50 27z" fill="{{op.hairHex}}"></path>
+</sc-if>
+<sc-if value="{{ op.hairCurly }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="52" cy="80" r="13"></circle><circle cx="62" cy="62" r="16"></circle><circle cx="80" cy="48" r="17"></circle><circle cx="100" cy="44" r="18"></circle><circle cx="120" cy="48" r="17"></circle><circle cx="138" cy="62" r="16"></circle><circle cx="148" cy="80" r="13"></circle><circle cx="70" cy="36" r="14"></circle><circle cx="100" cy="29" r="16"></circle><circle cx="130" cy="36" r="14"></circle>
+</g>
+</sc-if>
+<sc-if value="{{ op.hairCurlyShort }}" hint-placeholder-val="{{ false }}">
+<g data-color-fill="hair" fill="{{op.hairHex}}">
+<circle cx="62" cy="85" r="10"></circle><circle cx="74" cy="68" r="12"></circle><circle cx="90" cy="56" r="13"></circle><circle cx="100" cy="52" r="13"></circle><circle cx="110" cy="56" r="13"></circle><circle cx="126" cy="68" r="12"></circle><circle cx="138" cy="85" r="10"></circle><circle cx="82" cy="44" r="10"></circle><circle cx="100" cy="40" r="11"></circle><circle cx="118" cy="44" r="10"></circle>
+</g>
+</sc-if>
+<path data-color-stroke="hair" d="M70 84q10-6 20 0M110 84q10-6 20 0" fill="none" stroke="{{op.hairHex}}" stroke-width="3.500" stroke-linecap="round"></path>
+<ellipse cx="80" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<ellipse cx="120" cy="100" rx="{{op.eyeRx}}" ry="{{op.eyeRy}}" fill="#FFFFFF"></ellipse>
+<circle data-color-fill="eye" cx="80" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle data-color-fill="eye" cx="120" cy="100" r="{{op.irisR}}" fill="{{op.eyeHex}}"></circle>
+<circle cx="80" cy="100" r="2.200" fill="#171A36"></circle>
+<circle cx="120" cy="100" r="2.200" fill="#171A36"></circle>
+<sc-if value="{{ op.lashes }}" hint-placeholder-val="{{ false }}">
+<path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
+</sc-if>
+<path d="{{op.noseD}}" fill="none" stroke="{{op.skinShade}}" stroke-width="{{op.noseSw}}" stroke-linecap="round"></path>
+<path d="{{op.lipD}}" fill="{{op.lipFill}}" stroke="{{op.lipStroke}}" stroke-width="{{op.lipSw}}" stroke-linecap="round"></path>
 <sc-if value="{{ op.showMoustache }}" hint-placeholder-val="{{ false }}">
 <path data-color-fill="hair" d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{op.hairHex}}"></path>
 </sc-if>

@@ -21,8 +21,12 @@
 </sc-if>
 <rect x="86" y="136" width="28" height="34" fill="{{skinShade}}"></rect>
 <path d="M36 200c0-28 28-42 64-42s64 14 64 42z" fill="#FF9F45"></path>
-<circle cx="53" cy="100" r="9" fill="{{skinHex}}"></circle>
-<circle cx="147" cy="100" r="9" fill="{{skinHex}}"></circle>
+<sc-if value="{{ notEarSivri }}" hint-placeholder-val="{{ true }}">
+<circle cx="53" cy="100" r="{{earR}}" fill="{{skinHex}}"></circle><circle cx="147" cy="100" r="{{earR}}" fill="{{skinHex}}"></circle>
+</sc-if>
+<sc-if value="{{ earSivri }}" hint-placeholder-val="{{ false }}">
+<path d="M44 92q-12-1-11 11q1 10 12 7q-5-8-3-18z" fill="{{skinHex}}"></path><path d="M156 92q12-1 11 11q-1 10-12 7q5-8 3-18z" fill="{{skinHex}}"></path>
+</sc-if>
 <rect x="{{faceX}}" y="{{faceY}}" width="{{faceW}}" height="{{faceH}}" rx="{{faceR}}" fill="{{skinHex}}"></rect>
 <sc-if value="{{ showBeard }}" hint-placeholder-val="{{ false }}">
 <path d="M56 104c0 34 18 50 44 50s44-16 44-50c-6 14-14 20-22 20c-6-6-14-8-22-8s-16 2-22 8c-8 0-16-6-22-20z" fill="{{hairHex}}" opacity="{{beardOpacity}}"></path>
@@ -51,8 +55,8 @@
 <sc-if value="{{ lashes }}" hint-placeholder-val="{{ true }}">
 <path d="M70 93l-4-4M130 93l4-4M74 90l-2-5M126 90l2-5" fill="none" stroke="#171A36" stroke-width="2.200" stroke-linecap="round"></path>
 </sc-if>
-<path d="M100 106v9q0 4-5 4" fill="none" stroke="{{skinShade}}" stroke-width="3" stroke-linecap="round"></path>
-<path d="M89 129q11 8 22 0" fill="none" stroke="#7A2E2E" stroke-width="3.500" stroke-linecap="round"></path>
+<path d="{{noseD}}" fill="none" stroke="{{skinShade}}" stroke-width="{{noseSw}}" stroke-linecap="round"></path>
+<path d="{{lipD}}" fill="{{lipFill}}" stroke="{{lipStroke}}" stroke-width="{{lipSw}}" stroke-linecap="round"></path>
 <sc-if value="{{ showMoustache }}" hint-placeholder-val="{{ false }}">
 <path d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{hairHex}}"></path>
 </sc-if>

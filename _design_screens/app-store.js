@@ -45,6 +45,16 @@ window.App = (function () {
     yuvarlak: { x: 52, y: 48, w: 96, h: 100, r: 48 }, oval: { x: 56, y: 44, w: 88, h: 112, r: 44 }, koseli: { x: 54, y: 50, w: 92, h: 100, r: 28 }
   };
   var EYE_SHAPES = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6], kirpikli: [8, 8, 4.5] };
+  var NOSE_SHAPES = {
+    duz: { d: 'M100 106v9q0 4-5 4', sw: 3 },
+    kalkik: { d: 'M100 106v8q0 4 5 3', sw: 3 },
+    genis: { d: 'M100 105v10q0 5-6 5', sw: 5 }
+  };
+  var LIP_SHAPES = {
+    ince: { d: 'M89 129q11 8 22 0', fill: 'none', stroke: '#7A2E2E', sw: 3.500 },
+    dolgun: { d: 'M84 127q16 13 32 0q-4 7-16 7q-12 0-16-7z', fill: '#8A3A3A', stroke: 'none', sw: 0 },
+    genis: { d: 'M81 126q19 16 38 0', fill: 'none', stroke: '#7A2E2E', sw: 4 }
+  };
   var PETS = [
     { id: 'yok', name: 'Yok', emoji: null },
     { id: 'kedi_siyah', name: 'Siyah Kedi', emoji: '🐈‍⬛' },
@@ -89,6 +99,10 @@ window.App = (function () {
     var skin = customSkin ? { hex: v.skin, shade: darkenHex(v.skin, 0.18) } : (SKINS[v.skin] || SKINS[1]);
     var f = FACES[v.face] || FACES.yuvarlak;
     var e = EYE_SHAPES[v.eye] || EYE_SHAPES.yuvarlak;
+    var n = NOSE_SHAPES[v.nose] || NOSE_SHAPES.duz;
+    var l = LIP_SHAPES[v.lip] || LIP_SHAPES.ince;
+    var earBig = v.ear === 'buyuk';
+    var earSivri = v.ear === 'sivri';
     var roundG = v.glasses === 'yuvarlak';
     var sun = v.glasses === 'gunes';
     var pet = PETS.filter(function (p) { return p.id === v.pet; })[0] || PETS[0];
@@ -99,6 +113,9 @@ window.App = (function () {
       bgColor: resolveColor(BG_COLORS, v.bgColor),
       faceX: f.x, faceY: f.y, faceW: f.w, faceH: f.h, faceR: f.r,
       eyeRx: e[0], eyeRy: e[1], irisR: e[2],
+      noseD: n.d, noseSw: n.sw,
+      lipD: l.d, lipFill: l.fill, lipStroke: l.stroke, lipSw: l.sw,
+      earR: earBig ? 13 : 9, earSivri: earSivri, notEarSivri: !earSivri,
       hairLong: v.hair === 'uzun', hairBun: v.hair === 'topuz',
       hairWavyLong: v.hair === 'dalgali_uzun', hairWavyShort: v.hair === 'dalgali_kisa',
       hairPonytail: v.hair === 'atkuyrugu',
@@ -126,7 +143,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
+      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,
