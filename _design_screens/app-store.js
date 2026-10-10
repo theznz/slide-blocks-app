@@ -22,7 +22,8 @@ window.App = (function () {
     { id: 'kadife', name: 'Kadife', c1: '#9B2C4B', c2: '#1F6F5C', c3: '#3A4BA8', cost: 80, finish: 'velvet' },
     { id: 'cam', name: 'Cam', c1: '#8C6FEA', c2: '#4FD1BA', c3: '#F08CC4', cost: 100, finish: 'glass' },
     { id: 'metalik', name: 'Metalik', c1: '#C0C7D1', c2: '#D9A441', c3: '#B87333', cost: 100, finish: 'metal' },
-    { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' }
+    { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' },
+    { id: 'tuy', name: 'Tüy', c1: '#FFB3CF', c2: '#B5D3FF', c3: '#FFE680', cost: 120, finish: 'fluffy' }
   ];
 
   var GAME_PALETTE = {
@@ -36,7 +37,8 @@ window.App = (function () {
     kadife: [{ bg: '#9B2C4B', sh: '#6E1C34' }, { bg: '#1F6F5C', sh: '#124A3D' }, { bg: '#3A4BA8', sh: '#26337A' }, { bg: '#C08A2E', sh: '#8C6219' }],
     cam: [{ bg: '#8C6FEA', sh: '#6A4FC7' }, { bg: '#4FD1BA', sh: '#33A893' }, { bg: '#F08CC4', sh: '#C9649D' }, { bg: '#6FB4F2', sh: '#4A8CCB' }],
     metalik: [{ bg: '#C0C7D1', sh: '#8A939F' }, { bg: '#D9A441', sh: '#A67822' }, { bg: '#B87333', sh: '#86501F' }, { bg: '#6F8FAF', sh: '#4C6A88' }],
-    simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }]
+    simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }],
+    tuy: [{ bg: '#FFA8C8', sh: '#E07FA6' }, { bg: '#A9C8FF', sh: '#7FA1E0' }, { bg: '#FFE06E', sh: '#E0BC3F' }, { bg: '#B8E6C4', sh: '#8CC49C' }]
   };
 
   var SKINS = [
