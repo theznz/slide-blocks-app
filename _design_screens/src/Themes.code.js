@@ -24,7 +24,7 @@ class Component extends DCLogic {
     });
     var cta;
     var inUse = owned && picked === d.theme;
-    if (owned) cta = App.t(inUse ? 'Bu temayla oyna' : 'Temayı kullan');
+    if (owned) cta = App.t(inUse ? 'Ana ekrana geç' : 'Temayı kullan');
     else cta = App.t('Kilidi aç ({n} ★)', { n: current.cost });
     return {
       stars: d.stars,
@@ -35,11 +35,10 @@ class Component extends DCLogic {
       cta: cta,
       apply: function () {
         if (inUse) {
-          // the theme is already on: the button takes you straight back to your game
-          d.currentLevelIndex = d.unlockedLevel;
-          window.go('Game');
+          // the theme is already on: the button takes you back home, where Oyna starts the game
+          window.go('Main');
         } else if (owned) {
-          // no toast here: it would cover the button that just turned into 'Bu temayla oyna'
+          // no toast here: it would cover the button that just turned into 'Ana ekrana geç'
           d.theme = picked; App.save(); App.sfx('tap'); self.forceUpdate();
         } else if (d.stars >= current.cost) {
           d.stars -= current.cost; d.themesOwned.push(picked); d.theme = picked; App.save();

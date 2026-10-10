@@ -142,7 +142,7 @@
 
       // Themes
       'Önizleme': 'Preview', 'Seçili': 'Selected', 'Sende var': 'Owned', 'Kullanılıyor': 'In use',
-      'Temayı kullan': 'Use theme', 'Bu temayla oyna': 'Play with this theme', 'Kilidi aç ({n} ★)': 'Unlock ({n} ★)', 'Şu an kullanılıyor': 'Currently in use',
+      'Temayı kullan': 'Use theme', 'Kilidi aç ({n} ★)': 'Unlock ({n} ★)', 'Şu an kullanılıyor': 'Currently in use',
       'Koleksiyonunda': 'In your collection', '{n} yıldızla açılır': 'Unlocks with {n} stars',
       '{name} teması uygulandı': '{name} theme applied', '{name} açıldı!': '{name} unlocked!',
 
