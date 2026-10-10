@@ -605,7 +605,7 @@ window.App = (function () {
   return App;
 })();
 
-App.BUILD = "10.10 15:23";
+App.BUILD = "10.10 15:27";
 // ---- localization: source strings are Turkish; other languages map Turkish text -> translation ----
 // Markup text and aria-labels are translated by the engine before {{ }} holes are filled,
 // so a key may contain holes, e.g. 'Seviye {{ levelIndex }}'. Strings built in code use
@@ -1109,7 +1109,7 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
   };
 
   // Confetti burst over the whole app (used on the win screen for a par-or-better solve).
-  // Two cannons fire from the bottom corners, then a light shower falls from the top.
+  // Two cannons fire from the bottom corners high up toward the top of the screen.
   App.confetti = function () {
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var stage = document.getElementById('stage');
@@ -1125,7 +1125,7 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
     var parts = [];
     function add(x, y, angle, spread, speed, n) {
       for (var i = 0; i < n; i++) {
-        var a = angle + (Math.random() - 0.5) * spread, v = speed * (0.55 + Math.random() * 0.6);
+        var a = angle + (Math.random() - 0.5) * spread, v = speed * (0.75 + Math.random() * 0.35);
         parts.push({
           x: x, y: y, vx: Math.cos(a) * v, vy: Math.sin(a) * v,
           w: 6 + Math.random() * 6, h: 4 + Math.random() * 5, round: Math.random() < 0.3,
@@ -1134,15 +1134,17 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
         });
       }
     }
-    add(0, H, -Math.PI / 3, 0.7, 19, 90);
-    add(W, H, -Math.PI * 2 / 3, 0.7, 19, 90);
-    setTimeout(function () { for (var i = 0; i < 60; i++) add(Math.random() * W, -10, Math.PI / 2, 0.6, 3, 1); }, 450);
+    // launch speed tuned so about half the pieces climb ~90% of the screen and the fastest reach
+    // the top; scaled with screen height so tall phones get the same arc
+    var speed = 30 * Math.sqrt(H / 844), steep = 72 * Math.PI / 180;
+    add(0, H, -steep, 0.35, speed, 110);
+    add(W, H, -Math.PI + steep, 0.35, speed, 110);
     var start = performance.now();
     (function frame(now) {
       g.clearRect(0, 0, W, H);
       var alive = 0;
       parts.forEach(function (p) {
-        p.vy += 0.32; p.vx *= 0.985; p.vy *= 0.985;
+        p.vy += 0.3; p.vx *= 0.992; p.vy *= 0.992;
         p.x += p.vx + Math.sin(p.tilt) * 0.6; p.y += p.vy;
         p.rot += p.vr; p.tilt += 0.08;
         if (p.y > H + 20) return;
