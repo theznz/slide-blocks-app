@@ -14,7 +14,6 @@ window.App = (function () {
 
   var THEMES = [
     { id: 'seker', name: 'Şeker', c1: '#FF9F45', c2: '#3DD6C3', c3: '#6C8CFF', cost: 0 },
-    { id: 'ahsap', name: 'Ahşap', c1: '#E0A76A', c2: '#B47A45', c3: '#8A5A33', cost: 0 },
     { id: 'neon', name: 'Neon', c1: '#F9F871', c2: '#00F5D4', c3: '#F15BB5', cost: 40 },
     { id: 'pastel', name: 'Pastel', c1: '#FFC8DD', c2: '#BDE0FE', c3: '#CDEAC0', cost: 40 },
     { id: 'okyanus', name: 'Okyanus', c1: '#90E0EF', c2: '#48CAE4', c3: '#0096C7', cost: 60 },
@@ -28,7 +27,6 @@ window.App = (function () {
 
   var GAME_PALETTE = {
     seker: [{ bg: '#3DD6C3', sh: '#25A898' }, { bg: '#6C8CFF', sh: '#4865D6' }, { bg: '#FFD35C', sh: '#D9A92F' }, { bg: '#FF7AA8', sh: '#D4527F' }],
-    ahsap: [{ bg: '#E0A76A', sh: '#B47A45' }, { bg: '#8A5A33', sh: '#6B4323' }, { bg: '#C9915A', sh: '#A06B3A' }, { bg: '#F0C48A', sh: '#C99A5E' }],
     neon: [{ bg: '#F9F871', sh: '#C9C83A' }, { bg: '#00F5D4', sh: '#00B89D' }, { bg: '#F15BB5', sh: '#C22E86' }, { bg: '#9B5DE5', sh: '#6E33B0' }],
     pastel: [{ bg: '#FFC8DD', sh: '#E59FB8' }, { bg: '#BDE0FE', sh: '#8FC2E8' }, { bg: '#CDEAC0', sh: '#A3CD92' }, { bg: '#FFF1A6', sh: '#E8D679' }],
     okyanus: [{ bg: '#90E0EF', sh: '#5FC2D6' }, { bg: '#48CAE4', sh: '#2A9FBA' }, { bg: '#0096C7', sh: '#00729A' }, { bg: '#ADE8F4', sh: '#7FC9DB' }],
@@ -170,7 +168,7 @@ window.App = (function () {
       currentLevelIndex: 1,
       pendingRestart: false,
       theme: 'seker',
-      themesOwned: ['seker', 'ahsap'],
+      themesOwned: ['seker'],
       avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, earring: 'yok', necklace: 'yok', piercing: 'yok', clothColor: 0, clip: 'yok', hat: 'yok', scarf: 'yok', headphones: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
       settings: { ses: true, muzik: true, titresim: true, bildirim: true, dil: 'tr' },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
@@ -203,8 +201,9 @@ window.App = (function () {
         merged.currentLevelIndex = Math.min(merged.currentLevelIndex || 1, LEVELS.length);
       }
       merged.levelsVersion = LEVELS_VERSION;
-      // Themes removed in 1.0 (Kadife, Simli, Tüy): refund their price and fall back to Şeker.
-      var REMOVED = { kadife: 80, simli: 120, tuy: 120 };
+      // Themes removed in 1.0 (Ahşap was free; Kadife, Simli, Tüy refund their price);
+      // a removed active theme falls back to Şeker.
+      var REMOVED = { ahsap: 0, kadife: 80, simli: 120, tuy: 120 };
       merged.themesOwned = merged.themesOwned.filter(function (id) {
         if (REMOVED[id] == null) return true;
         merged.stars += REMOVED[id];
