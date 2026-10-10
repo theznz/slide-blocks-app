@@ -45,7 +45,7 @@
 <circle cx="62" cy="85" r="10"></circle><circle cx="74" cy="68" r="12"></circle><circle cx="90" cy="56" r="13"></circle><circle cx="100" cy="52" r="13"></circle><circle cx="110" cy="56" r="13"></circle><circle cx="126" cy="68" r="12"></circle><circle cx="138" cy="85" r="10"></circle><circle cx="82" cy="44" r="10"></circle><circle cx="100" cy="40" r="11"></circle><circle cx="118" cy="44" r="10"></circle>
 </g>
 </sc-if>
-<path d="M70 84q10-6 20 0M110 84q10-6 20 0" fill="none" stroke="{{hairHex}}" stroke-width="3.500" stroke-linecap="round"></path>
+<path d="{{ browD }}" fill="none" stroke="{{ hairHex }}" stroke-width="{{ browSw }}" stroke-linecap="round"></path>
 <ellipse cx="80" cy="100" rx="{{eyeRx}}" ry="{{eyeRy}}" fill="#FFFFFF"></ellipse>
 <ellipse cx="120" cy="100" rx="{{eyeRx}}" ry="{{eyeRy}}" fill="#FFFFFF"></ellipse>
 <circle cx="80" cy="100" r="{{irisR}}" fill="{{eyeHex}}"></circle>
@@ -61,7 +61,7 @@
 <path d="M80 124q10-9 20-3q10-6 20 3q-10 4-20 0q-10 4-20 0z" fill="{{hairHex}}"></path>
 </sc-if>
 <sc-if value="{{ showGlasses }}" hint-placeholder-val="{{ false }}">
-<g stroke="#171A36" stroke-width="3.500" stroke-linecap="round">
+<g data-color-stroke="glasses" stroke="{{ gFrame }}" stroke-width="3.500" stroke-linecap="round">
 <rect x="{{gX1}}" y="{{gY}}" width="{{gW}}" height="{{gH}}" rx="{{gR}}" fill="{{gFill}}" fill-opacity="{{gFillOpacity}}"></rect>
 <rect x="{{gX2}}" y="{{gY}}" width="{{gW}}" height="{{gH}}" rx="{{gR}}" fill="{{gFill}}" fill-opacity="{{gFillOpacity}}"></rect>
 <path d="M95 98h10M64 96l-10-3M136 96l10-3" fill="none"></path>

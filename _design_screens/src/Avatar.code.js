@@ -3,7 +3,7 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var saved = App.data.avatar;
-    var defaults = { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0, bgColor: 0 };
+    var defaults = { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, pet: 'yok', petColor: 0, bgColor: 0 };
     var st = this.state || {};
     var s = {};
     Object.keys(defaults).forEach(function (k) { s[k] = st[k] !== undefined ? st[k] : (saved[k] !== undefined ? saved[k] : defaults[k]); });
@@ -36,7 +36,19 @@ class Component extends DCLogic {
       oval: { x: 56, y: 44, w: 88, h: 112, r: 44 },
       koseli: { x: 54, y: 50, w: 92, h: 100, r: 28 }
     };
-    var eyeShapes = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6], kirpikli: [8, 8, 4.5] };
+    var eyeShapes = { yuvarlak: [8, 8, 4.5], badem: [10, 6, 4.5], iri: [10, 10, 6] };
+    var browShapes = {
+      dogal: { d: 'M70 84q10-6 20 0M110 84q10-6 20 0', sw: 3.500 },
+      kalin: { d: 'M70 84q10-6 20 0M110 84q10-6 20 0', sw: 5.500 },
+      cati: { d: 'M70 88l20-8M110 80l20 8', sw: 3.500 }
+    };
+    var frameColors = [
+      { name: 'Siyah', hex: '#171A36' },
+      { name: 'Kahve', hex: '#6B4226' },
+      { name: 'Kırmızı', hex: '#B5452A' },
+      { name: 'Mavi', hex: '#3B7DD8' },
+      { name: 'Altın', hex: '#D9A441' }
+    ];
     var noseShapes = {
       duz: { d: 'M100 106v9q0 4-5 4', sw: 3 },
       kalkik: { d: 'M100 106v8q0 4 5 3', sw: 3 },
@@ -55,6 +67,7 @@ class Component extends DCLogic {
       var l = lipShapes[v.lip] || lipShapes.ince;
       var earBig = v.ear === 'buyuk';
       var earSivri = v.ear === 'sivri';
+      var b = browShapes[v.brow] || browShapes.dogal;
       var roundG = v.glasses === 'yuvarlak';
       var sun = v.glasses === 'gunes';
       var customSkin = typeof v.skin === 'string';
@@ -77,7 +90,8 @@ class Component extends DCLogic {
         hairCap: v.hair === 'kisa' || v.hair === 'uzun' || v.hair === 'topuz' || v.hair === 'dalgali_uzun' || v.hair === 'dalgali_kisa' || v.hair === 'atkuyrugu',
         hairCurly: v.hair === 'kivircik',
         hairCurlyShort: v.hair === 'kivircik_kisa',
-        lashes: v.eye === 'kirpikli',
+        lashes: v.lash === 'var',
+        browD: b.d, browSw: b.sw,
         showMoustache: v.facial === 'biyik' || v.facial === 'sakal',
         showBeard: v.facial === 'sakal' || v.facial === 'kirli',
         beardOpacity: v.facial === 'kirli' ? 0.35 : 1,
@@ -85,7 +99,8 @@ class Component extends DCLogic {
         gX1: roundG ? 66 : 63, gX2: roundG ? 106 : 105,
         gY: roundG ? 86 : 88, gW: roundG ? 28 : 32, gH: roundG ? 28 : 24, gR: roundG ? 14 : 6,
         gFill: sun ? '#171A36' : '#FFFFFF',
-        gFillOpacity: sun ? 0.9 : 0.12
+        gFillOpacity: sun ? 0.9 : 0.12,
+        gFrame: App.resolveColor(frameColors, v.glassesColor)
       };
     }
 
@@ -101,7 +116,9 @@ class Component extends DCLogic {
       dudak: { label: 'Dudak şekli', key: 'lip', vb: '30 24 140 140', list: [['ince', 'İnce'], ['dolgun', 'Dolgun'], ['genis', 'Geniş gülümseme']] },
       kulak: { label: 'Kulak şekli', key: 'ear', vb: '30 24 140 140', list: [['normal', 'Normal'], ['buyuk', 'Büyük'], ['sivri', 'Sivri']] },
       sac: { label: 'Saç modeli', key: 'hair', vb: '20 6 160 160', list: [['kisa', 'Kısa'], ['uzun', 'Uzun'], ['dalgali_uzun', 'Dalgalı uzun'], ['dalgali_kisa', 'Dalgalı kısa'], ['kivircik', 'Kıvırcık uzun'], ['kivircik_kisa', 'Kıvırcık kısa'], ['atkuyrugu', 'At kuyruğu'], ['topuz', 'Topuz'], ['kel', 'Kel']] },
-      goz: { label: 'Göz şekli', key: 'eye', vb: '58 78 84 44', list: [['yuvarlak', 'Yuvarlak'], ['badem', 'Badem'], ['iri', 'İri'], ['kirpikli', 'Kirpikli']] },
+      goz: { label: 'Göz şekli', key: 'eye', vb: '58 78 84 44', list: [['yuvarlak', 'Yuvarlak'], ['badem', 'Badem'], ['iri', 'İri']] },
+      kas: { label: 'Kaş şekli', key: 'brow', vb: '30 24 140 140', list: [['dogal', 'Doğal'], ['kalin', 'Kalın'], ['cati', 'Çatık']] },
+      kirpik: { label: 'Kirpik', key: 'lash', vb: '30 24 140 140', list: [['yok', 'Yok'], ['var', 'Var']] },
       biyik: { label: 'Bıyık ve sakal', key: 'facial', vb: '50 92 100 66', list: [['yok', 'Yok'], ['biyik', 'Bıyık'], ['sakal', 'Sakal'], ['kirli', 'Kirli']] },
       gozluk: { label: 'Gözlük', key: 'glasses', vb: '46 72 108 56', list: [['yok', 'Yok'], ['yuvarlak', 'Yuvarlak'], ['koseli', 'Köşeli'], ['gunes', 'Güneş']] }
     };
@@ -109,6 +126,7 @@ class Component extends DCLogic {
       sac: { label: 'Saç rengi', key: 'hairColor', list: hairs },
       biyik: { label: 'Saç ve sakal rengi', key: 'hairColor', list: hairs },
       goz: { label: 'Göz rengi', key: 'eyeColor', list: eyes },
+      gozluk: { label: 'Gözlük rengi', key: 'glassesColor', list: frameColors },
       pet: { label: 'Rozet rengi', key: 'petColor', list: badgeColors }
     };
 
@@ -134,6 +152,7 @@ class Component extends DCLogic {
     var options = buildOptions(od);
     var isPet = s.tab === 'pet';
     var isTemel = s.tab === 'temel';
+    var isGoz = s.tab === 'goz';
     var cd = colorDefs[s.tab];
     function addPick(key) {
       return function (e) {
@@ -141,7 +160,7 @@ class Component extends DCLogic {
         self.setState(patch);
       };
     }
-    var ROLE_BY_KEY = { hairColor: 'hair', eyeColor: 'eye', petColor: 'pet', skin: 'skin', bgColor: 'avatarbg' };
+    var ROLE_BY_KEY = { hairColor: 'hair', eyeColor: 'eye', petColor: 'pet', skin: 'skin', bgColor: 'avatarbg', glassesColor: 'glasses' };
     function liveColor(role) {
       return function (e) {
         var hex = e.target.value;
@@ -188,6 +207,7 @@ class Component extends DCLogic {
     out.tabs = tabs;
     out.isPet = isPet;
     out.isTemel = isTemel;
+    out.isGoz = isGoz;
     out.isFace = !isPet;
     out.options = options;
     out.optionLabel = od.label;
@@ -200,6 +220,8 @@ class Component extends DCLogic {
     out.noseOptions = isTemel ? buildOptions(optionDefs.burun) : [];
     out.lipOptions = isTemel ? buildOptions(optionDefs.dudak) : [];
     out.earOptions = isTemel ? buildOptions(optionDefs.kulak) : [];
+    out.browOptions = isGoz ? buildOptions(optionDefs.kas) : [];
+    out.lashOptions = isGoz ? buildOptions(optionDefs.kirpik) : [];
     out.petOptions = petOptions;
     out.pet = s.pet;
     out.hasPet = s.pet !== 'yok';
@@ -211,7 +233,8 @@ class Component extends DCLogic {
         skin: rnd(skins.length), face: pickKey(optionDefs.temel),
         nose: pickKey(optionDefs.burun), lip: pickKey(optionDefs.dudak), ear: pickKey(optionDefs.kulak),
         hair: pickKey(optionDefs.sac), hairColor: rnd(hairs.length), eye: pickKey(optionDefs.goz),
-        eyeColor: rnd(eyes.length), facial: pickKey(optionDefs.biyik), glasses: pickKey(optionDefs.gozluk)
+        eyeColor: rnd(eyes.length), brow: pickKey(optionDefs.kas), lash: pickKey(optionDefs.kirpik),
+        facial: pickKey(optionDefs.biyik), glasses: pickKey(optionDefs.gozluk), glassesColor: rnd(frameColors.length)
       });
     };
     out.save = function () {

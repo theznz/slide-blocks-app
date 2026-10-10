@@ -55,6 +55,15 @@ window.App = (function () {
     dolgun: { d: 'M84 127q16 13 32 0q-4 7-16 7q-12 0-16-7z', fill: '#8A3A3A', stroke: 'none', sw: 0 },
     genis: { d: 'M81 126q19 16 38 0', fill: 'none', stroke: '#7A2E2E', sw: 4 }
   };
+  var BROW_SHAPES = {
+    dogal: { d: 'M70 84q10-6 20 0M110 84q10-6 20 0', sw: 3.500 },
+    kalin: { d: 'M70 84q10-6 20 0M110 84q10-6 20 0', sw: 5.500 },
+    cati: { d: 'M70 88l20-8M110 80l20 8', sw: 3.500 }
+  };
+  var FRAME_COLORS = [
+    { name: 'Siyah', hex: '#171A36' }, { name: 'Kahve', hex: '#6B4226' }, { name: 'Kırmızı', hex: '#B5452A' },
+    { name: 'Mavi', hex: '#3B7DD8' }, { name: 'Altın', hex: '#D9A441' }
+  ];
   var PETS = [
     { id: 'yok', name: 'Yok', emoji: null },
     { id: 'kedi_siyah', name: 'Siyah Kedi', emoji: '🐈‍⬛' },
@@ -103,6 +112,7 @@ window.App = (function () {
     var l = LIP_SHAPES[v.lip] || LIP_SHAPES.ince;
     var earBig = v.ear === 'buyuk';
     var earSivri = v.ear === 'sivri';
+    var b = BROW_SHAPES[v.brow] || BROW_SHAPES.dogal;
     var roundG = v.glasses === 'yuvarlak';
     var sun = v.glasses === 'gunes';
     var pet = PETS.filter(function (p) { return p.id === v.pet; })[0] || PETS[0];
@@ -120,14 +130,16 @@ window.App = (function () {
       hairWavyLong: v.hair === 'dalgali_uzun', hairWavyShort: v.hair === 'dalgali_kisa',
       hairPonytail: v.hair === 'atkuyrugu',
       hairCap: v.hair === 'kisa' || v.hair === 'uzun' || v.hair === 'topuz' || v.hair === 'dalgali_uzun' || v.hair === 'dalgali_kisa' || v.hair === 'atkuyrugu',
-      hairCurly: v.hair === 'kivircik', hairCurlyShort: v.hair === 'kivircik_kisa', lashes: v.eye === 'kirpikli',
+      hairCurly: v.hair === 'kivircik', hairCurlyShort: v.hair === 'kivircik_kisa', lashes: v.lash === 'var',
+      browD: b.d, browSw: b.sw,
       showMoustache: v.facial === 'biyik' || v.facial === 'sakal',
       showBeard: v.facial === 'sakal' || v.facial === 'kirli',
       beardOpacity: v.facial === 'kirli' ? 0.35 : 1,
       showGlasses: v.glasses !== 'yok',
       gX1: roundG ? 66 : 63, gX2: roundG ? 106 : 105, gY: roundG ? 86 : 88,
       gW: roundG ? 28 : 32, gH: roundG ? 28 : 24, gR: roundG ? 14 : 6,
-      gFill: sun ? '#171A36' : '#FFFFFF', gFillOpacity: sun ? 0.9 : 0.12
+      gFill: sun ? '#171A36' : '#FFFFFF', gFillOpacity: sun ? 0.9 : 0.12,
+      gFrame: resolveColor(FRAME_COLORS, v.glassesColor)
     };
   }
 
@@ -143,7 +155,7 @@ window.App = (function () {
       pendingRestart: false,
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
-      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, facial: 'yok', glasses: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
+      avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, pet: 'yok', petColor: 0, bgColor: 0 },
       settings: { ses: true, muzik: true, titresim: false, bildirim: true },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,
