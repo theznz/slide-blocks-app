@@ -1,6 +1,7 @@
 window.App = (function () {
   var LEVELS = __LEVELS_JSON__;
   var SAVE_KEY = 'sbp_save_v1';
+  var LEVELS_VERSION = 2;
 
   var TIERS = (function () {
     var out = [], cur = null;
@@ -160,7 +161,7 @@ window.App = (function () {
 
   function defaultState() {
     return {
-      onboarded: false, guest: false,
+      onboarded: false, guest: false, levelsVersion: 2, seenIntro: {},
       stars: 0,
       hints: 3,
       adsRemoved: false,
@@ -190,6 +191,14 @@ window.App = (function () {
       merged.daily = Object.assign({}, def.daily, saved.daily || {});
       merged.levels = saved.levels || {};
       merged.themesOwned = saved.themesOwned || def.themesOwned.slice();
+      // Level set v2 (100 levels, exits on every side): drop a half-played board from the old set.
+      if (saved.levelsVersion !== LEVELS_VERSION) {
+        merged.gameState = null;
+        merged.pendingRestart = true;
+        merged.unlockedLevel = Math.min(merged.unlockedLevel || 1, LEVELS.length);
+        merged.currentLevelIndex = Math.min(merged.currentLevelIndex || 1, LEVELS.length);
+      }
+      merged.levelsVersion = LEVELS_VERSION;
       return merged;
     } catch (e) { return def; }
   }
@@ -341,103 +350,29 @@ window.App = (function () {
     }
   };
 
-  // ---- live board helpers (board is always 6x6, exit on right edge of the target's row) ----
-  var N = 6;
-  function cellsOf(b) {
-    var out = [];
-    for (var k = 0; k < b.len; k++) out.push(b.orient === 'h' ? [b.row, b.col + k] : [b.row + k, b.col]);
-    return out;
-  }
-  function buildGrid(blocks, excludeId) {
-    var grid = []; for (var r = 0; r < N; r++) grid.push(new Array(N).fill(-1));
-    blocks.forEach(function (b) {
-      if (b.id === excludeId) return;
-      cellsOf(b).forEach(function (rc) { grid[rc[0]][rc[1]] = b.id; });
-    });
-    return grid;
-  }
-  App.cellsOf = cellsOf;
+  // ---- board helpers: the rules live in puzzle.js (shared with the generator and tests) ----
+  App.cellsOf = Puzzle.cellsOf;
+  App.computeRange = Puzzle.range;
+  App.isSolved = function (n, blocks) { return Puzzle.isSolved(blocks, LEVELS[n - 1].exit); };
 
-  App.computeRange = function (blocks, movingId) {
-    var moving = blocks.filter(function (b) { return b.id === movingId; })[0];
-    var grid = buildGrid(blocks, movingId);
-    var min, max;
-    if (moving.orient === 'h') {
-      min = moving.col; max = moving.col;
-      for (var c = moving.col - 1; c >= 0 && grid[moving.row][c] === -1; c--) min = c;
-      for (var c2 = moving.col + moving.len; c2 < N && grid[moving.row][c2] === -1; c2++) max = c2 - moving.len + 1;
-    } else {
-      min = moving.row; max = moving.row;
-      for (var r = moving.row - 1; r >= 0 && grid[r][moving.col] === -1; r--) min = r;
-      for (var r2 = moving.row + moving.len; r2 < N && grid[r2][moving.col] === -1; r2++) max = r2 - moving.len + 1;
-    }
-    return { min: min, max: max };
+  // First move of a shortest solution from the current board, or null.
+  App.solveNextMove = function (blocks, exit) {
+    var sol = Puzzle.solve(blocks, exit, 300000);
+    if (!sol || !sol.path.length) return null;
+    var m = sol.path[0];
+    var b = blocks.filter(function (x) { return x.id === m.id; })[0];
+    return { id: m.id, orient: b.orient, fromPos: m.from, toPos: m.to };
   };
 
-  function stateKey(blocks) { return blocks.map(function (b) { return b.row * N + b.col; }).join(','); }
-
-  function neighborMoves(blocks) {
-    var out = [];
-    blocks.forEach(function (v) {
-      var grid = buildGrid(blocks, v.id);
-      if (v.orient === 'h') {
-        for (var nc = v.col - 1; nc >= 0 && grid[v.row][nc] === -1; nc--) {
-          out.push({ id: v.id, pos: nc, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { col: nc }) : b; }) });
-        }
-        for (var nc2 = v.col + 1; nc2 + v.len - 1 < N && grid[v.row][nc2 + v.len - 1] === -1; nc2++) {
-          out.push({ id: v.id, pos: nc2, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { col: nc2 }) : b; }) });
-        }
-      } else {
-        for (var nr = v.row - 1; nr >= 0 && grid[nr][v.col] === -1; nr--) {
-          out.push({ id: v.id, pos: nr, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { row: nr }) : b; }) });
-        }
-        for (var nr2 = v.row + 1; nr2 + v.len - 1 < N && grid[nr2 + v.len - 1][v.col] === -1; nr2++) {
-          out.push({ id: v.id, pos: nr2, next: blocks.map(function (b) { return b.id === v.id ? Object.assign({}, b, { row: nr2 }) : b; }) });
-        }
-      }
-    });
-    return out;
-  }
-
-  function isSolved(blocks) {
-    var t = blocks.filter(function (b) { return b.target; })[0];
-    return t.col === N - t.len;
-  }
-
-  // BFS from current board to the solved state; returns the first move to play, or null.
-  App.solveNextMove = function (blocks, cap) {
-    cap = cap || 250000;
-    if (isSolved(blocks)) return null;
-    var startKey = stateKey(blocks);
-    var visited = Object.create(null);
-    visited[startKey] = { parent: null, move: null };
-    var queue = [blocks];
-    var qi = 0;
-    var foundKey = null;
-    var count = 1;
-    while (qi < queue.length && !foundKey) {
-      var cur = queue[qi++];
-      var curKey = stateKey(cur);
-      var moves = neighborMoves(cur);
-      for (var i = 0; i < moves.length; i++) {
-        var mv = moves[i];
-        var k = stateKey(mv.next);
-        if (visited[k]) continue;
-        visited[k] = { parent: curKey, move: mv };
-        count++;
-        if (isSolved(mv.next)) { foundKey = k; break; }
-        queue.push(mv.next);
-        if (count > cap) break;
-      }
-      if (count > cap) break;
-    }
-    if (!foundKey) return null;
-    var k = foundKey;
-    while (visited[k].parent !== startKey) { k = visited[k].parent; }
-    var firstMove = visited[k].move;
-    var movingInStart = blocks.filter(function (b) { return b.id === firstMove.id; })[0];
-    var fromPos = movingInStart.orient === 'h' ? movingInStart.col : movingInStart.row;
-    return { id: firstMove.id, orient: movingInStart.orient, fromPos: fromPos, toPos: firstMove.pos };
+  // Target colour per level: 0 = classic orange, 1-4 = one of the theme's colours, which the
+  // other blocks then avoid so the arrow block is always the only one in its colour.
+  var TARGET_ORANGE = { bg: '#FF9F45', sh: '#D9772A' };
+  App.levelColors = function (lv, themeId) {
+    var pal = App.paletteFor(themeId);
+    var tc = (lv && lv.targetColor) || 0;
+    if (!tc) return { target: TARGET_ORANGE, others: pal };
+    var k = (tc - 1) % pal.length;
+    return { target: pal[k], others: pal.filter(function (c, i) { return i !== k; }) };
   };
 
   return App;

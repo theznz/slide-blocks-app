@@ -10,12 +10,12 @@
 <span>{{ stars }}</span>
 </div>
 </div>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px">
+<div style="flex-shrink: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px">
 <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="4">
-<button onclick="{{ tb.pick }}" style="height: 44px; border: 0; border-radius: 22px; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 15px; font-weight: 600; cursor: pointer">{{ tb.label }}</button>
+<button onclick="{{ tb.pick }}" style="height: 44px; border: 0; border-radius: 22px; background: {{tb.bg}}; color: {{tb.fg}}; font-family: inherit; font-size: 14px; padding: 0 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600; cursor: pointer">{{ tb.label }}</button>
 </sc-for>
 </div>
-<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div style="flex: 1 1 auto; min-height: 0; overflow-y: auto; align-content: start; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
 <sc-for list="{{ levels }}" as="lv" hint-placeholder-count="8">
 <div style="height: 78px">
 <sc-if value="{{ lv.open }}" hint-placeholder-val="{{ true }}">
@@ -37,7 +37,7 @@
 </div>
 </sc-for>
 </div>
-<div style="margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 14px; color: #B9BDE6">
+<div style="flex-shrink: 0; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 16px; font-size: 14px; color: #B9BDE6">
 <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #2E3366"></span>Tamamlandı</span>
 <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 4px; background: #FF9F45"></span>Sıradaki</span>
 <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; box-sizing: border-box; border-radius: 4px; border: 2px solid #2E3366"></span>Kilitli</span>

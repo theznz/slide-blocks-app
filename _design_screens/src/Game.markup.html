@@ -43,15 +43,18 @@
 <sc-for list="{{ blocks }}" as="b" hint-placeholder-count="10">
 <div data-id="{{ b.id }}" onpointerdown="{{ startDrag }}" class="{{ b.cls }}" style="{{ b.style }}">
 <sc-if value="{{ b.target }}" hint-placeholder-val="{{ true }}">
-<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: {{b.arrowColor}}; transform: rotate({{b.arrowRot}}deg)"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+</sc-if>
+<sc-if value="{{ b.wall }}" hint-placeholder-val="{{ false }}">
+<svg viewBox="0 0 52 52" width="52" height="52" fill="none" aria-hidden="true"><path d="M8 18h36M8 34h36M20 6v12M32 18v16M20 34v12" stroke="#4A4F86" stroke-width="2.500" stroke-linecap="round"></path></svg>
 </sc-if>
 </div>
 </sc-for>
-<div style="position: absolute; right: -4px; top: {{ exitTop }}px; width: 8px; height: 52px; border-radius: 4px; background: #FF9F45"></div>
+<div style="position: absolute; border-radius: 4px; {{ exitStyle }}"></div>
 </div>
 <div style="display: flex; align-items: center; justify-content: flex-end; gap: 8px; font-size: 14px; font-weight: 500; color: #B9BDE6">
-<span>Turuncu bloğu çıkışa ulaştır</span>
-<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#FF9F45" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
+<span>Oklu bloğu çıkışa ulaştır</span>
+<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="{{ targetHex }}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="transform: rotate({{ arrowRot }}deg)"><path d="M4 12h16M14 6l6 6-6 6"></path></svg>
 </div>
 </div>
 <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">

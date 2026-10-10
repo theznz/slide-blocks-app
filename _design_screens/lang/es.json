@@ -35,8 +35,6 @@
  "Nasıl oynanır?": "¿Cómo se juega?",
  "Geç": "Saltar",
  "Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.": "Arrastra los bloques con el dedo. Los horizontales se deslizan a izquierda y derecha, los verticales arriba y abajo.",
- "Turuncu bloğun önünü kapatan blokları kenara çek.": "Aparta los bloques que bloquean el paso al bloque naranja.",
- "Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.": "Lleva el bloque naranja a la salida de la derecha. Cuantos menos movimientos, más estrellas.",
  "Anladım, başla": "Entendido, vamos",
  "İlerlemeni kaydet": "Guarda tu progreso",
  "Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.": "Si inicias sesión, tus estrellas, temas y avatar te acompañan en todos tus dispositivos.",
@@ -52,7 +50,6 @@
  "Seviyelere dön": "Volver a niveles",
  "Sesi aç/kapat": "Activar/desactivar sonido",
  "Duraklat": "Pausa",
- "Turuncu bloğu çıkışa ulaştır": "Lleva el bloque naranja a la salida",
  "Geri al": "Deshacer",
  "Yeniden": "Reiniciar",
  "Geri alınacak hamle yok": "No hay movimientos que deshacer",
@@ -311,5 +308,13 @@
  "Kadife": "Terciopelo",
  "Cam": "Cristal",
  "Metalik": "Metálico",
- "Simli": "Purpurina"
+ "Simli": "Purpurina",
+ "Efsane": "Leyenda",
+ "Oklu bloğu çıkışa ulaştır": "Lleva el bloque de la flecha a la salida",
+ "Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.": "Aparta los bloques que cortan el paso al bloque de la flecha. Los muros grises nunca se mueven.",
+ "Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.": "Lleva el bloque de la flecha a la salida que señala. La salida puede estar en cualquier lado; cuantos menos movimientos, más estrellas.",
+ "Bu sefer çıkış solda!": "¡Esta vez la salida está a la izquierda!",
+ "Bu sefer çıkış yukarıda!": "¡Esta vez la salida está arriba!",
+ "Bu sefer çıkış aşağıda!": "¡Esta vez la salida está abajo!",
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Nuevo: ¡los muros grises nunca se mueven!"
 }

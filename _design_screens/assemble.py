@@ -37,7 +37,7 @@ new_json_blob = new_json_blob.replace('</', '<\\/')
 
 app_store = open(os.path.join(ROOT, 'app-store.js'), encoding='utf-8').read()
 levels_json = open(os.path.join(ROOT, 'levels.json'), encoding='utf-8').read()
-app_store_rendered = app_store.replace('__LEVELS_JSON__', levels_json)
+app_store_rendered = open(os.path.join(ROOT, 'puzzle.js'), encoding='utf-8').read() + '\n' + app_store.replace('__LEVELS_JSON__', levels_json)
 engine = open(os.path.join(ROOT, 'engine.js'), encoding='utf-8').read()
 i18n = open(os.path.join(ROOT, 'i18n.js'), encoding='utf-8').read()
 audio = open(os.path.join(ROOT, 'audio.js'), encoding='utf-8').read()

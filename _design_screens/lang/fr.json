@@ -35,8 +35,6 @@
  "Nasıl oynanır?": "Comment jouer ?",
  "Geç": "Passer",
  "Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.": "Fais glisser les blocs avec ton doigt. Les blocs horizontaux vont à gauche et à droite, les verticaux en haut et en bas.",
- "Turuncu bloğun önünü kapatan blokları kenara çek.": "Écarte les blocs qui bloquent le chemin du bloc orange.",
- "Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.": "Amène le bloc orange à la sortie à droite. Moins de coups, plus d'étoiles.",
  "Anladım, başla": "Compris, on y va",
  "İlerlemeni kaydet": "Sauvegarde ta progression",
  "Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.": "Connecte-toi et tes étoiles, thèmes et avatar te suivent sur tous tes appareils.",
@@ -52,7 +50,6 @@
  "Seviyelere dön": "Retour aux niveaux",
  "Sesi aç/kapat": "Son activé/coupé",
  "Duraklat": "Pause",
- "Turuncu bloğu çıkışa ulaştır": "Amène le bloc orange à la sortie",
  "Geri al": "Annuler",
  "Yeniden": "Rejouer",
  "Geri alınacak hamle yok": "Aucun coup à annuler",
@@ -311,5 +308,13 @@
  "Kadife": "Velours",
  "Cam": "Verre",
  "Metalik": "Métal",
- "Simli": "Paillettes"
+ "Simli": "Paillettes",
+ "Efsane": "Légende",
+ "Oklu bloğu çıkışa ulaştır": "Amène le bloc fléché à la sortie",
+ "Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.": "Écarte les blocs qui gênent le bloc fléché. Les murs gris ne bougent jamais.",
+ "Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.": "Amène le bloc fléché à la sortie qu’il indique. La sortie peut être sur n’importe quel bord ; moins de coups, plus d’étoiles.",
+ "Bu sefer çıkış solda!": "Cette fois, la sortie est à gauche !",
+ "Bu sefer çıkış yukarıda!": "Cette fois, la sortie est en haut !",
+ "Bu sefer çıkış aşağıda!": "Cette fois, la sortie est en bas !",
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Nouveau : les murs gris ne bougent jamais !"
 }

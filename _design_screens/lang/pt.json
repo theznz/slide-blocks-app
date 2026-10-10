@@ -35,8 +35,6 @@
  "Nasıl oynanır?": "Como jogar?",
  "Geç": "Pular",
  "Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.": "Arraste os blocos com o dedo. Blocos horizontais deslizam para os lados, blocos verticais deslizam para cima e para baixo.",
- "Turuncu bloğun önünü kapatan blokları kenara çek.": "Tire do caminho os blocos que bloqueiam o bloco laranja.",
- "Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.": "Leve o bloco laranja até a saída à direita. Quanto menos jogadas, mais estrelas.",
  "Anladım, başla": "Entendi, vamos lá",
  "İlerlemeni kaydet": "Salve seu progresso",
  "Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.": "Entre na sua conta e suas estrelas, temas e avatar vão com você para todos os seus dispositivos.",
@@ -52,7 +50,6 @@
  "Seviyelere dön": "Voltar aos níveis",
  "Sesi aç/kapat": "Som ligado/desligado",
  "Duraklat": "Pausar",
- "Turuncu bloğu çıkışa ulaştır": "Leve o bloco laranja até a saída",
  "Geri al": "Desfazer",
  "Yeniden": "Reiniciar",
  "Geri alınacak hamle yok": "Nenhuma jogada para desfazer",
@@ -311,5 +308,13 @@
  "Kadife": "Veludo",
  "Cam": "Vidro",
  "Metalik": "Metálico",
- "Simli": "Glitter"
+ "Simli": "Glitter",
+ "Efsane": "Lenda",
+ "Oklu bloğu çıkışa ulaştır": "Leve o bloco da seta até a saída",
+ "Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.": "Tire do caminho os blocos que bloqueiam o bloco da seta. As paredes cinzas nunca se movem.",
+ "Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.": "Leve o bloco da seta até a saída que ele aponta. A saída pode estar em qualquer lado; menos movimentos, mais estrelas.",
+ "Bu sefer çıkış solda!": "Desta vez a saída está à esquerda!",
+ "Bu sefer çıkış yukarıda!": "Desta vez a saída está em cima!",
+ "Bu sefer çıkış aşağıda!": "Desta vez a saída está embaixo!",
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Novo: paredes cinzas nunca se movem!"
 }

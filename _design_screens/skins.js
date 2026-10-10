@@ -85,6 +85,11 @@
     }
   };
 
+  App.isDark = function (hex) {
+    var c = rgb(hex);
+    return (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) < 150;
+  };
+
   App.finishOf = function (themeId) {
     var t = App.THEMES.filter(function (x) { return x.id === themeId; })[0];
     return (t && t.finish) || 'flat';

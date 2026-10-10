@@ -35,8 +35,6 @@
  "Nasıl oynanır?": "Wie spielt man?",
  "Geç": "Überspringen",
  "Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.": "Zieh die Blöcke mit dem Finger. Waagerechte Blöcke gleiten nach links und rechts, senkrechte nach oben und unten.",
- "Turuncu bloğun önünü kapatan blokları kenara çek.": "Schieb die Blöcke beiseite, die dem orangen Block im Weg stehen.",
- "Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.": "Bring den orangen Block zum Ausgang rechts. Je weniger Züge, desto mehr Sterne.",
  "Anladım, başla": "Verstanden, los",
  "İlerlemeni kaydet": "Fortschritt speichern",
  "Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.": "Wenn du dich anmeldest, begleiten dich deine Sterne, Themes und dein Avatar auf allen Geräten.",
@@ -52,7 +50,6 @@
  "Seviyelere dön": "Zu den Leveln",
  "Sesi aç/kapat": "Ton an/aus",
  "Duraklat": "Pause",
- "Turuncu bloğu çıkışa ulaştır": "Bring den orangen Block zum Ausgang",
  "Geri al": "Rückgängig",
  "Yeniden": "Neu",
  "Geri alınacak hamle yok": "Kein Zug zum Rückgängigmachen",
@@ -311,5 +308,13 @@
  "Kadife": "Samt",
  "Cam": "Glas",
  "Metalik": "Metallic",
- "Simli": "Glitzer"
+ "Simli": "Glitzer",
+ "Efsane": "Legende",
+ "Oklu bloğu çıkışa ulaştır": "Bring den Pfeilblock zum Ausgang",
+ "Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.": "Schieb die Blöcke beiseite, die dem Pfeilblock im Weg sind. Graue Mauern bewegen sich nie.",
+ "Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.": "Bring den Pfeilblock zu dem Ausgang, auf den er zeigt. Der Ausgang kann an jeder Seite sein – je weniger Züge, desto mehr Sterne.",
+ "Bu sefer çıkış solda!": "Diesmal ist der Ausgang links!",
+ "Bu sefer çıkış yukarıda!": "Diesmal ist der Ausgang oben!",
+ "Bu sefer çıkış aşağıda!": "Diesmal ist der Ausgang unten!",
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Neu: Graue Mauern bewegen sich nie!"
 }

@@ -35,8 +35,6 @@
  "Nasıl oynanır?": "Как играть?",
  "Geç": "Пропустить",
  "Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.": "Перетаскивай блоки пальцем. Горизонтальные блоки двигаются влево и вправо, вертикальные — вверх и вниз.",
- "Turuncu bloğun önünü kapatan blokları kenara çek.": "Убери с дороги блоки, которые перекрывают оранжевый.",
- "Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.": "Выведи оранжевый блок к выходу справа. Чем меньше ходов, тем больше звёзд.",
  "Anladım, başla": "Понятно, поехали",
  "İlerlemeni kaydet": "Сохрани прогресс",
  "Giriş yaparsan yıldızların, temaların ve avatarın tüm cihazlarında seninle gelir.": "Войди, и твои звёзды, темы и аватар будут на всех твоих устройствах.",
@@ -52,7 +50,6 @@
  "Seviyelere dön": "К уровням",
  "Sesi aç/kapat": "Звук вкл/выкл",
  "Duraklat": "Пауза",
- "Turuncu bloğu çıkışa ulaştır": "Выведи оранжевый блок к выходу",
  "Geri al": "Отменить",
  "Yeniden": "Заново",
  "Geri alınacak hamle yok": "Нечего отменять",
@@ -311,5 +308,13 @@
  "Kadife": "Бархат",
  "Cam": "Стекло",
  "Metalik": "Металлик",
- "Simli": "Блёстки"
+ "Simli": "Блёстки",
+ "Efsane": "Легенда",
+ "Oklu bloğu çıkışa ulaştır": "Доведи блок со стрелкой до выхода",
+ "Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.": "Убери блоки, которые мешают блоку со стрелкой. Серые стены никогда не двигаются.",
+ "Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.": "Доведи блок со стрелкой до выхода, куда она указывает. Выход может быть с любой стороны; чем меньше ходов, тем больше звёзд.",
+ "Bu sefer çıkış solda!": "На этот раз выход слева!",
+ "Bu sefer çıkış yukarıda!": "На этот раз выход сверху!",
+ "Bu sefer çıkış aşağıda!": "На этот раз выход снизу!",
+ "Yeni: Gri duvarlar hiç kımıldamaz!": "Новое: серые стены никогда не двигаются!"
 }

@@ -22,14 +22,22 @@
       // themes
       'Şeker': 'Candy', 'Ahşap': 'Wood', 'Neon': 'Neon', 'Pastel': 'Pastel', 'Okyanus': 'Ocean', 'Gece': 'Night', 'Jöle': 'Jelly', 'Kadife': 'Velvet', 'Cam': 'Glass', 'Metalik': 'Metallic', 'Simli': 'Glitter',
 
+      // levels v2
+      'Efsane': 'Legend',
+      'Oklu bloğu çıkışa ulaştır': 'Get the arrow block to the exit',
+      'Oklu bloğun yolunu kapatan blokları kenara çek. Gri duvarlar hiç kımıldamaz.': 'Move aside the blocks in the arrow block’s way. Grey walls never move.',
+      'Oklu bloğu okun gösterdiği çıkışa ulaştır. Çıkış her kenarda olabilir; ne kadar az hamle, o kadar çok yıldız.': 'Get the arrow block to the exit it points at. The exit can be on any side; the fewer moves, the more stars.',
+      'Bu sefer çıkış solda!': 'This time the exit is on the left!',
+      'Bu sefer çıkış yukarıda!': 'This time the exit is at the top!',
+      'Bu sefer çıkış aşağıda!': 'This time the exit is at the bottom!',
+      'Yeni: Gri duvarlar hiç kımıldamaz!': 'New: grey walls never move!',
+
       // Splash
       'Yükleniyor…': 'Loading…', 'Ana ekrana geç': 'Go to home',
 
       // Onboarding
       'Nasıl oynanır?': 'How to play?', 'Geç': 'Skip',
       'Blokları parmağınla sürükle. Yatay bloklar sağa sola, dikey bloklar yukarı aşağı kayar.': 'Drag the blocks with your finger. Horizontal blocks slide left and right, vertical blocks slide up and down.',
-      'Turuncu bloğun önünü kapatan blokları kenara çek.': 'Move aside the blocks in the orange block’s way.',
-      'Turuncu bloğu sağdaki çıkışa ulaştır. Ne kadar az hamle, o kadar çok yıldız.': 'Get the orange block to the exit on the right. The fewer moves, the more stars.',
       'Anladım, başla': 'Got it, let’s go',
 
       // Login
@@ -46,7 +54,6 @@
 
       // Game
       'Seviyelere dön': 'Back to levels', 'Sesi aç/kapat': 'Sound on/off', 'Duraklat': 'Pause',
-      'Turuncu bloğu çıkışa ulaştır': 'Get the orange block to the exit',
       'Geri al': 'Undo', 'Yeniden': 'Restart',
       'Geri alınacak hamle yok': 'No moves to undo', 'Şu an ipucu bulunamadı': 'Couldn’t find a hint right now',
       'Bu bloğu sağa kaydır': 'Slide this block right', 'Bu bloğu sola kaydır': 'Slide this block left',
