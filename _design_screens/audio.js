@@ -52,7 +52,9 @@
   // switch is toggled once per pulse. Pulses after the first are best effort, since iOS only
   // plays haptics close to a user gesture.
   var hasVibrate = typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
-  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  // Any touch device without the vibrate API (iPhone, iPad, iOS browsers, "desktop site" mode)
+  // gets the switch trick; on devices where it does nothing it is harmless.
+  var isIOS = !hasVibrate && (/iP(hone|ad|od)/.test(navigator.userAgent) || navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
   var hapticSwitch = null;
   function iosTick() {
     if (!hapticSwitch) {
