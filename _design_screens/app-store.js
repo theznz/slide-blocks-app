@@ -172,7 +172,7 @@ window.App = (function () {
       theme: 'seker',
       themesOwned: ['seker', 'ahsap'],
       avatar: { tab: 'yuz', skin: 1, face: 'yuvarlak', nose: 'duz', lip: 'ince', ear: 'normal', hair: 'uzun', hairColor: 1, eye: 'yuvarlak', eyeColor: 0, brow: 'dogal', lash: 'yok', facial: 'yok', glasses: 'yok', glassesColor: 0, earring: 'yok', necklace: 'yok', piercing: 'yok', clothColor: 0, clip: 'yok', hat: 'yok', scarf: 'yok', headphones: 'yok', pet: 'yok', petColor: 0, bgColor: 0 },
-      settings: { ses: true, muzik: true, titresim: false, bildirim: true, dil: 'tr' },
+      settings: { ses: true, muzik: true, titresim: true, bildirim: true, dil: 'tr' },
       daily: { lastPlayedDate: null, streak: 0, claimed: {} },
       lastResult: null,
       gameState: null

@@ -47,9 +47,39 @@
     SFX[name](ctx.currentTime + 0.005);
   };
 
+  // Haptics. Android: navigator.vibrate. iPhone (iOS 18+): Safari has no vibrate API, but
+  // flipping a native <input type="checkbox" switch> plays the system haptic tick, so a hidden
+  // switch is toggled once per pulse. Pulses after the first are best effort, since iOS only
+  // plays haptics close to a user gesture.
+  var hasVibrate = typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function';
+  var isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var hapticSwitch = null;
+  function iosTick() {
+    if (!hapticSwitch) {
+      hapticSwitch = document.createElement('label');
+      hapticSwitch.setAttribute('aria-hidden', 'true');
+      hapticSwitch.style.cssText = 'position:fixed;left:-200px;top:0;width:1px;height:1px;opacity:0;pointer-events:none';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('switch', '');
+      input.tabIndex = -1;
+      hapticSwitch.appendChild(input);
+      document.body.appendChild(hapticSwitch);
+    }
+    hapticSwitch.click();
+  }
+  App.canVibrate = function () { return hasVibrate || isIOS; };
   App.vibrate = function (pattern) {
     if (!App.data.settings.titresim) return;
-    try { if (navigator.vibrate) navigator.vibrate(pattern); } catch (e) {}
+    if (hasVibrate) { try { navigator.vibrate(pattern); } catch (e) {} return; }
+    if (!isIOS) return;
+    var pulses = Array.isArray(pattern) ? pattern.filter(function (v, i) { return i % 2 === 0; }).length : 1;
+    var gaps = Array.isArray(pattern) ? pattern : [];
+    iosTick();
+    for (var i = 1, t = 0; i < pulses; i++) {
+      t += (gaps[2 * i - 2] || 40) + (gaps[2 * i - 1] || 60);
+      setTimeout(iosTick, t);
+    }
   };
 
   // Gentle looping pentatonic arpeggio over a I–vi–IV–V progression, scheduled ahead of time.

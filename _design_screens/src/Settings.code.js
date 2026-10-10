@@ -15,7 +15,7 @@ class Component extends DCLogic {
           if (d[0] === 'muzik') App.syncMusic();
           if (d[0] === 'bildirim' && !on) App.enableNotifications();
           if (d[0] === 'titresim' && !on) {
-            if (navigator.vibrate) App.vibrate(40); else App.toast(App.t('Bu cihaz titreşimi desteklemiyor'));
+            if (App.canVibrate()) App.vibrate(40); else App.toast(App.t('Bu cihaz titreşimi desteklemiyor'));
           }
           self.forceUpdate();
         }
