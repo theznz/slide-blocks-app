@@ -3,7 +3,10 @@
 // so a key may contain holes, e.g. 'Seviye {{ levelIndex }}'. Strings built in code use
 // App.t('… {n} …', { n: 3 }).
 (function (App) {
-  App.LANGS = [{ id: 'tr', name: 'Türkçe' }, { id: 'en', name: 'English' }];
+  App.LANGS = [
+    { id: 'tr', name: 'Türkçe' }, { id: 'en', name: 'English' }, { id: 'de', name: 'Deutsch' }, { id: 'es', name: 'Español' },
+    { id: 'fr', name: 'Français' }, { id: 'it', name: 'Italiano' }, { id: 'pt', name: 'Português' }, { id: 'ru', name: 'Русский' }
+  ];
 
   var DICT = {
     en: {
@@ -167,12 +170,20 @@
     }
   };
 
+  // Further languages live in lang/<id>.json and are attached here by assemble.py.
+  App.DICT = DICT;
+
   App.lang = function () { return App.data.settings.dil || 'tr'; };
 
   // Translate a source (Turkish) string; unknown strings fall through unchanged.
+  // Non-Turkish languages fall back to English for any string they lack.
+  var has = Object.prototype.hasOwnProperty;
   App.tr = function (s) {
-    var d = DICT[App.lang()];
-    return (d && Object.prototype.hasOwnProperty.call(d, s)) ? d[s] : s;
+    var id = App.lang();
+    if (id === 'tr') return s;
+    var d = DICT[id];
+    if (d && has.call(d, s)) return d[s];
+    return has.call(DICT.en, s) ? DICT.en[s] : s;
   };
 
   App.t = function (s, params) {

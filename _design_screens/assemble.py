@@ -41,6 +41,11 @@ app_store_rendered = app_store.replace('__LEVELS_JSON__', levels_json)
 engine = open(os.path.join(ROOT, 'engine.js'), encoding='utf-8').read()
 i18n = open(os.path.join(ROOT, 'i18n.js'), encoding='utf-8').read()
 audio = open(os.path.join(ROOT, 'audio.js'), encoding='utf-8').read()
+LANG_DIR = os.path.join(ROOT, 'lang')
+for fname in sorted(os.listdir(LANG_DIR)):
+    if fname.endswith('.json'):
+        table = json.load(open(os.path.join(LANG_DIR, fname), encoding='utf-8'))
+        i18n += '\nApp.DICT[%s] = %s;' % (json.dumps(fname[:-5]), json.dumps(table, ensure_ascii=False).replace('</', '<\\/'))
 
 # suffix_from_closing_script currently = "</script>\n<script>\n(function(){...})();\n</script>\n</body>\n</html>"
 # Replace the OLD engine script body (between the second <script> and its </script>) with app_store+engine.
