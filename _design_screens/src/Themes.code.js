@@ -23,7 +23,8 @@ class Component extends DCLogic {
       };
     });
     var cta;
-    if (owned) cta = App.t((picked === d.theme) ? 'Kullanılıyor' : 'Temayı kullan');
+    var inUse = owned && picked === d.theme;
+    if (owned) cta = App.t(inUse ? 'Bu temayla oyna' : 'Temayı kullan');
     else cta = App.t('Kilidi aç ({n} ★)', { n: current.cost });
     return {
       stars: d.stars,
@@ -33,11 +34,16 @@ class Component extends DCLogic {
       p1: tile(current.id, current.c1, 11, H2), p2: tile(current.id, current.c2, 11, V2), p3: tile(current.id, current.c3, 11, V2), p4: tile(current.id, current.c3, 11, H2),
       cta: cta,
       apply: function () {
-        if (owned) {
-          d.theme = picked; App.save(); App.toast(App.t('{name} teması uygulandı', { name: currentName })); self.forceUpdate();
+        if (inUse) {
+          // the theme is already on: the button takes you straight back to your game
+          d.currentLevelIndex = d.unlockedLevel;
+          window.go('Game');
+        } else if (owned) {
+          // no toast here: it would cover the button that just turned into 'Bu temayla oyna'
+          d.theme = picked; App.save(); App.sfx('tap'); self.forceUpdate();
         } else if (d.stars >= current.cost) {
           d.stars -= current.cost; d.themesOwned.push(picked); d.theme = picked; App.save();
-          App.sfx('coin'); App.toast(App.t('{name} açıldı!', { name: currentName })); self.forceUpdate();
+          App.sfx('coin'); self.forceUpdate();
         } else {
           App.sfx('error'); App.toast(App.t('Yetersiz yıldız'));
         }
