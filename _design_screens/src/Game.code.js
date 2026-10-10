@@ -63,12 +63,11 @@ class Component extends DCLogic {
     var color = b.target ? Object.assign({ target: true }, colors.target) : colors.others[b.id % colors.others.length];
     var skin = App.blockSkin(App.data.theme, color, b);
     var ring = hinted ? ', 0 0 0 4px #FFFFFF' : (b.target ? ', 0 0 0 3px #FFFFFF' : '');
-    // Picture blocks (e.g. Balon) get a glow that follows the art's own outline instead of a
-    // square white ring: the target glows in its own colour, a hinted block glows white.
+    // Picture blocks (e.g. Balon) get a white glow that follows the art's own outline instead
+    // of a square white ring; a hinted block glows too and pulses (hint-pulse).
     var glow = '';
     if (App.finishOf(App.data.theme) === 'image' && (b.target || hinted)) {
-      var gc = hinted ? '#FFFFFF' : color.bg;
-      glow = ' filter: drop-shadow(0 0 5px ' + gc + ') drop-shadow(0 0 12px ' + gc + ');';
+      glow = ' filter: drop-shadow(0 0 4px rgba(255,255,255,.95)) drop-shadow(0 0 10px rgba(255,255,255,.6));';
       ring = '';
     }
     return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + glow + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
