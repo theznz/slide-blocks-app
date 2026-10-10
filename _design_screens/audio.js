@@ -55,21 +55,22 @@
   // Any touch device without the vibrate API (iPhone, iPad, iOS browsers, "desktop site" mode)
   // gets the switch trick; on devices where it does nothing it is harmless.
   var isIOS = !hasVibrate && (/iP(hone|ad|od)/.test(navigator.userAgent) || navigator.maxTouchPoints > 0 || 'ontouchstart' in window);
-  var hapticSwitch = null;
+  // Same recipe as the ios-haptics library: a fresh hidden switch, clicked, then removed.
   function iosTick() {
-    if (!hapticSwitch) {
-      hapticSwitch = document.createElement('label');
-      hapticSwitch.setAttribute('aria-hidden', 'true');
-      hapticSwitch.style.cssText = 'position:fixed;left:-200px;top:0;width:1px;height:1px;opacity:0;pointer-events:none';
+    try {
+      var label = document.createElement('label');
+      label.setAttribute('aria-hidden', 'true');
+      label.style.display = 'none';
       var input = document.createElement('input');
       input.type = 'checkbox';
       input.setAttribute('switch', '');
-      input.tabIndex = -1;
-      hapticSwitch.appendChild(input);
-      document.body.appendChild(hapticSwitch);
-    }
-    hapticSwitch.click();
+      label.appendChild(input);
+      document.head.appendChild(label);
+      label.click();
+      document.head.removeChild(label);
+    } catch (e) {}
   }
+  App.hapticMode = function () { return hasVibrate ? 'android' : (isIOS ? 'ios' : 'yok'); };
   App.canVibrate = function () { return hasVibrate || isIOS; };
   // A tap on a button that has its own haptic (undo, hint, the vibration switch) also bubbles
   // to the generic button tick; the first haptic within 80 ms wins so they never double up.
