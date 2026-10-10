@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Behind the status and navigation bars: the game's background so the bars blend in. -->
+    <color name="appBackground">#0B0D1F</color>
+</resources>

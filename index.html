@@ -611,7 +611,7 @@ window.App = (function () {
   return App;
 })();
 
-App.BUILD = "10.10 16:02";
+App.BUILD = "10.10 16:33";
 // ---- localization: source strings are Turkish; other languages map Turkish text -> translation ----
 // Markup text and aria-labels are translated by the engine before {{ }} holes are filled,
 // so a key may contain holes, e.g. 'Seviye {{ levelIndex }}'. Strings built in code use
@@ -1292,7 +1292,10 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
           at.setDate(at.getDate() + d);
           at.setHours(HOUR, 0, 0, 0);
           if (at <= new Date() || (d === 0 && doneToday)) continue;
-          list.push({ id: IDS[d], title: 'Sliding Block Puzzle', body: App.t('Günlük bulmacan seni bekliyor! Seriyi bozma.'), schedule: { at: at, allowWhileIdle: true } });
+          list.push({ id: IDS[d], title: 'Sliding Block Puzzle', body: App.t('Günlük bulmacan seni bekliyor! Seriyi bozma.'), schedule: { at: at, allowWhileIdle: true },
+            // inexact is fine for a daily nudge; an exact alarm would send Android users to the
+            // 'Alarms & reminders' settings screen and needs a permission Play restricts
+            isExactNotification: false });
         }
         if (list.length) LN.schedule({ notifications: list }).catch(noop);
       });

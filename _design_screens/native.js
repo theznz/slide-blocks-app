@@ -51,7 +51,10 @@
           at.setDate(at.getDate() + d);
           at.setHours(HOUR, 0, 0, 0);
           if (at <= new Date() || (d === 0 && doneToday)) continue;
-          list.push({ id: IDS[d], title: 'Sliding Block Puzzle', body: App.t('Günlük bulmacan seni bekliyor! Seriyi bozma.'), schedule: { at: at, allowWhileIdle: true } });
+          list.push({ id: IDS[d], title: 'Sliding Block Puzzle', body: App.t('Günlük bulmacan seni bekliyor! Seriyi bozma.'), schedule: { at: at, allowWhileIdle: true },
+            // inexact is fine for a daily nudge; an exact alarm would send Android users to the
+            // 'Alarms & reminders' settings screen and needs a permission Play restricts
+            isExactNotification: false });
         }
         if (list.length) LN.schedule({ notifications: list }).catch(noop);
       });
