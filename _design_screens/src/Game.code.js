@@ -67,7 +67,8 @@ class Component extends DCLogic {
     // of a square white ring; a hinted block glows too and pulses (hint-pulse).
     var glow = '';
     if (App.finishOf(App.data.theme) === 'image' && (b.target || hinted)) {
-      glow = ' filter: drop-shadow(0 0 4px rgba(255,255,255,.95)) drop-shadow(0 0 10px rgba(255,255,255,.6));';
+      // four 1px offset shadows trace a crisp white outline around the art, then a short soft halo
+      glow = ' filter: drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff) drop-shadow(0 0 3px rgba(255,255,255,.45));';
       ring = '';
     }
     return pos + 'padding-bottom:6px; background:' + skin.background + '; ' + skin.extra + glow + ' border-radius:12px; box-shadow: ' + skin.shadow + ring + '; color:#171A36; display:flex; align-items:center; justify-content:center; touch-action:none; cursor:grab; z-index:' + (b.target ? 2 : 1) + '; transition: left .16s cubic-bezier(.2,.8,.2,1), top .16s cubic-bezier(.2,.8,.2,1);';
