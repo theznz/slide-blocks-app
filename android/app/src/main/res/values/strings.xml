@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
     <string name="app_name">Sliding Block</string>
-    <string name="title_activity_main">Sliding Block Puzzle</string>
+    <string name="title_activity_main">Sliding Block</string>
     <string name="package_name">com.theznz.slideblocks</string>
     <string name="custom_url_scheme">com.theznz.slideblocks</string>
 </resources>

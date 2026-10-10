@@ -46,7 +46,11 @@ Bunlardan birini değiştirmek istersen söylemen yeterli.
 1. **Xcode:** Mac App Store → "Xcode" → Yükle (yaklaşık 15 GB). Açıp ek bileşenleri kurmasına izin ver.
    Sonra Terminal'de: `sudo xcode-select -s /Applications/Xcode.app`
 2. **Android Studio:** https://developer.android.com/studio → indir, kur, ilk açılışta "Standard" kurulumu seç
-   (Android SDK ve Java'yı kendisi kurar).
+   (Android SDK'yı kendisi kurar).
+   - **Java 21 gerekli:** Projenin Gradle sürümü (8.14) Android Studio'nun içindeki Java 25 ile çalışmıyor.
+     `android/gradle/gradle-daemon-jvm.properties` Gradle'a Java 21 kullanmasını söylüyor; bilgisayarda
+     Java 21 kurulu olmalı (ör. Eclipse Temurin 21: https://adoptium.net). Bu Mac'te
+     `~/Library/Java/JavaVirtualMachines/jdk-21…` altında kurulu.
 3. Proje klasöründe bir kez: `npm install`
 
 ## 4. Her yayından önce
