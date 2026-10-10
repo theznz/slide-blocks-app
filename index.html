@@ -618,7 +618,7 @@ window.App = (function () {
   return App;
 })();
 
-App.BUILD = "10.10 19:49";
+App.BUILD = "10.10 19:56";
 // ---- localization: source strings are Turkish; other languages map Turkish text -> translation ----
 // Markup text and aria-labels are translated by the engine before {{ }} holes are filled,
 // so a key may contain holes, e.g. 'Seviye {{ levelIndex }}'. Strings built in code use
@@ -924,6 +924,10 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
   // from the click handler (App.hapticOnClick), and a haptic asked for anywhere else (e.g. a
   // block dropped on pointerup) waits for the touchend that follows the same touch.
   App.hapticOnClick = !hasVibrate && isIOS;
+  // iOS 26 ignores switches toggled from script; only a real tap on a switch plays its haptic
+  // (checked on a phone). So on iPhone the engine slips an invisible switch into every button
+  // and link, and the player's own tap toggles it. Block drags are not taps, so they stay silent.
+  App.hapticOverlay = !hasVibrate && isIOS;
   var pending = null;
   function iosPlay(pattern) {
     var pulses = Array.isArray(pattern) ? pattern.filter(function (v, i) { return i % 2 === 0; }).length : 1;
@@ -1257,6 +1261,7 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
   var C = window.Capacitor;
   App.isNative = !!(C && C.isNativePlatform && C.isNativePlatform());
   if (!App.isNative) return;
+  App.hapticOverlay = false; // the app has real haptics, no invisible switches needed
   var P = C.Plugins || {};
   var noop = function () {};
 
@@ -1449,6 +1454,28 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
     });
   }
 
+  // iPhone haptics: an invisible switch inside each button/link catches the real tap (see audio.js).
+  // The switch's own forwarded click is stopped so the button still runs exactly once.
+  function stopForwarded(e) { e.stopPropagation(); }
+  function addHapticSwitches(root) {
+    if (!App.hapticOverlay || !App.data.settings.titresim) return;
+    Array.prototype.forEach.call(root.querySelectorAll('button, a[href]'), function (el) {
+      if (el.querySelector('input')) return;
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      var label = document.createElement('label');
+      label.setAttribute('aria-hidden', 'true');
+      label.style.cssText = 'position:absolute;top:0;right:0;bottom:0;left:0;opacity:0;margin:0;z-index:5;cursor:inherit;-webkit-tap-highlight-color:transparent';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('switch', '');
+      input.tabIndex = -1;
+      input.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;margin:0';
+      input.addEventListener('click', stopForwarded);
+      label.appendChild(input);
+      el.appendChild(label);
+    });
+  }
+
   var views = {};
   Object.keys(data).forEach(function (name) {
     var tpl = document.createElement('template');
@@ -1478,6 +1505,7 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
       box.textContent = '';
       box.appendChild(frag);
       polyfillGap(box);
+      addHapticSwitches(box);
       Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"],[style*="overflow-y"]'), function (e, i) { if (keep[i]) { e.scrollLeft = keep[i][0]; e.scrollTop = keep[i][1]; } });
     };
     view.draw();

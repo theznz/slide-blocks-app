@@ -82,6 +82,10 @@
   // from the click handler (App.hapticOnClick), and a haptic asked for anywhere else (e.g. a
   // block dropped on pointerup) waits for the touchend that follows the same touch.
   App.hapticOnClick = !hasVibrate && isIOS;
+  // iOS 26 ignores switches toggled from script; only a real tap on a switch plays its haptic
+  // (checked on a phone). So on iPhone the engine slips an invisible switch into every button
+  // and link, and the player's own tap toggles it. Block drags are not taps, so they stay silent.
+  App.hapticOverlay = !hasVibrate && isIOS;
   var pending = null;
   function iosPlay(pattern) {
     var pulses = Array.isArray(pattern) ? pattern.filter(function (v, i) { return i % 2 === 0; }).length : 1;

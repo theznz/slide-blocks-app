@@ -6,6 +6,7 @@
   var C = window.Capacitor;
   App.isNative = !!(C && C.isNativePlatform && C.isNativePlatform());
   if (!App.isNative) return;
+  App.hapticOverlay = false; // the app has real haptics, no invisible switches needed
   var P = C.Plugins || {};
   var noop = function () {};
 

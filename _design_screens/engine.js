@@ -105,6 +105,28 @@
     });
   }
 
+  // iPhone haptics: an invisible switch inside each button/link catches the real tap (see audio.js).
+  // The switch's own forwarded click is stopped so the button still runs exactly once.
+  function stopForwarded(e) { e.stopPropagation(); }
+  function addHapticSwitches(root) {
+    if (!App.hapticOverlay || !App.data.settings.titresim) return;
+    Array.prototype.forEach.call(root.querySelectorAll('button, a[href]'), function (el) {
+      if (el.querySelector('input')) return;
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      var label = document.createElement('label');
+      label.setAttribute('aria-hidden', 'true');
+      label.style.cssText = 'position:absolute;top:0;right:0;bottom:0;left:0;opacity:0;margin:0;z-index:5;cursor:inherit;-webkit-tap-highlight-color:transparent';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('switch', '');
+      input.tabIndex = -1;
+      input.style.cssText = 'position:absolute;width:1px;height:1px;opacity:0;margin:0';
+      input.addEventListener('click', stopForwarded);
+      label.appendChild(input);
+      el.appendChild(label);
+    });
+  }
+
   var views = {};
   Object.keys(data).forEach(function (name) {
     var tpl = document.createElement('template');
@@ -134,6 +156,7 @@
       box.textContent = '';
       box.appendChild(frag);
       polyfillGap(box);
+      addHapticSwitches(box);
       Array.prototype.forEach.call(box.querySelectorAll('[style*="overflow-x"],[style*="overflow-y"]'), function (e, i) { if (keep[i]) { e.scrollLeft = keep[i][0]; e.scrollTop = keep[i][1]; } });
     };
     view.draw();
