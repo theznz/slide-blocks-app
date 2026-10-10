@@ -19,17 +19,6 @@
     'radial-gradient(circle at 85% 80%, rgba(255,255,255,.7) 0 1px, transparent 1.8px), ' +
     'radial-gradient(circle at 10% 85%, rgba(255,255,255,.75) 0 .9px, transparent 1.6px)';
 
-  // Soft colour field shown behind glass blocks so there is something for the glass to refract.
-  var GLASS_WALL = 'radial-gradient(circle at 18% 22%, rgba(108,140,255,.9) 0, rgba(108,140,255,0) 42%), ' +
-    'radial-gradient(circle at 82% 28%, rgba(255,122,198,.85) 0, rgba(255,122,198,0) 40%), ' +
-    'radial-gradient(circle at 30% 82%, rgba(61,214,195,.85) 0, rgba(61,214,195,0) 42%), ' +
-    'radial-gradient(circle at 80% 80%, rgba(255,211,92,.8) 0, rgba(255,211,92,0) 40%), ' +
-    'linear-gradient(135deg, #2B2F6B, #3B2A63)';
-
-  var WALL_LAYERS = GLASS_WALL.split(/,\s*(?=(?:radial|linear)-gradient)/).length;
-  var WALL_FILL = new Array(WALL_LAYERS + 1).join(', 100% 100%');
-  var WALL_POS = new Array(WALL_LAYERS + 1).join(', 0 0');
-
   var FINISH = {
     flat: function (c) {
       return { background: c.bg, shadow: 'inset 0 -6px 0 ' + c.sh, extra: '' };
@@ -49,18 +38,17 @@
         extra: ''
       };
     },
-    // Liquid-glass look: nearly clear body that blurs and saturates what is behind it,
-    // bright specular rims, and the tint pooling toward the bottom edge like refracted light.
-    glass: function (c, opts) {
-      var tint = rgba(c.bg, c.target ? 0.55 : 0.16);
-      tint = 'linear-gradient(' + tint + ', ' + tint + ')';
-      var layers = 'radial-gradient(120% 70% at 30% 0%, rgba(255,255,255,.42) 0%, rgba(255,255,255,.1) 45%, rgba(255,255,255,0) 60%), ' +
-        'linear-gradient(180deg, rgba(255,255,255,0) 55%, ' + rgba(c.bg, c.target ? 0.45 : 0.28) + ' 100%), ' + tint;
+    // Thick, glossy coloured glass (like acrylic candy buttons): saturated translucent body,
+    // soft white sheen on top, a lighter refracted band along the bottom edge, white rims,
+    // and a glow in the block's own colour cast down and to the right.
+    glass: function (c) {
+      var top = lighten(c.bg, 0.42), mid = c.bg, low = App.darken(c.bg, 0.06);
       return {
-        background: layers + (opts && opts.preview ? ', ' + GLASS_WALL : ''),
-        shadow: 'inset 0 1.5px 0 rgba(255,255,255,.95), inset 0 -1px 0 rgba(255,255,255,.5), inset 1.5px 0 0 rgba(255,255,255,.35), ' +
-          'inset -1.5px 0 0 rgba(255,255,255,.25), inset 0 0 14px rgba(255,255,255,.2), 0 10px 24px rgba(0,0,0,.3)',
-        extra: 'border: 1px solid rgba(255,255,255,.3); -webkit-backdrop-filter: blur(7px) saturate(190%) brightness(1.08); backdrop-filter: blur(7px) saturate(190%) brightness(1.08);'
+        background: 'radial-gradient(90% 55% at 50% 0%, rgba(255,255,255,.55) 0%, rgba(255,255,255,.12) 55%, rgba(255,255,255,0) 75%), ' +
+          'linear-gradient(180deg, ' + rgba(top, 0.92) + ' 0%, ' + rgba(mid, 0.9) + ' 48%, ' + rgba(low, 0.9) + ' 82%, ' + rgba(lighten(c.bg, 0.3), 0.95) + ' 100%)',
+        shadow: 'inset 0 2px 1px rgba(255,255,255,.85), inset 0 -2px 1px rgba(255,255,255,.55), inset 0 -7px 10px ' + rgba(lighten(c.bg, 0.45), 0.55) +
+          ', inset 0 0 0 1px rgba(255,255,255,.28), 7px 9px 16px ' + rgba(c.bg, 0.5) + ', 0 2px 4px rgba(0,0,0,.22)',
+        extra: '-webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);'
       };
     },
     metal: function (c) {
@@ -85,22 +73,18 @@
     return (t && t.finish) || 'flat';
   };
 
-  App.blockSkin = function (themeId, color, opts) {
-    return (FINISH[App.finishOf(themeId)] || FINISH.flat)(color, opts);
+  App.blockSkin = function (themeId, color) {
+    return (FINISH[App.finishOf(themeId)] || FINISH.flat)(color);
   };
 
   var DOTS = 'radial-gradient(circle, #3A4080 3px, transparent 4px)';
   App.boardBackground = function (themeId) {
-    if (App.finishOf(themeId) === 'glass') {
-      return 'background-color: #232750; background-image: radial-gradient(circle, rgba(255,255,255,.35) 3px, transparent 4px), ' + GLASS_WALL +
-        '; background-size: 56px 56px' + WALL_FILL + '; background-position: 7px 7px' + WALL_POS + ';';
-    }
     return 'background-color: #232750; background-image: ' + DOTS + '; background-size: 56px 56px; background-position: 7px 7px;';
   };
 
   // Full inline style for a static preview tile.
   App.skinStyle = function (themeId, color, radius) {
-    var s = App.blockSkin(themeId, color, { preview: true });
+    var s = App.blockSkin(themeId, color);
     return 'background: ' + s.background + '; box-shadow: ' + s.shadow.replace(/-6px/g, '-5px') + '; border-radius: ' + (radius || 10) + 'px; box-sizing: border-box; ' + s.extra;
   };
 

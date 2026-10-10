@@ -20,7 +20,7 @@ window.App = (function () {
     { id: 'gece', name: 'Gece', c1: '#9D8DF1', c2: '#6F72E0', c3: '#48BFE3', cost: 60 },
     { id: 'jole', name: 'Jöle', c1: '#FF5FA2', c2: '#4FD1FF', c3: '#9BE15D', cost: 80, finish: 'jelly' },
     { id: 'kadife', name: 'Kadife', c1: '#9B2C4B', c2: '#1F6F5C', c3: '#3A4BA8', cost: 80, finish: 'velvet' },
-    { id: 'cam', name: 'Cam', c1: '#8FD3FF', c2: '#B7F0E0', c3: '#E3C6FF', cost: 100, finish: 'glass' },
+    { id: 'cam', name: 'Cam', c1: '#8C6FEA', c2: '#4FD1BA', c3: '#F08CC4', cost: 100, finish: 'glass' },
     { id: 'metalik', name: 'Metalik', c1: '#C0C7D1', c2: '#D9A441', c3: '#B87333', cost: 100, finish: 'metal' },
     { id: 'simli', name: 'Simli', c1: '#FF7AC6', c2: '#7AD7FF', c3: '#FFD36E', cost: 120, finish: 'glitter' }
   ];
@@ -34,7 +34,7 @@ window.App = (function () {
     gece: [{ bg: '#9D8DF1', sh: '#6F5DCB' }, { bg: '#6F72E0', sh: '#4A4DB8' }, { bg: '#48BFE3', sh: '#2A97BA' }, { bg: '#C9A6FF', sh: '#9E75E0' }],
     jole: [{ bg: '#FF5FA2', sh: '#C93A78' }, { bg: '#4FD1FF', sh: '#2399C7' }, { bg: '#9BE15D', sh: '#6DAD34' }, { bg: '#B98CFF', sh: '#8A5ED6' }],
     kadife: [{ bg: '#9B2C4B', sh: '#6E1C34' }, { bg: '#1F6F5C', sh: '#124A3D' }, { bg: '#3A4BA8', sh: '#26337A' }, { bg: '#C08A2E', sh: '#8C6219' }],
-    cam: [{ bg: '#8FD3FF', sh: '#5AA9DB' }, { bg: '#B7F0E0', sh: '#7FCDB6' }, { bg: '#E3C6FF', sh: '#B994E0' }, { bg: '#FFF3B0', sh: '#E0CF78' }],
+    cam: [{ bg: '#8C6FEA', sh: '#6A4FC7' }, { bg: '#4FD1BA', sh: '#33A893' }, { bg: '#F08CC4', sh: '#C9649D' }, { bg: '#6FB4F2', sh: '#4A8CCB' }],
     metalik: [{ bg: '#C0C7D1', sh: '#8A939F' }, { bg: '#D9A441', sh: '#A67822' }, { bg: '#B87333', sh: '#86501F' }, { bg: '#6F8FAF', sh: '#4C6A88' }],
     simli: [{ bg: '#FF7AC6', sh: '#D44E9C' }, { bg: '#7AD7FF', sh: '#45A9D6' }, { bg: '#FFD36E', sh: '#D6A93F' }, { bg: '#C59BFF', sh: '#9A6CDB' }]
   };
