@@ -11,6 +11,7 @@ class Component extends DCLogic {
   renderVals() {
     var self = this;
     var watching = this.state && this.state.watching;
+    var watchingStars = this.state && this.state.watchingStars;
     var confirm = this.state && this.state.confirm;
     function askBuy(hints, cost) {
       return function () { self.setState({ confirm: { hints: hints, cost: cost } }); };
@@ -22,6 +23,16 @@ class Component extends DCLogic {
       buy5: askBuy(5, 25),
       buy15: askBuy(15, 60),
       buy40: askBuy(40, 140),
+      watchStarsLabel: App.t(watchingStars ? 'İzleniyor…' : 'İzle'),
+      watchAdStars: function () {
+        if (watchingStars) return;
+        self.setState({ watchingStars: true });
+        setTimeout(function () {
+          App.data.stars += 6; App.save();
+          self.setState({ watchingStars: false });
+          App.sfx('coin'); App.toast(App.t('+6 yıldız kazandın'));
+        }, 1400);
+      },
       watchAd: function () {
         if (watching) return;
         self.setState({ watching: true });

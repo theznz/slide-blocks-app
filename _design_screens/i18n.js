@@ -119,7 +119,7 @@
 
       // Shop
       'Mağaza': 'Shop', 'İpucu paketleri': 'Hint packs', 'ipucu': 'hints', 'En çok alınan': 'Most popular',
-      'Ücretsiz': 'Free', 'Reklam izle': 'Watch an ad', '1 ipucu kazan': 'Earn 1 hint', 'İzle': 'Watch',
+      'Ücretsiz': 'Free', 'Reklam izle': 'Watch an ad', '1 ipucu kazan': 'Earn 1 hint', '6 yıldız kazan': 'Earn 6 stars', '+6 yıldız kazandın': 'You earned +6 stars', 'İzle': 'Watch',
       'Reklamsız oyna': 'Play ad-free', 'Reklamları kaldır': 'Remove ads', 'Tek seferlik, yıldızla': 'One-time, with stars',
       'Temalar yıldızla açılır · Temalara git': 'Themes unlock with stars · Go to themes',
       'Satın alımları geri yükle': 'Restore purchases', 'Emin misin?': 'Are you sure?', 'Evet, satın al': 'Yes, buy',
