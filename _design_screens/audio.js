@@ -27,25 +27,39 @@
     o.start(start); o.stop(start + dur + 0.02);
   }
 
-  // Applause: a real recording (sounds/applause.m4a, CC0 — see sounds/CREDITS.txt), decoded once
-  // and played through the sound-effects bus so the volume and the on/off setting apply.
-  var applauseBuf = null, applauseLoading = null;
-  function loadApplause() {
-    if (applauseBuf || applauseLoading || !ctx) return applauseLoading;
-    applauseLoading = fetch('sounds/applause.m4a').then(function (r) { return r.arrayBuffer(); })
-      .then(function (data) { return new Promise(function (ok, fail) { ctx.decodeAudioData(data, ok, fail); }); })
-      .then(function (buf) { applauseBuf = buf; return buf; })
-      .catch(function () { applauseLoading = null; });
-    return applauseLoading;
+  // Applause, synthesized: a small group (6 people) of short filtered-noise claps, each person at
+  // their own pace, tone and stereo position. Swells over 0.5 s, holds, and fades out by ~5.5 s.
+  var noiseBuf = null;
+  function noise() {
+    if (noiseBuf) return noiseBuf;
+    noiseBuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.12), ctx.sampleRate);
+    var ch = noiseBuf.getChannelData(0);
+    for (var i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+    return noiseBuf;
+  }
+  function clap(t, vol, pan, freq) {
+    var src = ctx.createBufferSource(); src.buffer = noise();
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = freq; bp.Q.value = 1.2;
+    var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 600;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.035 + Math.random() * 0.03);
+    src.connect(bp); bp.connect(hp); hp.connect(g);
+    if (ctx.createStereoPanner) { var p = ctx.createStereoPanner(); p.pan.value = pan; g.connect(p); p.connect(sfxBus); }
+    else g.connect(sfxBus);
+    src.start(t, Math.random() * 0.06, 0.1);
   }
   function applause(t) {
-    var play = function () {
-      var src = ctx.createBufferSource(); src.buffer = applauseBuf;
-      var g = ctx.createGain(); g.gain.value = 1.6;
-      src.connect(g); g.connect(sfxBus);
-      src.start(Math.max(t, ctx.currentTime));
-    };
-    if (applauseBuf) play(); else { var p = loadApplause(); if (p) p.then(function (b) { if (b) play(); }); }
+    var LEN = 5.5, HOLD = 3.5, people = 6;
+    for (var k = 0; k < people; k++) {
+      var rate = 0.22 + Math.random() * 0.12, pan = Math.random() * 1.4 - 0.7, freq = 1000 + Math.random() * 1200;
+      for (var x = Math.random() * 0.3; x < LEN; x += rate * (0.85 + Math.random() * 0.3)) {
+        var env = x < 0.5 ? x / 0.5 : (x < HOLD ? 1 : Math.max(0, 1 - (x - HOLD) / (LEN - HOLD)));
+        if (env <= 0.03) continue;
+        clap(t + x, 0.32 * env * (0.65 + Math.random() * 0.35), pan, freq);
+      }
+    }
   }
 
   var SFX = {
@@ -190,7 +204,6 @@
   function started() {
     if (!ctx || ctx.state !== 'running') return;
     unlocked = true;
-    loadApplause();
     arm(false);
     App.syncMusic();
   }
