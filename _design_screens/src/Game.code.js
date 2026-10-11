@@ -86,7 +86,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     var self = this;
-    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitStyle: '', targetHex: '#FF9F45', arrowRot: 0, boardBg: App.boardBackground(App.data.theme), muted: this.soundState() === 'off', unmuted: this.soundState() === 'on', partial: this.soundState() === 'partial' };
+    if (!this.state) return { blocks: [], moves: 0, par: 0, levelIndex: App.data.currentLevelIndex, tierName: '', timeLabel: '00:00', hints: App.data.hints, exitStyle: '', targetHex: '#FF9F45', arrowRot: 0, boardBg: App.boardBackground(App.data.theme), musicOn: !!App.data.settings.muzik, musicOff: !App.data.settings.muzik };
     var st = this.state;
     var lv = App.getLevel(st.levelIndex);
     var colors = App.levelColors(lv, App.data.theme);
@@ -108,9 +108,8 @@ class Component extends DCLogic {
       blocks: blocks,
       boardBg: App.boardBackground(App.data.theme),
       tierName: App.t(App.tierOf(st.levelIndex).name),
-      muted: this.soundState() === 'off',
-      unmuted: this.soundState() === 'on',
-      partial: this.soundState() === 'partial',
+      musicOn: !!App.data.settings.muzik,
+      musicOff: !App.data.settings.muzik,
       toggleMute: function () { self.toggleMute(); },
       startDrag: function (e) { self.startDrag(e); },
       undo: function () { self.undo(); },
@@ -118,16 +117,9 @@ class Component extends DCLogic {
       hint: function () { self.useHint(); }
     };
   }
-  // 'on': effects and music, 'off': neither, 'partial': one of them turned off in Settings
-  soundState() {
-    var st = App.data.settings;
-    return st.ses && st.muzik ? 'on' : (!st.ses && !st.muzik ? 'off' : 'partial');
-  }
-  // full sound -> silence; silence or partial -> everything back on
+  // the in-game button only switches the music; sound effects stay as set in Settings
   toggleMute() {
-    var turnOn = this.soundState() !== 'on';
-    App.data.settings.ses = turnOn;
-    App.data.settings.muzik = turnOn;
+    App.data.settings.muzik = !App.data.settings.muzik;
     App.save();
     App.syncMusic();
     this.forceUpdate();

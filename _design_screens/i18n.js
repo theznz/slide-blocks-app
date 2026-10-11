@@ -76,7 +76,7 @@
       'Seviye {{ unlockedLevel }} · {{ tierName }}': 'Level {{ unlockedLevel }} · {{ tierName }}',
 
       // Game
-      'Seviyelere dön': 'Back to levels', 'Sesi aç/kapat': 'Sound on/off', 'Duraklat': 'Pause',
+      'Seviyelere dön': 'Back to levels', 'Sesi aç/kapat': 'Sound on/off', 'Müziği aç/kapat': 'Music on/off', 'Duraklat': 'Pause',
       'Geri al': 'Undo', 'Yeniden': 'Restart',
       'Geri alınacak hamle yok': 'No moves to undo', 'Şu an ipucu bulunamadı': 'Couldn’t find a hint right now',
       'Bu bloğu sağa kaydır': 'Slide this block right', 'Bu bloğu sola kaydır': 'Slide this block left',
