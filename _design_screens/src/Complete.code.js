@@ -3,6 +3,7 @@
 class Component extends DCLogic {
   onShow() {
     setTimeout(App.confetti, 150);
+    App.sfx('applause');
     App.vibrate(App.HAPTIC.win);
   }
   renderVals() {

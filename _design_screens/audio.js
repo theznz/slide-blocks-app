@@ -27,7 +27,44 @@
     o.start(start); o.stop(start + dur + 0.02);
   }
 
+  // Applause: a crowd of short filtered-noise claps at random times, tones and positions,
+  // swelling over the first second and fading out by ~3.2 s.
+  var noiseBuf = null;
+  function noise() {
+    if (noiseBuf) return noiseBuf;
+    noiseBuf = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 0.12), ctx.sampleRate);
+    var ch = noiseBuf.getChannelData(0);
+    for (var i = 0; i < ch.length; i++) ch[i] = Math.random() * 2 - 1;
+    return noiseBuf;
+  }
+  function clap(t, vol, pan, freq) {
+    var src = ctx.createBufferSource(); src.buffer = noise();
+    var bp = ctx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = freq; bp.Q.value = 0.9;
+    var hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 500;
+    var g = ctx.createGain();
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(vol, t + 0.002);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.05 + Math.random() * 0.04);
+    src.connect(bp); bp.connect(hp); hp.connect(g);
+    if (ctx.createStereoPanner) { var p = ctx.createStereoPanner(); p.pan.value = pan; g.connect(p); p.connect(sfxBus); }
+    else g.connect(sfxBus);
+    src.start(t, Math.random() * 0.06, 0.1);
+  }
+  function applause(t) {
+    var LEN = 3.2, people = 14;
+    for (var k = 0; k < people; k++) {
+      // each "person" claps at their own steady rate with a little jitter
+      var rate = 0.16 + Math.random() * 0.1, pan = Math.random() * 1.6 - 0.8, freq = 900 + Math.random() * 1400;
+      for (var x = Math.random() * 0.25; x < LEN; x += rate * (0.85 + Math.random() * 0.3)) {
+        var env = x < 0.6 ? x / 0.6 : Math.max(0, 1 - (x - 0.6) / (LEN - 0.6));
+        if (env <= 0.02) continue;
+        clap(t + x, 0.22 * env * (0.6 + Math.random() * 0.4), pan, freq);
+      }
+    }
+  }
+
   var SFX = {
+    applause: applause,
     tap: function (t) { tone(660, t, 0.06, { type: 'triangle', vol: 0.25 }); },
     slide: function (t) { tone(220, t, 0.09, { type: 'triangle', to: 330, vol: 0.45 }); tone(440, t + 0.02, 0.05, { type: 'sine', vol: 0.15 }); },
     undo: function (t) { tone(392, t, 0.09, { type: 'triangle', to: 262, vol: 0.4 }); },
