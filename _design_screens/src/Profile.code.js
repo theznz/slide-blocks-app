@@ -20,6 +20,13 @@ class Component extends DCLogic {
       playerName: App.t(d.guest ? 'Misafir Oyuncu' : 'Oyuncu'),
       tierLabel: App.t('{tier} paket · Seviye {n}', { tier: App.t(tier.name), n: d.unlockedLevel }),
       totalStars: totalStars, completedCount: App.completedCount(), streak: d.daily.streak,
+      recordSummary: (function () {
+        var done = Object.keys(d.levels).map(function (k) { return d.levels[k]; }).filter(function (r) { return (r.bestStars || 0) > 0; });
+        if (!done.length) return App.t('Henüz rekor yok');
+        var times = done.filter(function (r) { return r.bestTimeSec != null; }).map(function (r) { return r.bestTimeSec; });
+        var three = done.filter(function (r) { return r.bestStars === 3; }).length;
+        return App.t('En hızlı {t} · {n} üç yıldızlı seviye', { t: times.length ? App.fmtTime(Math.min.apply(null, times)) : '–', n: three });
+      })(),
       goBadges: function () { window.go('Badges'); },
       badges: badges.map(function (b, i) {
         var accent = BADGE_COLORS[i % BADGE_COLORS.length];

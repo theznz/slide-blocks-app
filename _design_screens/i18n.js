@@ -39,6 +39,8 @@
       'Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.': 'This browser doesn’t support notifications; reminders will show inside the app.',
 
       // records screen
+      'Henüz rekor yok': 'No records yet',
+      'En hızlı {t} · {n} üç yıldızlı seviye': 'Fastest {t} · {n} three-star levels',
       'Rekorlarım': 'My records',
       'Genel': 'Overall',
       'En hızlı': 'Fastest',

@@ -332,5 +332,7 @@
  "Seviye {n}": "Nível {n}",
  "{n} gün": "{n} dias",
  "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Ainda sem recordes. Termine um nível e eles aparecerão aqui.",
- "Rekorların sadece bu cihazda saklanır.": "Seus recordes ficam só neste dispositivo."
+ "Rekorların sadece bu cihazda saklanır.": "Seus recordes ficam só neste dispositivo.",
+ "Henüz rekor yok": "Ainda sem recordes",
+ "En hızlı {t} · {n} üç yıldızlı seviye": "Mais rápido {t} · {n} níveis com 3 estrelas"
 }

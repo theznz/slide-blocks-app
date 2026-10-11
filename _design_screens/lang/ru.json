@@ -332,5 +332,7 @@
  "Seviye {n}": "Уровень {n}",
  "{n} gün": "{n} дн.",
  "Henüz rekor yok. Bir seviye bitir, rekorların burada görünsün.": "Рекордов пока нет. Пройди уровень, и они появятся здесь.",
- "Rekorların sadece bu cihazda saklanır.": "Рекорды хранятся только на этом устройстве."
+ "Rekorların sadece bu cihazda saklanır.": "Рекорды хранятся только на этом устройстве.",
+ "Henüz rekor yok": "Рекордов пока нет",
+ "En hızlı {t} · {n} üç yıldızlı seviye": "Быстрее всего {t} · на 3 звезды: {n}"
 }
