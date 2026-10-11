@@ -64,3 +64,19 @@ out = prefix_full + new_json_blob + new_suffix
 out_path = os.path.join(PROJECT, 'index.html')
 open(out_path, 'w', encoding='utf-8').write(out)
 print('wrote', out_path, len(out), 'bytes')
+
+# Service worker: precache everything the game needs offline (incl. every theme's block art) and
+# give the cache a per-build name so a new build replaces the old files.
+import re as _re
+core = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png',
+        './icons/apple-touch-icon.png', './fonts/baloo2-latin.woff2', './fonts/baloo2-latin-ext.woff2']
+blocks_dir = os.path.join(PROJECT, 'blocks')
+for theme in sorted(os.listdir(blocks_dir)) if os.path.isdir(blocks_dir) else []:
+    for f in sorted(os.listdir(os.path.join(blocks_dir, theme))):
+        if f.endswith('.webp'): core.append('./blocks/%s/%s' % (theme, f))
+sw_path = os.path.join(PROJECT, 'sw.js')
+sw = open(sw_path, encoding='utf-8').read()
+sw = _re.sub(r"var CACHE = '[^']*';", "var CACHE = 'sbp-%s';" % _re.sub(r'\D', '', build_stamp), sw, count=1)
+sw = _re.sub(r"var CORE = \[[^\]]*\];", 'var CORE = ' + json.dumps(core) + ';', sw, count=1)
+open(sw_path, 'w', encoding='utf-8').write(sw)
+print('sw.js precache:', len(core), 'files')

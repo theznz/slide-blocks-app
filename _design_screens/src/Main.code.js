@@ -15,8 +15,8 @@ class Component extends DCLogic {
       pkgLabel: App.t('{tier} paket', { tier: App.t(tier.name) }),
       pkgDone: pkg.done, pkgTotal: pkg.total, pkgPct: pct,
       play: function () { d.currentLevelIndex = n; window.go('Game'); },
-      goShop: function () { App.goOnline('Shop'); },
-      goDaily: function () { App.goOnline('Daily'); }
+      goShop: function () { window.go('Shop'); },
+      goDaily: function () { window.go('Daily'); }
     });
   }
 }
