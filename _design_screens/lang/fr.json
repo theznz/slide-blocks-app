@@ -335,5 +335,9 @@
  "Rekorların sadece bu cihazda saklanır.": "Tes records sont conservés uniquement sur cet appareil.",
  "Henüz rekor yok": "Pas encore de records",
  "En hızlı {t} · {n} üç yıldızlı seviye": "Plus rapide {t} · {n} niveaux à 3 étoiles",
- "Müziği aç/kapat": "Musique on/off"
+ "Müziği aç/kapat": "Musique on/off",
+ "Tebrikler!": "Félicitations !",
+ "{n} seviyenin hepsini bitirdin": "Tu as terminé les {n} niveaux",
+ "Kalan yıldızlar için seviyelere dönebilirsin; her gün de yeni bir günlük bulmaca seni bekliyor.": "Retourne aux niveaux pour les étoiles manquantes ; un nouveau puzzle du jour t’attend chaque jour.",
+ "Bütün yıldızları topladın! Her gün yeni bir günlük bulmaca seni bekliyor.": "Tu as toutes les étoiles ! Un nouveau puzzle du jour t’attend chaque jour."
 }

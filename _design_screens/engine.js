@@ -245,4 +245,7 @@
   };
 
   go('Splash');
+  // preview a screen directly, e.g. index.html?ekran=Complete (used to check screens on a phone)
+  var preview = /[?&]ekran=([A-Za-z]+)/.exec(location.search);
+  if (preview && views[preview[1]]) { App.data.onboarded = true; go(preview[1]); }
 })();

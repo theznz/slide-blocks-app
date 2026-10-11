@@ -38,6 +38,11 @@
       'Bildirim izni verilmedi; hatırlatma uygulama içinde gösterilecek.': 'Notifications weren’t allowed; reminders will show inside the app.',
       'Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.': 'This browser doesn’t support notifications; reminders will show inside the app.',
 
+      // completion screen
+      'Tebrikler!': 'Congratulations!',
+      '{n} seviyenin hepsini bitirdin': 'You finished all {n} levels',
+      'Kalan yıldızlar için seviyelere dönebilirsin; her gün de yeni bir günlük bulmaca seni bekliyor.': 'Go back to the levels for the stars you missed, and a new daily puzzle waits for you every day.',
+      'Bütün yıldızları topladın! Her gün yeni bir günlük bulmaca seni bekliyor.': 'You collected every star! A new daily puzzle waits for you every day.',
       // records screen
       'Henüz rekor yok': 'No records yet',
       'En hızlı {t} · {n} üç yıldızlı seviye': 'Fastest {t} · {n} three-star levels',

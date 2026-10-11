@@ -25,7 +25,7 @@ class Component extends DCLogic {
           App.data.pendingRestart = true;
           window.go('Game');
         } else {
-          window.go('Main');
+          window.go(App.completedCount() === App.LEVELS.length ? 'Complete' : 'Main');
         }
       },
       replay: function () { App.data.currentLevelIndex = r.levelIndex; App.data.pendingRestart = true; window.go('Game'); }

@@ -25,7 +25,7 @@ for fname in sorted(os.listdir(NEW)):
     markup = open(markup_path, encoding='utf-8').read()
     code = open(code_path, encoding='utf-8').read() if os.path.exists(code_path) else data.get(name, {}).get('code', '\nclass Component extends DCLogic {\nrenderVals() {\nreturn {};\n}\n}\n')
     if name not in data:
-        print('WARNING: unknown screen name', name); continue
+        print('adding new screen', name); data[name] = {}
     data[name]['markup'] = markup
     data[name]['code'] = code
     overridden.append(name)

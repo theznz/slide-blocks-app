@@ -34,6 +34,12 @@ class Component extends DCLogic {
     return {
       toggles: toggles,
       build: App.BUILD,
+      // five quick taps on the version open the completion screen (to check it on a device)
+      versionTap: function () {
+        var now = Date.now();
+        self._taps = (self._taps || []).filter(function (t) { return now - t < 3000; }).concat(now);
+        if (self._taps.length >= 5) { self._taps = []; window.go('Complete'); }
+      },
       langName: current.name,
       langOpen: langOpen,
       langExpanded: langOpen ? 'true' : 'false',

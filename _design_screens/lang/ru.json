@@ -335,5 +335,9 @@
  "Rekorların sadece bu cihazda saklanır.": "Рекорды хранятся только на этом устройстве.",
  "Henüz rekor yok": "Рекордов пока нет",
  "En hızlı {t} · {n} üç yıldızlı seviye": "Быстрее всего {t} · на 3 звезды: {n}",
- "Müziği aç/kapat": "Музыка вкл/выкл"
+ "Müziği aç/kapat": "Музыка вкл/выкл",
+ "Tebrikler!": "Поздравляем!",
+ "{n} seviyenin hepsini bitirdin": "Ты прошёл все {n} уровней",
+ "Kalan yıldızlar için seviyelere dönebilirsin; her gün de yeni bir günlük bulmaca seni bekliyor.": "Вернись к уровням за недостающими звёздами — каждый день тебя ждёт новая головоломка.",
+ "Bütün yıldızları topladın! Her gün yeni bir günlük bulmaca seni bekliyor.": "Ты собрал все звёзды! Каждый день тебя ждёт новая головоломка."
 }
