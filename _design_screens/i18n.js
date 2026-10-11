@@ -39,6 +39,7 @@
       'Bu tarayıcı bildirimleri desteklemiyor; hatırlatma uygulama içinde gösterilecek.': 'This browser doesn’t support notifications; reminders will show inside the app.',
 
       // completion screen
+      'Rozetlerim': 'My badges',
       'Tebrikler!': 'Congratulations!',
       '{n} seviyenin hepsini bitirdin': 'You finished all {n} levels',
       'Kalan yıldızlar için seviyelere dönebilirsin; her gün de yeni bir günlük bulmaca seni bekliyor.': 'Go back to the levels for the stars you missed, and a new daily puzzle waits for you every day.',

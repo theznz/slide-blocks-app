@@ -14,6 +14,7 @@ class Component extends DCLogic {
       allDone: App.t('{n} seviyenin hepsini bitirdin', { n: App.LEVELS.length }),
       stars: stars + ' / ' + max,
       three: three,
+      badgeCount: (function () { var b = App.computeBadges(); return b.filter(function (x) { return x.earned; }).length + ' / ' + b.length; })(),
       streak: App.t('{n} gün', { n: Math.max(d.daily.best || 0, d.daily.streak || 0) }),
       tip: App.t(stars < max
         ? 'Kalan yıldızlar için seviyelere dönebilirsin; her gün de yeni bir günlük bulmaca seni bekliyor.'
