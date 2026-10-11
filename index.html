@@ -619,7 +619,7 @@ window.App = (function () {
   return App;
 })();
 
-App.BUILD = "11.10 15:04";
+App.BUILD = "11.10 15:10";
 // ---- localization: source strings are Turkish; other languages map Turkish text -> translation ----
 // Markup text and aria-labels are translated by the engine before {{ }} holes are filled,
 // so a key may contain holes, e.g. 'Seviye {{ levelIndex }}'. Strings built in code use
@@ -893,7 +893,7 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
     o.start(start); o.stop(start + dur + 0.02);
   }
 
-  // Applause, synthesized: a small group (6 people) of short filtered-noise claps, each person at
+  // Applause, synthesized: a small group (4 people, ~12 claps/s) of short filtered-noise claps, each person at
   // their own pace, tone and stereo position. Swells over 0.5 s, holds, and fades out by ~5.5 s.
   var noiseBuf = null;
   function noise() {
@@ -917,9 +917,9 @@ App.DICT["ru"] = {"Geri": "Назад", "Ayarlar": "Настройки", "Seviye
     src.start(t, Math.random() * 0.06, 0.1);
   }
   function applause(t) {
-    var LEN = 5.5, HOLD = 3.5, people = 6;
+    var LEN = 5.5, HOLD = 3.5, people = 4;
     for (var k = 0; k < people; k++) {
-      var rate = 0.22 + Math.random() * 0.12, pan = Math.random() * 1.4 - 0.7, freq = 1000 + Math.random() * 1200;
+      var rate = 0.29 + Math.random() * 0.08, pan = Math.random() * 1.4 - 0.7, freq = 1000 + Math.random() * 1200;
       for (var x = Math.random() * 0.3; x < LEN; x += rate * (0.85 + Math.random() * 0.3)) {
         var env = x < 0.5 ? x / 0.5 : (x < HOLD ? 1 : Math.max(0, 1 - (x - HOLD) / (LEN - HOLD)));
         if (env <= 0.03) continue;
